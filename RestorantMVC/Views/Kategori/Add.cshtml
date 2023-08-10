@@ -1,0 +1,25 @@
+﻿@model Kategori
+
+<div class="card">
+    <div class="card-header">
+        <h3>Yeni Kategori Ekle</h3>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    </div>
+    <div class="card-body">
+        <form asp-action="Add" method="post">
+            <div class="mb-3">
+                <label asp-for="@Model.KategoriAdi">Kategori Adi</label>
+                <input class="form-control" asp-for="@Model.KategoriAdi">
+
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.KategoriAciklama">Aciklama </label>
+                <input class="form-control" asp-for="@Model.KategoriAciklama">
+
+            </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-success">Kaydet</button>
+            </div>
+        </form>
+    </div>
+</div>
