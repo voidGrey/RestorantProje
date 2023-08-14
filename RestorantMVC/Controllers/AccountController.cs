@@ -3,11 +3,20 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using RestorantMVC.Models;
 using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
+using Entites.Concrate;
+using DAL.Contexts;
 
 namespace RestorantMVC.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly SqlDbContext dbContext;
+
+        public AccountController(SqlDbContext dbContext)
+        {
+            this.dbContext = dbContext;
+        }
         [HttpGet]
         public IActionResult Login()
         {
@@ -17,10 +26,11 @@ namespace RestorantMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginRequest loginRequest)
         {
+            Kullanici admin = dbContext.Kullanicilar.Find(1);
             if (ModelState.IsValid)
             {
-                if (loginRequest.Username == "Admin"
-                 && loginRequest.Password == "123")
+                if (loginRequest.Username == admin.KullaniciAdi
+                 && loginRequest.Password == admin.Sifre)
                 {
                     var claims = new List<Claim>
                     {
