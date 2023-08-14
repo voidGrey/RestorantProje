@@ -48,9 +48,11 @@ namespace RestorantMVC
             app.MapControllerRoute(
                 name: "default" ,
                 pattern: "{controller=Home}/{action=Index}/{id?}");
-            app.MapControllerRoute(
-                name: "Admin",
-                pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+            app.MapAreaControllerRoute(
+                name: "AdminSevices",
+                areaName: "Admin",
+                pattern: "Admin/{controller=Home}/{action=Index}/{id?}"
+                );
 
             app.Run();
         }
