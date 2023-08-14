@@ -22,7 +22,7 @@ namespace DAL.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Entites.Abstract.Kategori", b =>
+            modelBuilder.Entity("Entites.Concrate.Kategori", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -33,7 +33,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 8, 10, 14, 52, 57, 540, DateTimeKind.Local).AddTicks(857));
+                        .HasDefaultValue(new DateTime(2023, 8, 14, 15, 39, 27, 310, DateTimeKind.Local).AddTicks(3627));
 
                     b.Property<string>("KategoriAciklama")
                         .IsRequired()
@@ -59,7 +59,7 @@ namespace DAL.Migrations
                         new
                         {
                             ID = 1,
-                            CreateTime = new DateTime(2023, 8, 10, 14, 52, 57, 540, DateTimeKind.Local).AddTicks(1397),
+                            CreateTime = new DateTime(2023, 8, 14, 15, 39, 27, 310, DateTimeKind.Local).AddTicks(4560),
                             KategoriAciklama = "Yiyecekler",
                             KategoriAdi = "Ana Yemek",
                             UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -67,7 +67,7 @@ namespace DAL.Migrations
                         new
                         {
                             ID = 2,
-                            CreateTime = new DateTime(2023, 8, 10, 14, 52, 57, 540, DateTimeKind.Local).AddTicks(1400),
+                            CreateTime = new DateTime(2023, 8, 14, 15, 39, 27, 310, DateTimeKind.Local).AddTicks(4563),
                             KategoriAciklama = "Çorba v.b.",
                             KategoriAdi = "Ara Sıcaklar",
                             UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -75,7 +75,7 @@ namespace DAL.Migrations
                         new
                         {
                             ID = 3,
-                            CreateTime = new DateTime(2023, 8, 10, 14, 52, 57, 540, DateTimeKind.Local).AddTicks(1401),
+                            CreateTime = new DateTime(2023, 8, 14, 15, 39, 27, 310, DateTimeKind.Local).AddTicks(4565),
                             KategoriAciklama = "Tatlılar",
                             KategoriAdi = "Tatlı",
                             UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -83,7 +83,7 @@ namespace DAL.Migrations
                         new
                         {
                             ID = 4,
-                            CreateTime = new DateTime(2023, 8, 10, 14, 52, 57, 540, DateTimeKind.Local).AddTicks(1402),
+                            CreateTime = new DateTime(2023, 8, 14, 15, 39, 27, 310, DateTimeKind.Local).AddTicks(4566),
                             KategoriAciklama = "Şarap v.b.",
                             KategoriAdi = "Alkollü İçecekelr",
                             UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -91,14 +91,14 @@ namespace DAL.Migrations
                         new
                         {
                             ID = 5,
-                            CreateTime = new DateTime(2023, 8, 10, 14, 52, 57, 540, DateTimeKind.Local).AddTicks(1403),
+                            CreateTime = new DateTime(2023, 8, 14, 15, 39, 27, 310, DateTimeKind.Local).AddTicks(4567),
                             KategoriAciklama = "Kola, su v.b.",
                             KategoriAdi = "Alkolsüz İçecekler",
                             UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
-            modelBuilder.Entity("Entites.Abstract.Masa", b =>
+            modelBuilder.Entity("Entites.Concrate.Kullanici", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -109,7 +109,51 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 8, 10, 14, 52, 57, 540, DateTimeKind.Local).AddTicks(4166));
+                        .HasDefaultValue(new DateTime(2023, 8, 14, 15, 39, 27, 310, DateTimeKind.Local).AddTicks(6190));
+
+                    b.Property<string>("KullaniciAdi")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Sifre")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("UpdateTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("KullaniciAdi")
+                        .IsUnique();
+
+                    b.ToTable("Kullanicilar");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            CreateTime = new DateTime(2023, 8, 14, 15, 39, 27, 310, DateTimeKind.Local).AddTicks(6658),
+                            KullaniciAdi = "Admin",
+                            Sifre = "123",
+                            UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
+                });
+
+            modelBuilder.Entity("Entites.Concrate.Masa", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<DateTime>("CreateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2023, 8, 14, 15, 39, 27, 311, DateTimeKind.Local).AddTicks(39));
 
                     b.Property<int>("MasaID")
                         .HasColumnType("int");
@@ -148,7 +192,7 @@ namespace DAL.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Entites.Abstract.Siparis", b =>
+            modelBuilder.Entity("Entites.Concrate.Siparis", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -159,7 +203,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 8, 10, 14, 52, 57, 540, DateTimeKind.Local).AddTicks(2953));
+                        .HasDefaultValue(new DateTime(2023, 8, 14, 15, 39, 27, 310, DateTimeKind.Local).AddTicks(7861));
 
                     b.Property<int>("MasaID")
                         .HasColumnType("int");
@@ -177,7 +221,7 @@ namespace DAL.Migrations
                     b.ToTable("Siparisler");
                 });
 
-            modelBuilder.Entity("Entites.Abstract.Urun", b =>
+            modelBuilder.Entity("Entites.Concrate.Urun", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -188,7 +232,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 8, 10, 14, 52, 57, 540, DateTimeKind.Local).AddTicks(5412));
+                        .HasDefaultValue(new DateTime(2023, 8, 14, 15, 39, 27, 311, DateTimeKind.Local).AddTicks(1566));
 
                     b.Property<double>("Fiyat")
                         .HasColumnType("float");
@@ -239,9 +283,9 @@ namespace DAL.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Entites.Abstract.Siparis", b =>
+            modelBuilder.Entity("Entites.Concrate.Siparis", b =>
                 {
-                    b.HasOne("Entites.Abstract.Masa", "Masa")
+                    b.HasOne("Entites.Concrate.Masa", "Masa")
                         .WithMany("Siparisler")
                         .HasForeignKey("MasaID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -250,32 +294,32 @@ namespace DAL.Migrations
                     b.Navigation("Masa");
                 });
 
-            modelBuilder.Entity("Entites.Abstract.Urun", b =>
+            modelBuilder.Entity("Entites.Concrate.Urun", b =>
                 {
-                    b.HasOne("Entites.Abstract.Kategori", "Kategori")
+                    b.HasOne("Entites.Concrate.Kategori", "Kategori")
                         .WithMany("Stoklar")
                         .HasForeignKey("KategoriID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entites.Abstract.Siparis", null)
+                    b.HasOne("Entites.Concrate.Siparis", null)
                         .WithMany("Urunler")
                         .HasForeignKey("SiparisID");
 
                     b.Navigation("Kategori");
                 });
 
-            modelBuilder.Entity("Entites.Abstract.Kategori", b =>
+            modelBuilder.Entity("Entites.Concrate.Kategori", b =>
                 {
                     b.Navigation("Stoklar");
                 });
 
-            modelBuilder.Entity("Entites.Abstract.Masa", b =>
+            modelBuilder.Entity("Entites.Concrate.Masa", b =>
                 {
                     b.Navigation("Siparisler");
                 });
 
-            modelBuilder.Entity("Entites.Abstract.Siparis", b =>
+            modelBuilder.Entity("Entites.Concrate.Siparis", b =>
                 {
                     b.Navigation("Urunler");
                 });

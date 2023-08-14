@@ -10,6 +10,7 @@ namespace DAL.Contexts
         public DbSet<Urun> Urunler { get; set; }
         public DbSet<Masa> Masalar { get; set; }
         public DbSet<Siparis> Siparisler { get; set; }
+        public DbSet<Kullanici> Kullanicilar { get; set; }
 
         public SqlDbContext()
         {
