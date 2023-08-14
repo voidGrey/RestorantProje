@@ -11,7 +11,7 @@ namespace RestorantMVC.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly SqlDbContext dbContext;
 
-        public HomeController(ILogger<HomeController> logger, SqlDbContext dbContext)
+        public HomeController(ILogger<HomeController> logger , SqlDbContext dbContext)
         {
             _logger = logger;
             this.dbContext = dbContext;
@@ -23,17 +23,13 @@ namespace RestorantMVC.Controllers
             return View(viewModel);
         }
 
-        [HttpPost]
-        public IActionResult Menu(int id)
+        public async Task<IActionResult> Menu(int? id)
         {
-            var result = dbContext.Kategoriler.Find(id);
-            return RedirectToAction("Menu", result);
+            var urunler = dbContext.Urunler.Where(a => a.KategoriID == id).ToList();
+
+            return View(urunler);
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
 
         [ResponseCache(Duration = 0 , Location = ResponseCacheLocation.None , NoStore = true)]
         public IActionResult Error()
