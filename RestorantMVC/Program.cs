@@ -1,5 +1,7 @@
 using DAL.Contexts;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Razor;
 
 namespace RestorantMVC
 {
@@ -10,6 +12,8 @@ namespace RestorantMVC
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+
+
             builder.Services.AddControllersWithViews();
             builder.Services.AddDbContext<SqlDbContext>(options=> options.UseSqlServer(builder.Configuration.GetConnectionString("SqlString")));
 
@@ -33,6 +37,9 @@ namespace RestorantMVC
             app.MapControllerRoute(
                 name: "default" ,
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+            app.MapControllerRoute(
+                name: "Admin",
+                pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
         }

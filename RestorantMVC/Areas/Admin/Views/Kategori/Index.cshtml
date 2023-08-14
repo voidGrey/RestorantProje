@@ -1,7 +1,8 @@
-﻿@model ICollection<Kategori>
+﻿@model IEnumerable<Entites.Concrate.Kategori>
 
 <h4>Kategori Sayafası</h4>
 
+<a class="btn btn-success" asp-action="Add">Ekle</a>
 <table class="table table-hover">
     <thead>
         <tr>
@@ -18,6 +19,10 @@
                 <td>@item.ID</td>
                 <td>@item.KategoriAdi</td>
                 <td>@item.KategoriAciklama</td>
+                <td>
+                    <a class="btn btn-primary" asp-route-id="@item.ID" asp-action="Update">Güncelle</a>
+                    <a class="btn btn-warning" asp-route-id="@item.ID" asp-action="Delete">Sil</a>
+                </td>
             </tr>
         }
     </tbody>
