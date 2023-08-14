@@ -1,0 +1,18 @@
+﻿@model ICollection<Urun>
+
+@{
+    ViewData["Title"] = "Menu";
+}
+
+<h1>Menu</h1>
+
+<div>
+    <h4>Kategori</h4>
+    <hr />
+    <dl class="row">
+        @foreach(var item in Model)
+        {
+            @item.UrunAdi
+        }
+    </dl>
+</div>
