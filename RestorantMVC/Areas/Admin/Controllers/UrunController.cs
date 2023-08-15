@@ -49,7 +49,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
         // GET: Admin/Urun/Create
         public IActionResult Create()
         {
-            ViewData["KategoriID"] = new SelectList(_context.Kategoriler, "ID", "KategoriAciklama");
+            ViewData["KategoriID"] = new SelectList(_context.Kategoriler, "ID", "KategoriAdi");
             return View();
         }
 
@@ -60,13 +60,13 @@ namespace RestorantMVC.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("UrunAdi,UrunAciklama,FotografLink,Fiyat,KategoriID,ID,CreateTime,UpdateTime")] Urun urun)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 _context.Add(urun);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["KategoriID"] = new SelectList(_context.Kategoriler, "ID", "KategoriAciklama", urun.KategoriID);
+            ViewData["KategoriID"] = new SelectList(_context.Kategoriler, "ID", "KategoriAdi", urun.KategoriID);
             return View(urun);
         }
 
@@ -99,7 +99,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 try
                 {

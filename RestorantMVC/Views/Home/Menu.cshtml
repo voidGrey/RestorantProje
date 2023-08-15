@@ -6,13 +6,34 @@
 
 <h1>Menu</h1>
 
-<div>
-    <h4>Kategori</h4>
-    <hr />
-    <dl class="row">
-        @foreach(var item in Model)
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Kategori Adı
+            </th>
+            <th>
+                Kategori Aciklama
+            </th>
+            <th>
+                Fiyat
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
         {
-            @item.UrunAdi
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UrunAdi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UrunAciklama)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fiyat)
+                </td>
+            </tr>
         }
-    </dl>
-</div>
+    </tbody>
+</table>
