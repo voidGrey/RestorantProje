@@ -38,21 +38,17 @@ namespace RestorantMVC
 
             app.UseAuthorization();
 
-            //app.UseEndpoints(endpoints =>
-            //{
-            //    endpoints.MapControllerRoute(
-            //        name: "default" ,
-            //        pattern: "{controller=Admin}/{action=Index}/{id?}");
-            //});
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                  name: "Admin",
+                  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+            });
 
             app.MapControllerRoute(
                 name: "default" ,
                 pattern: "{controller=Home}/{action=Index}/{id?}");
-            app.MapAreaControllerRoute(
-                name: "AdminSevices",
-                areaName: "Admin",
-                pattern: "Admin/{controller=Home}/{action=Index}/{id?}"
-                );
 
             app.Run();
         }

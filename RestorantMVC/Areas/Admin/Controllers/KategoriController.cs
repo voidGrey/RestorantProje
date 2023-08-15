@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DAL.Contexts;
 using Entites.Concrate;
-using Microsoft.AspNetCore.Authorization;
 
 namespace RestorantMVC.Areas.Admin.Controllers
 {
@@ -20,7 +19,6 @@ namespace RestorantMVC.Areas.Admin.Controllers
         {
             _context = context;
         }
-        [Authorize]
 
         // GET: Admin/Kategori
         public async Task<IActionResult> Index()

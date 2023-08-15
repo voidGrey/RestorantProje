@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace RestorantMVC.Areas.Admin
+namespace RestorantMVC.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize]
