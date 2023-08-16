@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ZXing;
 
 namespace RestorantMVC.Controllers
 {

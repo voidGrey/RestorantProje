@@ -1,7 +1,6 @@
 ﻿using DAL.Contexts;
 using Entites.Concrate;
 using Microsoft.AspNetCore.Mvc;
-using RestorantMVC.Models;
 
 namespace RestorantMVC.Controllers
 {
@@ -17,11 +16,9 @@ namespace RestorantMVC.Controllers
         {
             return View();
         }
-        public IActionResult Ekle(int id, int masaid)
+        public IActionResult Ekle(Urun urunler)
         {
 
-            var x = dbContext.Set<Urun>().Find(id);
-            
             return RedirectToAction("Index");
         }
     }

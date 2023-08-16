@@ -19,8 +19,10 @@ namespace RestorantMVC.Controllers
 
         public IActionResult Index()
         {
-            //var viewModel = new LayoutViewModel { Kategoriler = dbContext.Kategoriler.ToList() };
-            return View();
+
+
+            var viewModel = new LayoutViewModel { Kategoriler = dbContext.Kategoriler.ToList() };
+            return View(viewModel);
         }
 
         public async Task<IActionResult> Menu(int? id)
