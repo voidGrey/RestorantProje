@@ -2,38 +2,44 @@
 
 @{
     ViewData["Title"] = "Menu";
+    int sayac = 0;
 }
 
 <h1>Menu</h1>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Kategori Adı
-            </th>
-            <th>
-                Kategori Aciklama
-            </th>
-            <th>
-                Fiyat
-            </th>
-        </tr>
-    </thead>
-    <tbody>
+<div class="container">
+    <div class="row">
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UrunAdi)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UrunAciklama)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Fiyat)
-                </td>
-            </tr>
+            <div class="col-sm">
+                @if(string.IsNullOrEmpty(item.FotografLink))
+                {       
+                    <div class="col-4">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">@item.UrunAdi</h5>
+                                <h6 class="card-subtitle mb-2">Fiyat: @item.Fiyat</h6>
+                                <p class="card-text">@item.UrunAciklama</p>
+                                <a href="#" class="card-link btn btn-outline-secondary">Sepete Ekle</a>
+                            </div>   
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src="@item.FotografLink" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.UrunAdi</h5>
+                            <h6 class="card-subtitle mb-2">Fiyat: @item.Fiyat</h6>
+                            <p class="card-text">@item.UrunAciklama</p>
+                            <a href="#" class="card-link btn btn-outline-secondary">Sepete Ekle</a>
+                        </div>
+                    </div>
+                }
+            </div>
+
         }
-    </tbody>
-</table>
+    </div>
+</div>
+
