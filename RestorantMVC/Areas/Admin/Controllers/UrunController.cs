@@ -60,30 +60,30 @@ namespace RestorantMVC.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("UrunAdi,UrunAciklama,FotografLink,Fiyat,KategoriID,ID,CreateTime,UpdateTime")] Urun urun)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                _context.Add(urun);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                ViewData["KategoriID"] = new SelectList(_context.Kategoriler, "ID", "KategoriAdi");
+                return View(urun);
             }
-            ViewData["KategoriID"] = new SelectList(_context.Kategoriler, "ID", "KategoriAdi", urun.KategoriID);
-            return View(urun);
+            try
+            {
+                _context.Urunler.Add(urun);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Aynı İsimde bir ürün zaten mevcut");
+                ViewData["KategoriID"] = new SelectList(_context.Kategoriler, "ID", "KategoriAdi");
+                return View(urun);
+            }
+            return RedirectToAction("Index");
         }
 
         // GET: Admin/Urun/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Urunler == null)
-            {
-                return NotFound();
-            }
-
-            var urun = await _context.Urunler.FindAsync(id);
-            if (urun == null)
-            {
-                return NotFound();
-            }
-            ViewData["KategoriID"] = new SelectList(_context.Kategoriler, "ID", "KategoriAciklama", urun.KategoriID);
+            var urun = _context.Urunler.Find(id);
+            ViewData["KategoriID"] = new SelectList(_context.Kategoriler, "ID", "KategoriAdi");
             return View(urun);
         }
 
@@ -98,28 +98,22 @@ namespace RestorantMVC.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(urun);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!UrunExists(urun.ID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                return View(urun);
             }
-            return View(urun);
+            try
+            {
+                _context.Urunler.Update(urun);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Aynı İsimde bir urun zaten mevcut");
+                ViewData["KategoriID"] = new SelectList(_context.Kategoriler, "ID", "KategoriAdi");
+                return View(urun);
+            }
+            return RedirectToAction("Index");
         }
 
         // GET: Admin/Urun/Delete/5

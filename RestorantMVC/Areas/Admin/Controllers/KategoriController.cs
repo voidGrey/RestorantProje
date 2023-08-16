@@ -49,7 +49,8 @@ namespace RestorantMVC.Areas.Admin.Controllers
         // GET: Admin/Kategori/Create
         public IActionResult Create()
         {
-            return View();
+            Kategori kategori = new();
+            return View(kategori);
         }
 
         // POST: Admin/Kategori/Create
@@ -61,26 +62,27 @@ namespace RestorantMVC.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(kategori);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return View(kategori);
             }
-            return View(kategori);
+            try
+            {
+                _context.Kategoriler.Add(kategori);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Aynı İsimde bir kategori zaten mevcut");
+                return View(kategori);
+            }
+            return RedirectToAction("Index");
         }
 
         // GET: Admin/Kategori/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Kategoriler == null)
-            {
-                return NotFound();
-            }
+            var kategori = _context.Kategoriler.Find(id);
 
-            var kategori = await _context.Kategoriler.FindAsync(id);
-            if (kategori == null)
-            {
-                return NotFound();
-            }
+
             return View(kategori);
         }
 
@@ -91,32 +93,21 @@ namespace RestorantMVC.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("KategoriAdi,KategoriAciklama,ID,CreateTime,UpdateTime")] Kategori kategori)
         {
-            if (id != kategori.ID)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(kategori);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!KategoriExists(kategori.ID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                return View(kategori);
             }
-            return View(kategori);
+            try
+            {
+                _context.Kategoriler.Update(kategori);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Aynı İsimde bir kategori zaten mevcut");
+                return View(kategori);
+            }
+            return RedirectToAction("Index");
         }
 
         // GET: Admin/Kategori/Delete/5
