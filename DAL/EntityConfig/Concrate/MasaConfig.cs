@@ -11,6 +11,7 @@ namespace Entites.Concrate
             base.Configure(builder);
             builder.HasIndex(x => x.MasaID).IsUnique();
 
+
             builder.HasData(new Masa { ID = 1, MasaID = 1},
                 new Masa { ID = 2, MasaID = 2 },
                 new Masa { ID = 3, MasaID = 3 });

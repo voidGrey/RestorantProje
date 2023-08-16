@@ -48,7 +48,7 @@
 {
 
     <script type="text/javascript">
-        $(document)function(){
+        $(function(){
             console.log("jquery calisti");
             console.log("Masa Id:" + $.cookie("MasaId"));
             //href="/Siparis/Ekle/1?masaid=5"
@@ -56,15 +56,14 @@
             
            
      });
-     function SiparisEkle(urunId)
-            {
-                let masaId = $.cookie("MasaId");
-                let href = "/siparis/ekle/" + urunId + "?masaid=" + masaId;
-                alert(href);
-                $.get(href, function (data, status) {
-                    alert("Data: " + data + "\nStatus: " + status);
-                });
+        function SiparisEkle(urunId) {
+            let masaId = $.cookie("MasaId");
+            let href = "/siparis/ekle/" + urunId + "?masaid=" + masaId;
+            alert(href);
+            $.get(href, function (data, status) {
+                alert("Data: " + data + "\nStatus: " + status);
+            });
 
-            }
+        }
     </script>
 }

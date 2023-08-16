@@ -1,0 +1,25 @@
+﻿@model Masa;
+
+@{
+    Layout = "";
+    ViewBag.Title = "Login";
+}
+
+<head>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+
+<div class="container">
+    <form asp-controller="QRScan" asp-action="Login" method="post">
+
+
+
+        <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" asp-for="MasaID" placeholder="Enter Password">
+            <span asp-validation-for="MasaSifresi" class="alert-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>

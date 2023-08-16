@@ -5,5 +5,6 @@ using Entites.Concrate;
 namespace DAL.Repository.Concrate
 {
     public class MasaRepository : BaseRepository<Masa>, IMasaRepository
-    { }
+    { 
+    }
 }
