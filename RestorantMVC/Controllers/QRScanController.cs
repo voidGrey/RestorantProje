@@ -4,9 +4,10 @@ namespace RestorantMVC.Controllers
 {
     public class QRScanController : Controller
     {
-        public IActionResult Scan(string tableId)
+        public IActionResult Scan(string MasaID)
         {
-            return RedirectToAction("Index", "Home", new { tableId });
+            TempData["MasaID"] = MasaID;
+            return RedirectToAction("Index", "Home");
         }
     }
 }

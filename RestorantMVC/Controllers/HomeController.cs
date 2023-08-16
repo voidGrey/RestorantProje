@@ -19,6 +19,8 @@ namespace RestorantMVC.Controllers
 
         public IActionResult Index()
         {
+            var MasaID = TempData["MasaID"] as string;
+            TempData["MasaID"] = null;
             var viewModel = new LayoutViewModel { Kategoriler = dbContext.Kategoriler.ToList() };
             return View(viewModel);
         }
