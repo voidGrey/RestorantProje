@@ -51,15 +51,15 @@ namespace RestorantMVC.Controllers
                 {
 
 
-                    return RedirectToAction("Index" , "Admin");
+                    return RedirectToAction("Index", "Admin");
                 }
                 else
                 {
-                    ModelState.AddModelError("Password" , "Username or Password wrong !");
+                    ModelState.AddModelError("Password", "Username or Password wrong !");
                 }
             }
 
             return View();
-
+        }
     }
 }
