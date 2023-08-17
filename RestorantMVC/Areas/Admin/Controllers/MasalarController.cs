@@ -166,6 +166,24 @@ namespace RestorantMVC.Areas.Admin.Controllers
             return View(masa);
         }
 
+        [HttpPost,ActionName("SiparisiKapat")]
+        public async Task<IActionResult> SiparisiKapatConfirmed(int id)
+        {
+
+            if (_context.Masalar == null)
+            {
+                return Problem("Entity set 'SqlDbContext.Masalar'  is null.");
+            }
+            var masa = await _context.Masalar.FindAsync(id);
+            if (masa != null)
+            {
+                masa.MasaSifresi = string.Empty;
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
         private bool MasaExists(int id)
         {
           return (_context.Masalar?.Any(e => e.ID == id)).GetValueOrDefault();

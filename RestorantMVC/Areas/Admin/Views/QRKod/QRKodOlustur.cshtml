@@ -1,0 +1,27 @@
+﻿@model RestorantMVC.Areas.Admin.Models.QRCodeModel;
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="QRKodOlustur">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="QRCodeText" class="control-label">MASA NO GİRİNİZ</label>
+                <input asp-for="QRCodeText" class="form-control"/>
+                <span asp-validation-for="QRCodeText" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="QR Oluştur" class="btn btn-primary text-center" />
+            </div>
+            <div class="form-group">
+                
+                <img src="@ViewBag.QrCodeUri" class="img-thumbnail" />
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
