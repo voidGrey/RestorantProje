@@ -22,7 +22,7 @@ namespace RestorantMVC.Controllers
         public async Task<IActionResult> Scan(int? id)
         {
             var masa = dbContext.Masalar.Find(id);
-            if (masa.MasaSifresi == null)
+            if (masa.MasaSifresi == string.Empty)
             {
                 masa.MasaSifresi = masa.SifreOlustur();
                 dbContext.SaveChanges();

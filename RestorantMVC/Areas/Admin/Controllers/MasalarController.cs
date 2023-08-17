@@ -167,24 +167,21 @@ namespace RestorantMVC.Areas.Admin.Controllers
         }
 
         [HttpPost,ActionName("SiparisiKapat")]
-        //public async Task<IActionResult> SiparisiKapat(Masa masa)
-        //{
-        //    masa.MasaSifresi = string.Empty;
-        //    _context.SaveChanges();
-        //    return RedirectToAction(nameof(Index));
-        //}
-
-        public async Task<IActionResult> SiparisiKapat(Masa? masa)
+        public async Task<IActionResult> SiparisiKapatConfirmed(int id)
         {
-            
+
             if (_context.Masalar == null)
             {
                 return Problem("Entity set 'SqlDbContext.Masalar'  is null.");
             }
-            _context.Masalar.FirstOrDefaultAsync(m => m.MasaSifresi == masa.MasaSifresi).Result.MasaSifresi = string.Empty;
-            _context.SaveChanges();
-            return RedirectToAction(nameof(Index));
+            var masa = await _context.Masalar.FindAsync(id);
+            if (masa != null)
+            {
+                masa.MasaSifresi = string.Empty;
+            }
 
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         private bool MasaExists(int id)
