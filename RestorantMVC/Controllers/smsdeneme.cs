@@ -13,9 +13,9 @@ namespace RestorantMVC.Controllers
 
             var client = new RestClient("https://api.vatansms.net/api/v1/1toN");
 
-            client.Timeout = -1;
+            //client.Timeout = -1;
 
-            var request = new RestRequest(Method.POST);
+            var request = new RestRequest("Post");
 
             request.AddHeader("Content-Type", "application/json");
 
@@ -23,9 +23,9 @@ namespace RestorantMVC.Controllers
 
             request.AddParameter("application/json", body, ParameterType.RequestBody);
 
-            IRestResponse response = client.Execute(request);
+            //IRestResponse response = client.Execute(request);
 
-            Console.WriteLine(response.Content);
+            //Console.WriteLine(response.Content);
             return View();
         }
     }
