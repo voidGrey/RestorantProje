@@ -32,7 +32,7 @@ namespace RestorantMVC.Controllers
             }
             else
             {
-                return View(masa);
+                return Redirect("Home");
                 //BENİ ŞİFRE GİRİŞ ALANINA YÖNLENDİR ve YANIMDA ID GÖNDER
 
                 /*
