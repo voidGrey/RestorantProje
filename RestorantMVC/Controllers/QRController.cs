@@ -15,7 +15,7 @@ namespace RestorantMVC.Controllers
         /// <summary>
         /// ID ile gelen kullanıcıya Cookie yapıştırarak tanınmasını sağlar.
         /// </summary>
-        /// <param name="id">MasaID</param>
+        /// <param name="id">MasaID Değeri</param>
         public IActionResult Scan(int id)
         {
             // Gelen ID'yi Kontrol eder.

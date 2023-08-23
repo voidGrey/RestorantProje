@@ -21,7 +21,7 @@ namespace RestorantMVC.Controllers
             var viewModel = new LayoutViewModel { Kategoriler = dbContext.Kategoriler.ToList() };
             return View(viewModel);
         }
-
+        
         public async Task<IActionResult> Menu(int? id)
         {
             var urunler = dbContext.Urunler.Where(a => a.KategoriID == id).ToList();
