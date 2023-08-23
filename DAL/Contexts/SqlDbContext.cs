@@ -11,7 +11,6 @@ namespace DAL.Contexts
         public DbSet<Masa> Masalar { get; set; }
         public DbSet<Siparis> Siparisler { get; set; }
         public DbSet<Kullanici> Kullanicilar { get; set; }
-        public DbSet<Sepet> Sepetler { get; set; }
 
         public SqlDbContext()
         {
