@@ -46,14 +46,6 @@
 {
 
     <script type="text/javascript">
-        $(function(){
-            console.log("jquery calisti");
-            console.log("Masa Id:" + $.cookie("MasaId"));
-            //href="/Siparis/Ekle/1?masaid=5"
-            
-            
-           
-     });
         function SiparisEkle(urunId) {
             let masaId = $.cookie("MasaId");
             let href = "/siparis/ekle/" + urunId + "?masaid=" + masaId;
