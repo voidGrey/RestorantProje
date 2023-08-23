@@ -1,5 +1,6 @@
 ﻿using DAL.Contexts;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RestorantMVC.Models;
 using System.Diagnostics;
 
@@ -24,7 +25,7 @@ namespace RestorantMVC.Controllers
         
         public async Task<IActionResult> Menu(int? id)
         {
-            var urunler = dbContext.Urunler.Where(a => a.KategoriID == id).ToList();
+            var urunler =  await dbContext.Urunler.Where(a => a.KategoriID == id).ToListAsync();
 
             return View(urunler);
         }

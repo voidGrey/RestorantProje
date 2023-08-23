@@ -12,11 +12,11 @@ namespace RestorantMVC.Controllers
         {
             this.dbContext = dbContext;
         }
-        [HttpPost]
-        public async  Task<IActionResult> Kategori( int? id)
+
+        public async Task<IActionResult> Kategori(int? id)
         {
-            var urunler = dbContext.Urunler.Where(a => a.KategoriID == id).ToList();
-            return View();
+            var urunler = await dbContext.Urunler.Where(a => a.KategoriID == id).ToListAsync();
+            return View(urunler);
         }
     }
 }
