@@ -1,0 +1,59 @@
+﻿@model ICollection<Urun>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Menu</h1>
+
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-sm">
+                @if (string.IsNullOrEmpty(item.FotografLink))
+                {
+                    <div class="col-4">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">@item.UrunAdi</h5>
+                                <h6 class="card-subtitle mb-2">Fiyat: @item.Fiyat</h6>
+                                <p class="card-text">@item.UrunAciklama</p>
+                                <a href="#" class="card-link btn btn-outline-secondary">Sepete Ekle</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src="@item.FotografLink" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.UrunAdi</h5>
+                            <h6 class="card-subtitle mb-2">Fiyat: @item.Fiyat</h6>
+                            <p class="card-text">@item.UrunAciklama</p>
+                            <a href="#" class="card-link btn btn-outline-secondary">Sepete Ekle</a>
+                        </div>
+                    </div>
+                }
+            </div>
+
+        }
+    </div>
+</div>
+
+@section Scripts
+    {
+
+    <script type="text/javascript">
+        function SiparisEkle(urunId) {
+            let masaId = $.cookie("MasaId");
+            let href = "/siparis/ekle/" + urunId + "?masaid=" + masaId;
+            alert(href);
+            $.get(href, function (data, status) {
+                alert("Data: " + data + "\nStatus: " + status);
+            });
+
+        }
+    </script>
+}
