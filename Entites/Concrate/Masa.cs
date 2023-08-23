@@ -6,7 +6,7 @@ namespace Entites.Concrate
     {
         public int MasaID { get; set; }
         public string? MasaSifresi { get; set; }
-        public virtual List<Siparis> Siparisler { get; set; }
+        public virtual Siparis siparis { get; set; }
 
         public string SifreOlustur()
         {
