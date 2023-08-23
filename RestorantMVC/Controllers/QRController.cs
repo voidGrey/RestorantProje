@@ -11,22 +11,30 @@ namespace RestorantMVC.Controllers
         {
             return RedirectToAction("Scan");
         }
+
         /// <summary>
         /// ID ile gelen kullanıcıya Cookie yapıştırarak tanınmasını sağlar.
         /// </summary>
         /// <param name="id">MasaID</param>
-        public IActionResult Scan(int id) 
+        public IActionResult Scan(int id)
         {
-            if(id == null || string.IsNullOrEmpty(id.ToString())) 
+            // Gelen ID'yi Kontrol eder.
+            if (id == null || string.IsNullOrEmpty(id.ToString()) || id == 0)
             {
-                return NotFound();
+                return Content("Okuttuğunuz QR Geçersiz veya Zarar görmüş lütfen bir garsondan yardım isteyiniz.");
             }
             else
             {
-                this.Response.Cookies.Append("MasaId" , id.ToString());
-                return Redirect("Home");
-            }
+                string value = id.ToString();
+                if (Request.Cookies.TryGetValue("MasaId" , out value)) // Kullanıcının Cookie'si var mı diye bakar
+                {
+                    return RedirectToAction("Index" , "Home");
+                }
 
+                //Cookie eklenir.
+                this.Response.Cookies.Append("MasaId" , id.ToString());
+                return RedirectToAction("Index" , "Home");
+            }
         }
     }
 }

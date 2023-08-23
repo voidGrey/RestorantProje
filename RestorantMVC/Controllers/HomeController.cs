@@ -1,5 +1,4 @@
 ﻿using DAL.Contexts;
-using Entites.Concrate;
 using Microsoft.AspNetCore.Mvc;
 using RestorantMVC.Models;
 using System.Diagnostics;
@@ -29,7 +28,6 @@ namespace RestorantMVC.Controllers
 
             return View(urunler);
         }
-
 
         [ResponseCache(Duration = 0 , Location = ResponseCacheLocation.None , NoStore = true)]
         public IActionResult Error()
