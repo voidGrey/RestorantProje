@@ -19,8 +19,6 @@ namespace RestorantMVC.Controllers
 
         public IActionResult Index()
         {
-
-
             var viewModel = new LayoutViewModel { Kategoriler = dbContext.Kategoriler.ToList() };
             return View(viewModel);
         }
