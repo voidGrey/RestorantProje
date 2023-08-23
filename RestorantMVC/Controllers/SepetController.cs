@@ -47,12 +47,7 @@ namespace RestorantMVC.Controllers
 
         public async Task<IActionResult> Ekle (int? id, int masaid)
         {
-            var gelenUrun = await _context.Urunler.FindAsync(id);
-            var masa = await _context.Masalar.FindAsync(masaid);
-            masa.siparis.Urunler.Add(gelenUrun);
-            _context.SaveChanges();
-
-            return RedirectToAction("Kategoriler","Menu");
+            var gelenUrun = _context.FindAsync(x => x);
         }
 
     }
