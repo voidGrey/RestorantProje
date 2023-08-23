@@ -48,7 +48,7 @@
     <script type="text/javascript">
         function SiparisEkle(urunId) {
             let masaId = $.cookie("MasaId");
-            let href = "/siparis/ekle/" + urunId + "?masaid=" + masaId;
+            let href = "/sepet/ekle/" + urunId + "?masaid=" + masaId;
             alert(href);
             $.get(href, function (data, status) {
                 alert("Data: " + data + "\nStatus: " + status);
