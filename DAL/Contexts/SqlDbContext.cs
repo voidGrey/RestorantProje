@@ -9,8 +9,9 @@ namespace DAL.Contexts
         public DbSet<Kategori> Kategoriler { get; set; }
         public DbSet<Urun> Urunler { get; set; }
         public DbSet<Masa> Masalar { get; set; }
-        public DbSet<Siparis> Siparisler { get; set; }
         public DbSet<Kullanici> Kullanicilar { get; set; }
+        public DbSet<SiparisDetay> SiparisDetaylar { get; set; }
+        public DbSet<SiparisMaster> SiparisMasterlar { get; set; }
 
         public SqlDbContext()
         {

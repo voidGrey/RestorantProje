@@ -1,4 +1,5 @@
 ﻿using DAL.Contexts;
+using Entites.Concrate;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

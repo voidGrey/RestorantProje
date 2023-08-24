@@ -4,6 +4,6 @@ using Entites.Concrate;
 
 namespace DAL.Repository.Concrate
 {
-    public class SiparisRepository : BaseRepository<Siparis>, ISiparisRepository
+    public class SiparisMasterRepository : BaseRepository<SiparisMaster>, ISiparisMasterRepository
     { }
 }
