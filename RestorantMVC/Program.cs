@@ -17,6 +17,8 @@ namespace RestorantMVC
 
             builder.Services.AddControllersWithViews();
             builder.Services.AddDbContext<SqlDbContext>(options=> options.UseSqlServer(builder.Configuration.GetConnectionString("SqlString")));
+            builder.Services.AddSingleton<IHttpContextAccessor , HttpContextAccessor>();
+
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(opt => { opt.LoginPath = "/Account/Login/"; });
 
             var app = builder.Build();

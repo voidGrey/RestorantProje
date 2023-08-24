@@ -20,24 +20,38 @@ namespace RestorantMVC.Controllers
             return View(urunler);
         }
 
-        public async Task<IActionResult> Ekle(int id, int masaId)
+        public async Task<IActionResult> Ekle(int id)
         {
-            SiparisMaster siparisMaster = dbContext.Masalar.Find(masaId).Siparis;
+            SiparisMaster siparisMaster = new SiparisMaster();
+            siparisMaster.ID = await dbContext.SiparisMasterlar.CountAsync() + 10;
+            siparisMaster.CreateTime = DateTime.Now;
+            siparisMaster.UpdateTime = DateTime.Now;
 
-            SiparisDetay yenisiparis = new();
-            yenisiparis.SiparisMaster = siparisMaster;
-            
-            yenisiparis.SiparisMasterId = id;
-            yenisiparis.UrunId = masaId;
-            yenisiparis.Urun = dbContext.Urunler.Find(masaId);
-            yenisiparis.Fiyat = dbContext.Urunler.Find(masaId).Fiyat;
+            int masaid = Convert.ToInt32(HttpContext.Request.Cookies["MasaId"]);
+            siparisMaster.MasaId = masaid;
+            siparisMaster.Masa = await dbContext.Masalar.FindAsync(id);
+            siparisMaster.IsActive = true;
 
-            siparisMaster.SiparisDetay.Add(yenisiparis);
+            SiparisDetay siparisDetay = new SiparisDetay
+                (
+                await dbContext.SiparisDetaylar.CountAsync() + 10,
+                siparisMaster.ID,
+                siparisMaster,
+                await dbContext.Urunler.FindAsync(id),
+                dbContext.Urunler.Find(id).ID,
+                1,
+                dbContext.Urunler.Find(id).Fiyat
+                );
 
-            dbContext.Masalar.Find(id).Siparis = siparisMaster;
+            siparisMaster.SiparisDetay = new List<SiparisDetay>();
+            siparisMaster.SiparisDetay.Add(siparisDetay);
+
+            dbContext.SiparisMasterlar.Add(siparisMaster);
+            dbContext.SiparisDetaylar.Add(siparisDetay);
 
             dbContext.SaveChanges();
-            return RedirectToAction("Ekle");
+
+            return View();
 
 
             //var siparis = dbContext.Masalar.Find(masaId).Siparis;

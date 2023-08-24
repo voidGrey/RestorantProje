@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using DAL.Contexts;
+﻿using DAL.Contexts;
 using Entites.Concrate;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace RestorantMVC.Areas.Admin.Controllers
 {
@@ -23,9 +18,9 @@ namespace RestorantMVC.Areas.Admin.Controllers
         // GET: Admin/Masalar
         public async Task<IActionResult> Index()
         {
-              return _context.Masalar != null ? 
-                          View(await _context.Masalar.ToListAsync()) :
-                          Problem("Entity set 'SqlDbContext.Masalar'  is null.");
+            return _context.Masalar != null ?
+                        View(await _context.Masalar.ToListAsync()) :
+                        Problem("Entity set 'SqlDbContext.Masalar'  is null.");
         }
 
         // GET: Admin/Masalar/Details/5
@@ -89,7 +84,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MasaID,MasaSifresi,ID,CreateTime,UpdateTime")] Masa masa)
+        public async Task<IActionResult> Edit(int id , [Bind("MasaID,MasaSifresi,ID,CreateTime,UpdateTime")] Masa masa)
         {
             if (id != masa.ID)
             {
@@ -151,25 +146,23 @@ namespace RestorantMVC.Areas.Admin.Controllers
             {
                 _context.Masalar.Remove(masa);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-
         public async Task<IActionResult> SiparisiKapat(int? id)
         {
-            if(id == null) { return NotFound(); }
+            if (id == null) { return NotFound(); }
             var masa = await _context.Masalar.FirstOrDefaultAsync(m => m.ID == id);
             if (masa == null) { return NotFound(); }
 
             return View(masa);
         }
 
-        [HttpPost,ActionName("SiparisiKapat")]
+        [HttpPost, ActionName("SiparisiKapat")]
         public async Task<IActionResult> SiparisiKapatConfirmed(int id)
         {
-
             if (_context.Masalar == null)
             {
                 return Problem("Entity set 'SqlDbContext.Masalar'  is null.");
@@ -186,7 +179,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
 
         private bool MasaExists(int id)
         {
-          return (_context.Masalar?.Any(e => e.ID == id)).GetValueOrDefault();
+            return (_context.Masalar?.Any(e => e.ID == id)).GetValueOrDefault();
         }
     }
 }

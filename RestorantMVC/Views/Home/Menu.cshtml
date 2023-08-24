@@ -1,4 +1,5 @@
 ﻿@model ICollection<Urun>
+@inject IHttpContextAccessor httpContextaccessor
 
 @{
     ViewData["Title"] = "Menu";
@@ -19,7 +20,7 @@
                                 <h5 class="card-title">@item.UrunAdi</h5>
                                 <h6 class="card-subtitle mb-2">Fiyat: @item.Fiyat</h6>
                                 <p class="card-text">@item.UrunAciklama</p>
-                                <a href="#" class="card-link btn btn-outline-secondary">Sepete Ekle</a>
+                                <a class="card-link btn btn-outline-secondary" asp-route-id="@item.ID">Sepete Ekle</a>
                             </div>   
                         </div>
                     </div>
@@ -32,7 +33,7 @@
                             <h5 class="card-title">@item.UrunAdi</h5>
                             <h6 class="card-subtitle mb-2">Fiyat: @item.Fiyat</h6>
                             <p class="card-text">@item.UrunAciklama</p>
-                            <a href="#" class="card-link btn btn-outline-secondary">Sepete Ekle</a>
+                            <a class="card-link btn btn-outline-secondary" asp-route-id="@item.ID">Sepete Ekle</a>
                         </div>
                     </div>
                 }
@@ -41,19 +42,3 @@
         }
     </div>
 </div>
-
-@section Scripts
-{
-
-    <script type="text/javascript">
-        function SiparisEkle(urunId) {
-            let masaId = $.cookie("MasaId");
-            let href = "/Sepet/Ekle/" + urunId + "?masaid=" + masaId;
-            alert(href);
-            $.get(href, function (data, status) {
-                alert("Data: " + data + "\nStatus: " + status);
-            });
-
-        }
-    </script>
-}
