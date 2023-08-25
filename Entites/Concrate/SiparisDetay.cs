@@ -15,9 +15,8 @@ namespace Entites.Concrate
         public SiparisDetay()
         {}
 
-        public SiparisDetay(int id , int siparisMasterId , SiparisMaster sMaster , Urun urun , int UrunId , double adet , double fiyat)
+        public SiparisDetay(int siparisMasterId , SiparisMaster sMaster , Urun urun , int UrunId , double adet , double fiyat)
         {
-            ID = id;
             SiparisMasterId = siparisMasterId;
             SiparisMaster = sMaster;
             Urun = urun;
