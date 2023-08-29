@@ -29,8 +29,7 @@ namespace RestorantMVC.Controllers
             Kullanici admin = dbContext.Kullanicilar.Find(1);
             if (ModelState.IsValid)
             {
-                if (loginRequest.Username == admin.KullaniciAdi
-                 && loginRequest.Password == admin.Sifre)
+                if (loginRequest.Username == admin.KullaniciAdi && loginRequest.Password == admin.Sifre)
                 {
                     var claims = new List<Claim>
                     {

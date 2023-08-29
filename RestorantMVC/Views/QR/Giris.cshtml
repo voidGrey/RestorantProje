@@ -1,0 +1,18 @@
+﻿@model Masa;
+
+
+<head>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+
+<div class="container">
+    <form asp-controller="QR" asp-action="Giris" method="post">
+
+        <div class="form-group">
+            <label for="Sifre">Masa Şifresi</label>
+            <input type="text" class="form-control" asp-for="MasaSifresi" placeholder="Masa şifrenizi giriniz">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>

@@ -87,7 +87,10 @@ namespace RestorantMVC.Controllers
             return View(siparisler);
         }
 
-        [HttpPost]
+
+
+
+                [HttpPost]
         public async Task<IActionResult> Ekle(SiparisMaster siparisMaster)
         {
             return View();
