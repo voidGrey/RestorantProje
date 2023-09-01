@@ -23,11 +23,18 @@ namespace RestorantMVC.Controllers
         /// </summary>
         public async Task<IActionResult> Index()
         {
+            //MasaID'nin siparişleri listelenir.
             int masaid = Convert.ToInt32(HttpContext.Request.Cookies["MasaId"]);
-            var x = _context.SiparisMasterlar.Where(s => s.MasaId == masaid);
-            var sqlDbContext = x.FirstOrDefault();
-            var s = _context.SiparisDetaylar.Where(d => d.SiparisMasterId == sqlDbContext.ID).ToList();
-            return View(s);
+            var siparisMasterlar = _context.SiparisMasterlar.Where(s => s.MasaId == masaid);
+            var siparisMaster = siparisMasterlar.FirstOrDefault();
+            var siparisDetaylari = _context.SiparisDetaylar.Where(d => d.SiparisMasterId == siparisMaster.ID).ToList();
+
+            // Urun'lerin isimleri null dönmesin diye ürünlerin atamasını DB'den atıyorum.
+            foreach (var item in siparisDetaylari)
+                if (item.Urun == null)
+                    item.Urun = _context.Urunler.Find(item.UrunId);
+
+            return View(siparisDetaylari);
         }
 
         /// <summary>
