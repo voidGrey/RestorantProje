@@ -1,4 +1,4 @@
-﻿@model Entites.Concrate.SiparisMaster
+﻿@model Entites.Concrate.SiparisDetay
 
 @{
     ViewData["Title"] = "Delete";
@@ -8,26 +8,32 @@
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>SiparisMaster</h4>
+    <h4>SiparisDetay</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Masa)
+            @Html.DisplayNameFor(model => model.SiparisMaster)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Masa.ID)
+            @Html.DisplayFor(model => model.SiparisMaster.ID)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ToplamTutar)
+            @Html.DisplayNameFor(model => model.Urun)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ToplamTutar)
+            @Html.DisplayFor(model => model.Urun.UrunAciklama)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IsActive)
+            @Html.DisplayNameFor(model => model.Adet)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsActive)
+            @Html.DisplayFor(model => model.Adet)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Fiyat)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Fiyat)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.CreateTime)

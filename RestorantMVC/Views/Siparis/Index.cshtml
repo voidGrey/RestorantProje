@@ -1,8 +1,5 @@
-﻿@model IEnumerable<Entites.Concrate.SiparisMaster>
+﻿@model List<SiparisDetay>
 
-@{
-    ViewData["Title"] = "Index";
-}
 
 <h1>Index</h1>
 
@@ -13,19 +10,22 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Masa)
+                Masa ID
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ToplamTutar)
+                UrunAdi
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IsActive)
+                Adet
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CreateTime)
+                Fiyat
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.UpdateTime)
+                CreateTime
+            </th>
+            <th>
+                UpdateTime
             </th>
             <th></th>
         </tr>
@@ -34,13 +34,16 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Masa.ID)
+                @Html.DisplayFor(modelItem => item.SiparisMaster.MasaId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ToplamTutar)
+                @Html.DisplayFor(modelItem => item.Urun.UrunAdi)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IsActive)
+                @Html.DisplayFor(modelItem => item.Adet)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fiyat)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CreateTime)

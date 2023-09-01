@@ -1,8 +1,45 @@
-﻿@model ICollection<SiparisDetay>
+﻿@model IEnumerable<Entites.Concrate.SiparisDetay>
 
 <h1>Siparişleriniz</h1>
 
-    
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Urun.UrunAdi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Adet)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fiyat)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreateTime)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Urun.UrunAdi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Adet)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fiyat)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreateTime)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 
 
 

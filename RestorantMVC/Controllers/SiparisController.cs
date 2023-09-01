@@ -22,33 +22,38 @@ namespace RestorantMVC.Controllers
         // GET: Siparis
         public async Task<IActionResult> Index()
         {
-            var sqlDbContext = _context.SiparisMasterlar.Include(s => s.Masa);
-            return View(await sqlDbContext.ToListAsync());
+            int masaid = Convert.ToInt32(HttpContext.Request.Cookies["MasaId"]);
+            var x = _context.SiparisMasterlar.Where(s => s.MasaId == masaid);
+            var sqlDbContext = x.FirstOrDefault();
+            var s = _context.SiparisDetaylar.Where(d => d.SiparisMasterId == sqlDbContext.ID).ToListAsync();
+            return View(s);
         }
 
         // GET: Siparis/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.SiparisMasterlar == null)
+            if (id == null || _context.SiparisDetaylar == null)
             {
                 return NotFound();
             }
 
-            var siparisMaster = await _context.SiparisMasterlar
-                .Include(s => s.Masa)
+            var siparisDetay = await _context.SiparisDetaylar
+                .Include(s => s.SiparisMaster)
+                .Include(s => s.Urun)
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (siparisMaster == null)
+            if (siparisDetay == null)
             {
                 return NotFound();
             }
 
-            return View(siparisMaster);
+            return View(siparisDetay);
         }
 
         // GET: Siparis/Create
         public IActionResult Create()
         {
-            ViewData["MasaId"] = new SelectList(_context.Masalar, "ID", "ID");
+            ViewData["SiparisMasterId"] = new SelectList(_context.SiparisMasterlar, "ID", "ID");
+            ViewData["UrunId"] = new SelectList(_context.Urunler, "ID", "UrunAciklama");
             return View();
         }
 
@@ -57,33 +62,35 @@ namespace RestorantMVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MasaId,ToplamTutar,IsActive,ID,CreateTime,UpdateTime")] SiparisMaster siparisMaster)
+        public async Task<IActionResult> Create([Bind("SiparisMasterId,UrunId,Adet,Fiyat,ID,CreateTime,UpdateTime")] SiparisDetay siparisDetay)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(siparisMaster);
+                _context.Add(siparisDetay);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MasaId"] = new SelectList(_context.Masalar, "ID", "ID", siparisMaster.MasaId);
-            return View(siparisMaster);
+            ViewData["SiparisMasterId"] = new SelectList(_context.SiparisMasterlar, "ID", "ID", siparisDetay.SiparisMasterId);
+            ViewData["UrunId"] = new SelectList(_context.Urunler, "ID", "UrunAciklama", siparisDetay.UrunId);
+            return View(siparisDetay);
         }
 
         // GET: Siparis/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.SiparisMasterlar == null)
+            if (id == null || _context.SiparisDetaylar == null)
             {
                 return NotFound();
             }
 
-            var siparisMaster = await _context.SiparisMasterlar.FindAsync(id);
-            if (siparisMaster == null)
+            var siparisDetay = await _context.SiparisDetaylar.FindAsync(id);
+            if (siparisDetay == null)
             {
                 return NotFound();
             }
-            ViewData["MasaId"] = new SelectList(_context.Masalar, "ID", "ID", siparisMaster.MasaId);
-            return View(siparisMaster);
+            ViewData["SiparisMasterId"] = new SelectList(_context.SiparisMasterlar, "ID", "ID", siparisDetay.SiparisMasterId);
+            ViewData["UrunId"] = new SelectList(_context.Urunler, "ID", "UrunAciklama", siparisDetay.UrunId);
+            return View(siparisDetay);
         }
 
         // POST: Siparis/Edit/5
@@ -91,54 +98,56 @@ namespace RestorantMVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MasaId,ToplamTutar,IsActive,ID,CreateTime,UpdateTime")] SiparisMaster siparisMaster)
+        public async Task<IActionResult> Edit(int id, [Bind("SiparisMasterId,UrunId,Adet,Fiyat,ID,CreateTime,UpdateTime")] SiparisDetay siparisDetay)
         {
-            if (id != siparisMaster.ID)
+            if (id != siparisDetay.ID)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
+                try
+                {
+                    _context.Update(siparisDetay);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!SiparisDetayExists(siparisDetay.ID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
                 return RedirectToAction(nameof(Index));
             }
-            try
-            {
-                _context.Update(siparisMaster);
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!SiparisMasterExists(siparisMaster.ID))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-            ViewData["MasaId"] = new SelectList(_context.Masalar, "ID", "ID", siparisMaster.MasaId);
-            return View(siparisMaster);
+            ViewData["SiparisMasterId"] = new SelectList(_context.SiparisMasterlar, "ID", "ID", siparisDetay.SiparisMasterId);
+            ViewData["UrunId"] = new SelectList(_context.Urunler, "ID", "UrunAciklama", siparisDetay.UrunId);
+            return View(siparisDetay);
         }
 
         // GET: Siparis/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.SiparisMasterlar == null)
+            if (id == null || _context.SiparisDetaylar == null)
             {
                 return NotFound();
             }
 
-            var siparisMaster = await _context.SiparisMasterlar
-                .Include(s => s.Masa)
+            var siparisDetay = await _context.SiparisDetaylar
+                .Include(s => s.SiparisMaster)
+                .Include(s => s.Urun)
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (siparisMaster == null)
+            if (siparisDetay == null)
             {
                 return NotFound();
             }
 
-            return View(siparisMaster);
+            return View(siparisDetay);
         }
 
         // POST: Siparis/Delete/5
@@ -146,24 +155,23 @@ namespace RestorantMVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.SiparisMasterlar == null)
+            if (_context.SiparisDetaylar == null)
             {
-                return Problem("Entity set 'SqlDbContext.SiparisMasterlar'  is null.");
+                return Problem("Entity set 'SqlDbContext.SiparisDetaylar'  is null.");
             }
-            var siparisMaster = await _context.SiparisMasterlar.FindAsync(id);
-            if (siparisMaster != null)
+            var siparisDetay = await _context.SiparisDetaylar.FindAsync(id);
+            if (siparisDetay != null)
             {
-                _context.SiparisMasterlar.Remove(siparisMaster);
+                _context.SiparisDetaylar.Remove(siparisDetay);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool SiparisMasterExists(int id)
+        private bool SiparisDetayExists(int id)
         {
-          return (_context.SiparisMasterlar?.Any(e => e.ID == id)).GetValueOrDefault();
+          return (_context.SiparisDetaylar?.Any(e => e.ID == id)).GetValueOrDefault();
         }
-
     }
 }

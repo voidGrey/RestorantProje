@@ -84,7 +84,7 @@ namespace RestorantMVC.Controllers
 
             //Siparişler liste olarak sayfaya gönderiliyor.
             ICollection<SiparisDetay> siparisler = dbContext.SiparisDetaylar.Where(sd => sd.SiparisMaster.MasaId == siparisMaster.MasaId).ToList();
-            return View(siparisler);
+            return RedirectToAction("Index","Siparis");
         }
 
 
