@@ -4,8 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
-namespace RestorantMVC.Controllers
+namespace RestorantMVC.Areas.Musteri.Controllers
 {
+    [Area("Musteri")]
     /// <summary>
     /// Sipariş işlemlerini yönetmek için kullanılan Controller sınıfı.
     /// </summary>
@@ -65,8 +66,8 @@ namespace RestorantMVC.Controllers
         /// </summary>
         public IActionResult Create()
         {
-            ViewData["SiparisMasterId"] = new SelectList(_context.SiparisMasterlar , "ID" , "ID");
-            ViewData["UrunId"] = new SelectList(_context.Urunler , "ID" , "UrunAciklama");
+            ViewData["SiparisMasterId"] = new SelectList(_context.SiparisMasterlar, "ID", "ID");
+            ViewData["UrunId"] = new SelectList(_context.Urunler, "ID", "UrunAciklama");
             return View();
         }
 
@@ -84,8 +85,8 @@ namespace RestorantMVC.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SiparisMasterId"] = new SelectList(_context.SiparisMasterlar , "ID" , "ID" , siparisDetay.SiparisMasterId);
-            ViewData["UrunId"] = new SelectList(_context.Urunler , "ID" , "UrunAciklama" , siparisDetay.UrunId);
+            ViewData["SiparisMasterId"] = new SelectList(_context.SiparisMasterlar, "ID", "ID", siparisDetay.SiparisMasterId);
+            ViewData["UrunId"] = new SelectList(_context.Urunler, "ID", "UrunAciklama", siparisDetay.UrunId);
             return View(siparisDetay);
         }
 
@@ -105,8 +106,8 @@ namespace RestorantMVC.Controllers
             {
                 return NotFound();
             }
-            ViewData["SiparisMasterId"] = new SelectList(_context.SiparisMasterlar , "ID" , "ID" , siparisDetay.SiparisMasterId);
-            ViewData["UrunId"] = new SelectList(_context.Urunler , "ID" , "UrunAciklama" , siparisDetay.UrunId);
+            ViewData["SiparisMasterId"] = new SelectList(_context.SiparisMasterlar, "ID", "ID", siparisDetay.SiparisMasterId);
+            ViewData["UrunId"] = new SelectList(_context.Urunler, "ID", "UrunAciklama", siparisDetay.UrunId);
             return View(siparisDetay);
         }
 
@@ -117,7 +118,7 @@ namespace RestorantMVC.Controllers
         /// <param name="siparisDetay">Düzenlenen sipariş detayı</param>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id , [Bind("SiparisMasterId,UrunId,Adet,Fiyat,ID,CreateTime,UpdateTime")] SiparisDetay siparisDetay)
+        public async Task<IActionResult> Edit(int id, [Bind("SiparisMasterId,UrunId,Adet,Fiyat,ID,CreateTime,UpdateTime")] SiparisDetay siparisDetay)
         {
             if (id != siparisDetay.ID)
             {
@@ -144,8 +145,8 @@ namespace RestorantMVC.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SiparisMasterId"] = new SelectList(_context.SiparisMasterlar , "ID" , "ID" , siparisDetay.SiparisMasterId);
-            ViewData["UrunId"] = new SelectList(_context.Urunler , "ID" , "UrunAciklama" , siparisDetay.UrunId);
+            ViewData["SiparisMasterId"] = new SelectList(_context.SiparisMasterlar, "ID", "ID", siparisDetay.SiparisMasterId);
+            ViewData["UrunId"] = new SelectList(_context.Urunler, "ID", "UrunAciklama", siparisDetay.UrunId);
             return View(siparisDetay);
         }
 
