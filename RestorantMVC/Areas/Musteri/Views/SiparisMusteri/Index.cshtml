@@ -1,5 +1,8 @@
-﻿@model List<Entites.Concrate.SiparisDetay>
+﻿@model IEnumerable<Entites.Concrate.SiparisDetay>
 
+@{
+    ViewData["Title"] = "Index";
+}
 
 <h1>Index</h1>
 
@@ -10,25 +13,22 @@
     <thead>
         <tr>
             <th>
-                Masa ID
+                @Html.DisplayNameFor(model => model.SiparisMaster)
             </th>
             <th>
-                UrunAdi
+                @Html.DisplayNameFor(model => model.Urun)
             </th>
             <th>
-                Adet
+                @Html.DisplayNameFor(model => model.Adet)
             </th>
             <th>
-                Fiyat
+                @Html.DisplayNameFor(model => model.Fiyat)
             </th>
             <th>
-                Toplam
+                @Html.DisplayNameFor(model => model.CreateTime)
             </th>
             <th>
-                CreateTime
-            </th>
-            <th>
-                UpdateTime
+                @Html.DisplayNameFor(model => model.UpdateTime)
             </th>
             <th></th>
         </tr>
@@ -37,19 +37,16 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.SiparisMaster.MasaId)
+                @Html.DisplayFor(modelItem => item.SiparisMaster.ID)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Urun.UrunAdi)
+                @Html.DisplayFor(modelItem => item.Urun.UrunAciklama)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Adet)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Fiyat)
-            </td>
-            <td>
-                    @(item.Fiyat * item.Adet)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CreateTime)

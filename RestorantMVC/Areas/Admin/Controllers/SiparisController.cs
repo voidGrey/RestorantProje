@@ -1,5 +1,6 @@
 ﻿using DAL.Contexts;
 using Entites.Concrate;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace RestorantMVC.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class SiparisController : Controller
     {
         private readonly SqlDbContext dbContext;

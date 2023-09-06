@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http.Extensions;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using QRCoder;
 using RestorantMVC.Areas.Admin.Models;
@@ -8,6 +9,7 @@ using System.Drawing.Imaging;
 namespace RestorantMVC.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class QRKodController : Controller
     {
         [HttpGet]

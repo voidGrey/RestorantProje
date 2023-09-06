@@ -47,6 +47,14 @@ namespace RestorantMVC
                 );
             });
 
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                  name: "Musteri",
+                  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+            });
+
             app.MapControllerRoute(
                 name: "default" ,
                 pattern: "{controller=Home}/{action=Index}/{id?}");

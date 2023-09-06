@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DAL.Contexts;
 using Entites.Concrate;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RestorantMVC.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class UrunController : Controller
     {
         private readonly SqlDbContext _context;

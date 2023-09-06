@@ -37,6 +37,8 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Musteri\Data\" />
+    <Folder Include="Areas\Musteri\Models\" />
   </ItemGroup>
 
 </Project>
