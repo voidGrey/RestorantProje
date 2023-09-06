@@ -1,10 +1,12 @@
 ﻿using DAL.Contexts;
 using Entites.Concrate;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace RestorantMVC.Controllers
+namespace RestorantMVC.Areas.Musteri.Controllers
 {
+    [Area("Musteri")]
     /// <summary>
     /// Menü işlemlerini yönetmek için kullanılan Controller sınıfı.
     /// </summary>
@@ -72,30 +74,49 @@ namespace RestorantMVC.Controllers
                 siparisMaster.SiparisDetay = details;
 
             // Gelen ürün sipariş detay olarak oluşturuluyor.
-            SiparisDetay siparisDetay = new SiparisDetay
-        (
-        siparisMaster.ID,
-        siparisMaster,
-        await dbContext.Urunler.FindAsync(id),
-        dbContext.Urunler.Find(id).ID,
-        1,
-        dbContext.Urunler.Find(id).Fiyat
-        );
+            bool c = false;
+            foreach (var item in siparisMaster.SiparisDetay)
+            {
+                if (item.UrunId == id)
+                {
+                    c = true;
+                }
+            }
+            if (c)
+            {
+                dbContext.SiparisDetaylar.Where(x => x.UrunId == id).FirstOrDefault().Adet++;
+                dbContext.SaveChanges();
+            }
+            else
+            {
+                SiparisDetay siparisDetay = new SiparisDetay
+              (
+              siparisMaster.ID,
+              siparisMaster,
+              await dbContext.Urunler.FindAsync(id),
+              dbContext.Urunler.Find(id).ID,
+              1,
+              dbContext.Urunler.Find(id).Fiyat
+              );
 
-            // Yeni eklenen ürün siparisMaster'de ki sipariş Detay listesine ekleniyor.
-            siparisMaster.SiparisDetay.Add(siparisDetay);
+                // Yeni eklenen ürün siparisMaster'de ki sipariş Detay listesine ekleniyor.
+                siparisMaster.SiparisDetay.Add(siparisDetay);
 
-            //DB KAYIT
-            await dbContext.SiparisDetaylar.AddAsync(siparisDetay);
-            if (yeniSiparis) // Yeni Master ise DB kayıt
-                await dbContext.SiparisMasterlar.AddAsync(siparisMaster);
+                //DB KAYIT
+                await dbContext.SiparisDetaylar.AddAsync(siparisDetay);
+                if (yeniSiparis) // Yeni Master ise DB kayıt
+                    await dbContext.SiparisMasterlar.AddAsync(siparisMaster);
+            }
+
+
+
 
             //SaveChange
             await dbContext.SaveChangesAsync();
 
             //Siparişler liste olarak sayfaya gönderiliyor.
             ICollection<SiparisDetay> siparisler = dbContext.SiparisDetaylar.Where(sd => sd.SiparisMaster.MasaId == siparisMaster.MasaId).ToList();
-            return RedirectToAction("Index" , "Siparis");
+            return RedirectToAction("Index", "Siparis");
         }
 
         /// <summary>

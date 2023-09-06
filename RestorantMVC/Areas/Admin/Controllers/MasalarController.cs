@@ -1,11 +1,13 @@
 ﻿using DAL.Contexts;
 using Entites.Concrate;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace RestorantMVC.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class MasalarController : Controller
     {
         private readonly SqlDbContext _context;
