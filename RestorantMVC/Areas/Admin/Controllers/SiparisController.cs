@@ -3,6 +3,8 @@ using Entites.Concrate;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace RestorantMVC.Areas.Admin.Controllers
 {
@@ -28,8 +30,8 @@ namespace RestorantMVC.Areas.Admin.Controllers
             var masaListesi = (from item in dbContext.Masalar
                                select new SelectListItem
                                {
-                                   Text=item.MasaID.ToString(),
-                                   Value=item.MasaID.ToString()
+                                   Text = item.MasaID.ToString(),
+                                   Value = item.MasaID.ToString()
                                }).ToList();
             ViewBag.Masalar = masaListesi;
             return View();
@@ -43,5 +45,23 @@ namespace RestorantMVC.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> CloseOrder(int id)
+        {
+            var siparis = await dbContext.SiparisMasterlar.FindAsync(id);
+
+            if (siparis == null)
+            {
+                return NotFound();
+            }
+
+            siparis.IsActive = false; 
+
+            dbContext.Update(siparis);
+            await dbContext.SaveChangesAsync();
+
+            var Siparisler = await dbContext.SiparisMasterlar.ToListAsync();
+            return View("Index", Siparisler);
+        }
     }
 }
