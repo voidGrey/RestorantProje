@@ -12,7 +12,7 @@ namespace DAL.Contexts
         public DbSet<Kullanici> Kullanicilar { get; set; }
         public DbSet<SiparisDetay> SiparisDetaylar { get; set; }
         public DbSet<SiparisMaster> SiparisMasterlar { get; set; }
-
+        public DbSet<Role> Roller { get; set; }
         public SqlDbContext()
         {
         }
@@ -31,5 +31,7 @@ namespace DAL.Contexts
             //base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
+
+      
     }
 }
