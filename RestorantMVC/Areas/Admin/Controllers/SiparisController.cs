@@ -47,7 +47,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> CloseOrder(int id)
         {
             var siparis = await dbContext.SiparisMasterlar.FindAsync(id);
@@ -56,7 +56,11 @@ namespace RestorantMVC.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-
+            var masa = await dbContext.Masalar.FindAsync(id);
+            if (masa != null)
+            {
+                masa.MasaSifresi = null;
+            }
             siparis.IsActive = false; 
 
             dbContext.Update(siparis);
