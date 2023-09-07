@@ -84,7 +84,7 @@ namespace RestorantMVC.Areas.Musteri.Controllers
             }
             if (c)
             {
-                dbContext.SiparisDetaylar.Where(x => x.UrunId == id).FirstOrDefault().Adet++;
+                dbContext.SiparisDetaylar.Where(x => x.UrunId == id && x.SiparisMasterId == siparisMaster.ID).FirstOrDefault().Adet++;
                 dbContext.SaveChanges();
             }
             else
