@@ -172,7 +172,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
             var masa = await _context.Masalar.FindAsync(id);
             if (masa != null)
             {
-                masa.MasaSifresi = string.Empty;
+                masa.MasaSifresi = null;
             }
 
             await _context.SaveChangesAsync();
