@@ -11,5 +11,6 @@ namespace Entites.Concrate
         public double? ToplamTutar { get; set; }
 
         public bool IsActive { get; set; } = true;
+        
     }
 }

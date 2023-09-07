@@ -12,8 +12,17 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(SqlDbContext))]
+<<<<<<< HEAD:DAL/Migrations/20230907093749_initDb.Designer.cs
     [Migration("20230907093749_initDb")]
     partial class initDb
+=======
+<<<<<<<< HEAD:DAL/Migrations/20230906095336_initDB.Designer.cs
+    [Migration("20230906095336_initDB")]
+========
+    [Migration("20230906093630_initDB")]
+>>>>>>>> 110eada12b11c098a1d34df1a988920ecd0076a6:DAL/Migrations/20230906093630_initDB.Designer.cs
+    partial class initDB
+>>>>>>> cf82e878ea9da49416f2ac70ae4f7951bfd6ea1c:DAL/Migrations/20230906093630_initDB.Designer.cs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -97,7 +106,15 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
+<<<<<<< HEAD:DAL/Migrations/20230907093749_initDb.Designer.cs
                         .HasDefaultValue(new DateTime(2023, 9, 7, 12, 37, 49, 392, DateTimeKind.Local).AddTicks(5985));
+=======
+<<<<<<<< HEAD:DAL/Migrations/20230906095336_initDB.Designer.cs
+                        .HasDefaultValue(new DateTime(2023, 9, 6, 12, 53, 36, 595, DateTimeKind.Local).AddTicks(6951));
+========
+                        .HasDefaultValue(new DateTime(2023, 9, 6, 12, 36, 30, 721, DateTimeKind.Local).AddTicks(251));
+>>>>>>>> 110eada12b11c098a1d34df1a988920ecd0076a6:DAL/Migrations/20230906093630_initDB.Designer.cs
+>>>>>>> cf82e878ea9da49416f2ac70ae4f7951bfd6ea1c:DAL/Migrations/20230906093630_initDB.Designer.cs
 
                     b.Property<string>("KategoriAciklama")
                         .IsRequired()
@@ -123,7 +140,15 @@ namespace DAL.Migrations
                         new
                         {
                             ID = 1,
+<<<<<<< HEAD:DAL/Migrations/20230907093749_initDb.Designer.cs
                             CreateTime = new DateTime(2023, 9, 7, 12, 37, 49, 392, DateTimeKind.Local).AddTicks(6552),
+=======
+<<<<<<<< HEAD:DAL/Migrations/20230906095336_initDB.Designer.cs
+                            CreateTime = new DateTime(2023, 9, 6, 12, 53, 36, 595, DateTimeKind.Local).AddTicks(7596),
+========
+                            CreateTime = new DateTime(2023, 9, 6, 12, 36, 30, 721, DateTimeKind.Local).AddTicks(1624),
+>>>>>>>> 110eada12b11c098a1d34df1a988920ecd0076a6:DAL/Migrations/20230906093630_initDB.Designer.cs
+>>>>>>> cf82e878ea9da49416f2ac70ae4f7951bfd6ea1c:DAL/Migrations/20230906093630_initDB.Designer.cs
                             KategoriAciklama = "Yiyecekler",
                             KategoriAdi = "Ana Yemek",
                             UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -131,7 +156,15 @@ namespace DAL.Migrations
                         new
                         {
                             ID = 2,
+<<<<<<< HEAD:DAL/Migrations/20230907093749_initDb.Designer.cs
                             CreateTime = new DateTime(2023, 9, 7, 12, 37, 49, 392, DateTimeKind.Local).AddTicks(6555),
+=======
+<<<<<<<< HEAD:DAL/Migrations/20230906095336_initDB.Designer.cs
+                            CreateTime = new DateTime(2023, 9, 6, 12, 53, 36, 595, DateTimeKind.Local).AddTicks(7598),
+========
+                            CreateTime = new DateTime(2023, 9, 6, 12, 36, 30, 721, DateTimeKind.Local).AddTicks(1630),
+>>>>>>>> 110eada12b11c098a1d34df1a988920ecd0076a6:DAL/Migrations/20230906093630_initDB.Designer.cs
+>>>>>>> cf82e878ea9da49416f2ac70ae4f7951bfd6ea1c:DAL/Migrations/20230906093630_initDB.Designer.cs
                             KategoriAciklama = "Çorba v.b.",
                             KategoriAdi = "Ara Sıcaklar",
                             UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -139,7 +172,15 @@ namespace DAL.Migrations
                         new
                         {
                             ID = 3,
+<<<<<<< HEAD:DAL/Migrations/20230907093749_initDb.Designer.cs
                             CreateTime = new DateTime(2023, 9, 7, 12, 37, 49, 392, DateTimeKind.Local).AddTicks(6556),
+=======
+<<<<<<<< HEAD:DAL/Migrations/20230906095336_initDB.Designer.cs
+                            CreateTime = new DateTime(2023, 9, 6, 12, 53, 36, 595, DateTimeKind.Local).AddTicks(7600),
+========
+                            CreateTime = new DateTime(2023, 9, 6, 12, 36, 30, 721, DateTimeKind.Local).AddTicks(1703),
+>>>>>>>> 110eada12b11c098a1d34df1a988920ecd0076a6:DAL/Migrations/20230906093630_initDB.Designer.cs
+>>>>>>> cf82e878ea9da49416f2ac70ae4f7951bfd6ea1c:DAL/Migrations/20230906093630_initDB.Designer.cs
                             KategoriAciklama = "Tatlılar",
                             KategoriAdi = "Tatlı",
                             UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -147,7 +188,15 @@ namespace DAL.Migrations
                         new
                         {
                             ID = 4,
+<<<<<<< HEAD:DAL/Migrations/20230907093749_initDb.Designer.cs
                             CreateTime = new DateTime(2023, 9, 7, 12, 37, 49, 392, DateTimeKind.Local).AddTicks(6557),
+=======
+<<<<<<<< HEAD:DAL/Migrations/20230906095336_initDB.Designer.cs
+                            CreateTime = new DateTime(2023, 9, 6, 12, 53, 36, 595, DateTimeKind.Local).AddTicks(7600),
+========
+                            CreateTime = new DateTime(2023, 9, 6, 12, 36, 30, 721, DateTimeKind.Local).AddTicks(1706),
+>>>>>>>> 110eada12b11c098a1d34df1a988920ecd0076a6:DAL/Migrations/20230906093630_initDB.Designer.cs
+>>>>>>> cf82e878ea9da49416f2ac70ae4f7951bfd6ea1c:DAL/Migrations/20230906093630_initDB.Designer.cs
                             KategoriAciklama = "Şarap v.b.",
                             KategoriAdi = "Alkollü İçecekelr",
                             UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -155,7 +204,15 @@ namespace DAL.Migrations
                         new
                         {
                             ID = 5,
+<<<<<<< HEAD:DAL/Migrations/20230907093749_initDb.Designer.cs
                             CreateTime = new DateTime(2023, 9, 7, 12, 37, 49, 392, DateTimeKind.Local).AddTicks(6558),
+=======
+<<<<<<<< HEAD:DAL/Migrations/20230906095336_initDB.Designer.cs
+                            CreateTime = new DateTime(2023, 9, 6, 12, 53, 36, 595, DateTimeKind.Local).AddTicks(7601),
+========
+                            CreateTime = new DateTime(2023, 9, 6, 12, 36, 30, 721, DateTimeKind.Local).AddTicks(1708),
+>>>>>>>> 110eada12b11c098a1d34df1a988920ecd0076a6:DAL/Migrations/20230906093630_initDB.Designer.cs
+>>>>>>> cf82e878ea9da49416f2ac70ae4f7951bfd6ea1c:DAL/Migrations/20230906093630_initDB.Designer.cs
                             KategoriAciklama = "Kola, su v.b.",
                             KategoriAdi = "Alkolsüz İçecekler",
                             UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -173,7 +230,15 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
+<<<<<<< HEAD:DAL/Migrations/20230907093749_initDb.Designer.cs
                         .HasDefaultValue(new DateTime(2023, 9, 7, 12, 37, 49, 392, DateTimeKind.Local).AddTicks(7945));
+=======
+<<<<<<<< HEAD:DAL/Migrations/20230906095336_initDB.Designer.cs
+                        .HasDefaultValue(new DateTime(2023, 9, 6, 12, 53, 36, 595, DateTimeKind.Local).AddTicks(9055));
+========
+                        .HasDefaultValue(new DateTime(2023, 9, 6, 12, 36, 30, 721, DateTimeKind.Local).AddTicks(4709));
+>>>>>>>> 110eada12b11c098a1d34df1a988920ecd0076a6:DAL/Migrations/20230906093630_initDB.Designer.cs
+>>>>>>> cf82e878ea9da49416f2ac70ae4f7951bfd6ea1c:DAL/Migrations/20230906093630_initDB.Designer.cs
 
                     b.Property<string>("KullaniciAdi")
                         .IsRequired()
@@ -199,7 +264,15 @@ namespace DAL.Migrations
                         new
                         {
                             ID = 1,
+<<<<<<< HEAD:DAL/Migrations/20230907093749_initDb.Designer.cs
                             CreateTime = new DateTime(2023, 9, 7, 12, 37, 49, 392, DateTimeKind.Local).AddTicks(8344),
+=======
+<<<<<<<< HEAD:DAL/Migrations/20230906095336_initDB.Designer.cs
+                            CreateTime = new DateTime(2023, 9, 6, 12, 53, 36, 595, DateTimeKind.Local).AddTicks(9655),
+========
+                            CreateTime = new DateTime(2023, 9, 6, 12, 36, 30, 721, DateTimeKind.Local).AddTicks(5994),
+>>>>>>>> 110eada12b11c098a1d34df1a988920ecd0076a6:DAL/Migrations/20230906093630_initDB.Designer.cs
+>>>>>>> cf82e878ea9da49416f2ac70ae4f7951bfd6ea1c:DAL/Migrations/20230906093630_initDB.Designer.cs
                             KullaniciAdi = "Admin",
                             Sifre = "123",
                             UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -217,7 +290,15 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
+<<<<<<< HEAD:DAL/Migrations/20230907093749_initDb.Designer.cs
                         .HasDefaultValue(new DateTime(2023, 9, 7, 12, 37, 49, 393, DateTimeKind.Local).AddTicks(3710));
+=======
+<<<<<<<< HEAD:DAL/Migrations/20230906095336_initDB.Designer.cs
+                        .HasDefaultValue(new DateTime(2023, 9, 6, 12, 53, 36, 596, DateTimeKind.Local).AddTicks(5446));
+========
+                        .HasDefaultValue(new DateTime(2023, 9, 6, 12, 36, 30, 722, DateTimeKind.Local).AddTicks(6576));
+>>>>>>>> 110eada12b11c098a1d34df1a988920ecd0076a6:DAL/Migrations/20230906093630_initDB.Designer.cs
+>>>>>>> cf82e878ea9da49416f2ac70ae4f7951bfd6ea1c:DAL/Migrations/20230906093630_initDB.Designer.cs
 
                     b.Property<int>("MasaID")
                         .HasColumnType("int");
@@ -311,7 +392,15 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
+<<<<<<< HEAD:DAL/Migrations/20230907093749_initDb.Designer.cs
                         .HasDefaultValue(new DateTime(2023, 9, 7, 12, 37, 49, 393, DateTimeKind.Local).AddTicks(753));
+=======
+<<<<<<<< HEAD:DAL/Migrations/20230906095336_initDB.Designer.cs
+                        .HasDefaultValue(new DateTime(2023, 9, 6, 12, 53, 36, 596, DateTimeKind.Local).AddTicks(1120));
+========
+                        .HasDefaultValue(new DateTime(2023, 9, 6, 12, 36, 30, 721, DateTimeKind.Local).AddTicks(8733));
+>>>>>>>> 110eada12b11c098a1d34df1a988920ecd0076a6:DAL/Migrations/20230906093630_initDB.Designer.cs
+>>>>>>> cf82e878ea9da49416f2ac70ae4f7951bfd6ea1c:DAL/Migrations/20230906093630_initDB.Designer.cs
 
                     b.Property<double>("Fiyat")
                         .HasColumnType("float");
@@ -348,7 +437,15 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
+<<<<<<< HEAD:DAL/Migrations/20230907093749_initDb.Designer.cs
                         .HasDefaultValue(new DateTime(2023, 9, 7, 12, 37, 49, 393, DateTimeKind.Local).AddTicks(2593));
+=======
+<<<<<<<< HEAD:DAL/Migrations/20230906095336_initDB.Designer.cs
+                        .HasDefaultValue(new DateTime(2023, 9, 6, 12, 53, 36, 596, DateTimeKind.Local).AddTicks(3877));
+========
+                        .HasDefaultValue(new DateTime(2023, 9, 6, 12, 36, 30, 722, DateTimeKind.Local).AddTicks(3687));
+>>>>>>>> 110eada12b11c098a1d34df1a988920ecd0076a6:DAL/Migrations/20230906093630_initDB.Designer.cs
+>>>>>>> cf82e878ea9da49416f2ac70ae4f7951bfd6ea1c:DAL/Migrations/20230906093630_initDB.Designer.cs
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -381,7 +478,15 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
+<<<<<<< HEAD:DAL/Migrations/20230907093749_initDb.Designer.cs
                         .HasDefaultValue(new DateTime(2023, 9, 7, 12, 37, 49, 393, DateTimeKind.Local).AddTicks(5088));
+=======
+<<<<<<<< HEAD:DAL/Migrations/20230906095336_initDB.Designer.cs
+                        .HasDefaultValue(new DateTime(2023, 9, 6, 12, 53, 36, 596, DateTimeKind.Local).AddTicks(7223));
+========
+                        .HasDefaultValue(new DateTime(2023, 9, 6, 12, 36, 30, 723, DateTimeKind.Local).AddTicks(624));
+>>>>>>>> 110eada12b11c098a1d34df1a988920ecd0076a6:DAL/Migrations/20230906093630_initDB.Designer.cs
+>>>>>>> cf82e878ea9da49416f2ac70ae4f7951bfd6ea1c:DAL/Migrations/20230906093630_initDB.Designer.cs
 
                     b.Property<double>("Fiyat")
                         .HasColumnType("float");

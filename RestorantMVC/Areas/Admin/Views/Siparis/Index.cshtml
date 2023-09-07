@@ -34,37 +34,36 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-
-    if(item.IsActive == true)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MasaId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ToplamTutar)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsActive)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreateTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UpdateTime)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
-    }
-            
-}
-   </tbody>
+        @foreach (var item in Model)
+        {
+            if (item.IsActive == true)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MasaId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ToplamTutar)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsActive)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreateTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UpdateTime)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                        <a asp-action="CloseOrder" asp-route-id="@item.ID" class="btn btn-danger">Kapat</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
 </table>
