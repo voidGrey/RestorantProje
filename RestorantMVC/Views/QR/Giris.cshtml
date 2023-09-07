@@ -9,6 +9,7 @@
     <form asp-controller="QR" asp-action="Giris" method="post">
 
         <div class="form-group">
+            @Html.HiddenFor(p => p.ID)
             <label for="Sifre">Masa Şifresi</label>
             <input type="text" class="form-control" asp-for="MasaSifresi" placeholder="Masa şifrenizi giriniz">
         </div>

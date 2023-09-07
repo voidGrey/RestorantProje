@@ -33,9 +33,9 @@ namespace RestorantMVC.Controllers
             }
             else
             {
-                var masa = dbContext.Masalar.Find(id);
+                var masa = await dbContext.Masalar.FindAsync(id);
 
-                if (string.IsNullOrEmpty(masa.MasaSifresi))
+                if (string.IsNullOrEmpty(masa.MasaSifresi)) // Masa şifresi var mı diye kontrol edilir.
                 {
                     string value = id.ToString();
                     if (Request.Cookies.TryGetValue("MasaId" , out value)) // Kullanıcının Cookie'si var mı diye bakar
@@ -51,8 +51,7 @@ namespace RestorantMVC.Controllers
                 }
                 else
                 {
-                    this.Response.Cookies.Append("MasaId" , id.ToString());
-                    return RedirectToAction("Giris");
+                    return RedirectToAction("Giris",new { id=id });
                 }
             }
         }
@@ -64,21 +63,25 @@ namespace RestorantMVC.Controllers
             return View(masa);
         }
         [HttpGet]
-        public IActionResult Giris()
+        public IActionResult Giris(int id)
         {
+            ViewBag.Id = id;
             return View();
         }
         [HttpPost]
         public async Task<IActionResult> Giris(Masa cloneMasa)
         {
-            int id = Convert.ToInt32(Request.Cookies["MasaId"]);
+            int id = cloneMasa.ID;
             Masa masa = await dbContext.Masalar.FindAsync(id);
 
             if (masa == null) { return NotFound(); }
 
             if (masa.MasaSifresi == cloneMasa.MasaSifresi)
             {
+                this.Response.Cookies.Append("MasaId" , id.ToString());
+
                 return RedirectToAction("Index" , "Home");
+
             }
             else
             {
