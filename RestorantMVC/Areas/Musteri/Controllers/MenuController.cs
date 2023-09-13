@@ -76,7 +76,7 @@ namespace RestorantMVC.Areas.Musteri.Controllers
 
             //Database'e kaydedilen sipariş master'ın ToplamTutarı Güncelleniyor ve database'e yeniden kayıt ediliyor.
             await dbContext.SaveChangesAsync();
-            siparisMaster.ToplamTutar = dbContext.SiparisDetaylar.Where(v => v.SiparisMasterId == siparisMaster.ID).Sum(x => x.Fiyat);
+            siparisMaster.ToplamTutar = dbContext.SiparisDetaylar.Where(v => v.SiparisMasterId == siparisMaster.ID).Sum(x => x.Fiyat * x.Adet);
             await dbContext.SaveChangesAsync();
 
             //Siparişler liste olarak sayfaya gönderiliyor.
