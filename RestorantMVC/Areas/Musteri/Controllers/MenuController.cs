@@ -64,7 +64,7 @@ namespace RestorantMVC.Areas.Musteri.Controllers
 
                 siparisMaster.CreateTime = DateTime.Now;
                 siparisMaster.UpdateTime = DateTime.Now;
-
+                siparisMaster.ToplamTutar = dbContext.SiparisDetaylar.Sum(s => s.Fiyat);
                 siparisMaster.MasaId = masaid;
                 siparisMaster.Masa = await dbContext.Masalar.FindAsync(id);
                 siparisMaster.IsActive = true;

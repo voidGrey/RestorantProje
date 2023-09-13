@@ -1,1 +1,69 @@
-﻿
+﻿@model List<Entites.Concrate.SiparisDetay>
+
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Masa ID
+            </th>
+            <th>
+                Urun ID
+            </th>
+            <th>
+                Adet
+            </th>
+            <th>
+                Fiyat
+            </th>
+            <th>
+                Toplam
+            </th>
+            <th>
+                CreateTime
+            </th>
+            <th>
+                UpdateTime
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SiparisMaster.MasaId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UrunId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Adet)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fiyat)
+                </td>
+                <td>
+                    @(item.Fiyat * item.Adet)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreateTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UpdateTime)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

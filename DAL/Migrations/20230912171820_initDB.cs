@@ -21,7 +21,7 @@ namespace DAL.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     KategoriAdi = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     KategoriAciklama = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 9, 7, 14, 29, 57, 128, DateTimeKind.Local).AddTicks(888)),
+                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 9, 12, 20, 18, 19, 923, DateTimeKind.Local).AddTicks(176)),
                     UpdateTime = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -37,7 +37,7 @@ namespace DAL.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     KullaniciAdi = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Sifre = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 9, 7, 14, 29, 57, 128, DateTimeKind.Local).AddTicks(3172)),
+                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 9, 12, 20, 18, 19, 923, DateTimeKind.Local).AddTicks(3967)),
                     UpdateTime = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -53,7 +53,7 @@ namespace DAL.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     MasaID = table.Column<int>(type: "int", nullable: false),
                     MasaSifresi = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 9, 7, 14, 29, 57, 129, DateTimeKind.Local).AddTicks(1330)),
+                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 9, 12, 20, 18, 19, 924, DateTimeKind.Local).AddTicks(7285)),
                     UpdateTime = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -68,7 +68,7 @@ namespace DAL.Migrations
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RoleAdi = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 9, 7, 14, 29, 57, 128, DateTimeKind.Local).AddTicks(5185)),
+                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 9, 12, 20, 18, 19, 923, DateTimeKind.Local).AddTicks(7377)),
                     UpdateTime = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -87,7 +87,7 @@ namespace DAL.Migrations
                     FotografLink = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Fiyat = table.Column<double>(type: "float", nullable: false),
                     KategoriID = table.Column<int>(type: "int", nullable: false),
-                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 9, 7, 14, 29, 57, 129, DateTimeKind.Local).AddTicks(3192)),
+                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 9, 12, 20, 18, 19, 925, DateTimeKind.Local).AddTicks(447)),
                     UpdateTime = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -107,10 +107,10 @@ namespace DAL.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    MasaId = table.Column<int>(type: "int", nullable: false),
+                    MasaId = table.Column<int>(type: "int", nullable: true),
                     ToplamTutar = table.Column<double>(type: "float", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 9, 7, 14, 29, 57, 128, DateTimeKind.Local).AddTicks(9715)),
+                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 9, 12, 20, 18, 19, 924, DateTimeKind.Local).AddTicks(4682)),
                     UpdateTime = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -120,8 +120,7 @@ namespace DAL.Migrations
                         name: "FK_SiparisMasterlar_Masalar_MasaId",
                         column: x => x.MasaId,
                         principalTable: "Masalar",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "ID");
                 });
 
             migrationBuilder.CreateTable(
@@ -158,7 +157,7 @@ namespace DAL.Migrations
                     UrunId = table.Column<int>(type: "int", nullable: false),
                     Adet = table.Column<double>(type: "float", nullable: false),
                     Fiyat = table.Column<double>(type: "float", nullable: false),
-                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 9, 7, 14, 29, 57, 128, DateTimeKind.Local).AddTicks(7131)),
+                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 9, 12, 20, 18, 19, 924, DateTimeKind.Local).AddTicks(497)),
                     UpdateTime = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -183,17 +182,17 @@ namespace DAL.Migrations
                 columns: new[] { "ID", "CreateTime", "KategoriAciklama", "KategoriAdi", "UpdateTime" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 9, 7, 14, 29, 57, 128, DateTimeKind.Local).AddTicks(1611), "Yiyecekler", "Ana Yemek", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 2, new DateTime(2023, 9, 7, 14, 29, 57, 128, DateTimeKind.Local).AddTicks(1614), "Çorba v.b.", "Ara Sıcaklar", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 3, new DateTime(2023, 9, 7, 14, 29, 57, 128, DateTimeKind.Local).AddTicks(1616), "Tatlılar", "Tatlı", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 4, new DateTime(2023, 9, 7, 14, 29, 57, 128, DateTimeKind.Local).AddTicks(1617), "Şarap v.b.", "Alkollü İçecekelr", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 5, new DateTime(2023, 9, 7, 14, 29, 57, 128, DateTimeKind.Local).AddTicks(1618), "Kola, su v.b.", "Alkolsüz İçecekler", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                    { 1, new DateTime(2023, 9, 12, 20, 18, 19, 923, DateTimeKind.Local).AddTicks(1332), "Yiyecekler", "Ana Yemek", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 2, new DateTime(2023, 9, 12, 20, 18, 19, 923, DateTimeKind.Local).AddTicks(1337), "Çorba v.b.", "Ara Sıcaklar", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 3, new DateTime(2023, 9, 12, 20, 18, 19, 923, DateTimeKind.Local).AddTicks(1339), "Tatlılar", "Tatlı", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 4, new DateTime(2023, 9, 12, 20, 18, 19, 923, DateTimeKind.Local).AddTicks(1340), "Şarap v.b.", "Alkollü İçecekelr", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 5, new DateTime(2023, 9, 12, 20, 18, 19, 923, DateTimeKind.Local).AddTicks(1343), "Kola, su v.b.", "Alkolsüz İçecekler", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
                 });
 
             migrationBuilder.InsertData(
                 table: "Kullanicilar",
                 columns: new[] { "ID", "CreateTime", "KullaniciAdi", "Sifre", "UpdateTime" },
-                values: new object[] { 1, new DateTime(2023, 9, 7, 14, 29, 57, 128, DateTimeKind.Local).AddTicks(3811), "Admin", "123", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+                values: new object[] { 1, new DateTime(2023, 9, 12, 20, 18, 19, 923, DateTimeKind.Local).AddTicks(5146), "Admin", "123", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
 
             migrationBuilder.InsertData(
                 table: "Masalar",
@@ -208,19 +207,19 @@ namespace DAL.Migrations
             migrationBuilder.InsertData(
                 table: "Roller",
                 columns: new[] { "ID", "CreateTime", "RoleAdi", "UpdateTime" },
-                values: new object[] { 1, new DateTime(2023, 9, 7, 14, 29, 57, 128, DateTimeKind.Local).AddTicks(5773), "Admin", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+                values: new object[] { 1, new DateTime(2023, 9, 12, 20, 18, 19, 923, DateTimeKind.Local).AddTicks(8298), "Admin", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
 
             migrationBuilder.InsertData(
                 table: "Urunler",
                 columns: new[] { "ID", "Fiyat", "FotografLink", "KategoriID", "UpdateTime", "UrunAciklama", "UrunAdi" },
                 values: new object[,]
                 {
-                    { 1, 80.0, null, 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "50", "Tuborg Gold" },
+                    { 1, 85.0, null, 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "50", "Tuborg Gold" },
                     { 2, 85.0, null, 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "50", "Tuborg Red" },
-                    { 3, 120.0, null, 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "50", "Viski Single" },
-                    { 4, 240.0, null, 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "50", "Viski Double" },
-                    { 5, 100.0, null, 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "50", "Vodka" },
-                    { 6, 100.0, null, 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "50", "Cin" },
+                    { 3, 135.0, null, 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "50", "Viski Single" },
+                    { 4, 270.0, null, 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "50", "Viski Double" },
+                    { 5, 120.0, null, 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "50", "Vodka" },
+                    { 6, 120.0, null, 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "50", "Cin" },
                     { 7, 240.0, null, 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Izgara biftek", "Biftek" },
                     { 8, 200.0, null, 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Makarna", "Makarna" },
                     { 9, 100.0, null, 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Pilav", "Pilav" },
@@ -294,7 +293,8 @@ namespace DAL.Migrations
                 name: "IX_SiparisMasterlar_MasaId",
                 table: "SiparisMasterlar",
                 column: "MasaId",
-                unique: true);
+                unique: true,
+                filter: "[MasaId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Urunler_KategoriID",

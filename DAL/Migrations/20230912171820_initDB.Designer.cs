@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(SqlDbContext))]
-    [Migration("20230907112957_initDB")]
+    [Migration("20230912171820_initDB")]
     partial class initDB
     {
         /// <inheritdoc />
@@ -36,7 +36,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 7, 14, 29, 57, 128, DateTimeKind.Local).AddTicks(888));
+                        .HasDefaultValue(new DateTime(2023, 9, 12, 20, 18, 19, 923, DateTimeKind.Local).AddTicks(176));
 
                     b.Property<string>("KategoriAciklama")
                         .IsRequired()
@@ -62,7 +62,7 @@ namespace DAL.Migrations
                         new
                         {
                             ID = 1,
-                            CreateTime = new DateTime(2023, 9, 7, 14, 29, 57, 128, DateTimeKind.Local).AddTicks(1611),
+                            CreateTime = new DateTime(2023, 9, 12, 20, 18, 19, 923, DateTimeKind.Local).AddTicks(1332),
                             KategoriAciklama = "Yiyecekler",
                             KategoriAdi = "Ana Yemek",
                             UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -70,7 +70,7 @@ namespace DAL.Migrations
                         new
                         {
                             ID = 2,
-                            CreateTime = new DateTime(2023, 9, 7, 14, 29, 57, 128, DateTimeKind.Local).AddTicks(1614),
+                            CreateTime = new DateTime(2023, 9, 12, 20, 18, 19, 923, DateTimeKind.Local).AddTicks(1337),
                             KategoriAciklama = "Çorba v.b.",
                             KategoriAdi = "Ara Sıcaklar",
                             UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -78,7 +78,7 @@ namespace DAL.Migrations
                         new
                         {
                             ID = 3,
-                            CreateTime = new DateTime(2023, 9, 7, 14, 29, 57, 128, DateTimeKind.Local).AddTicks(1616),
+                            CreateTime = new DateTime(2023, 9, 12, 20, 18, 19, 923, DateTimeKind.Local).AddTicks(1339),
                             KategoriAciklama = "Tatlılar",
                             KategoriAdi = "Tatlı",
                             UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -86,7 +86,7 @@ namespace DAL.Migrations
                         new
                         {
                             ID = 4,
-                            CreateTime = new DateTime(2023, 9, 7, 14, 29, 57, 128, DateTimeKind.Local).AddTicks(1617),
+                            CreateTime = new DateTime(2023, 9, 12, 20, 18, 19, 923, DateTimeKind.Local).AddTicks(1340),
                             KategoriAciklama = "Şarap v.b.",
                             KategoriAdi = "Alkollü İçecekelr",
                             UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -94,7 +94,7 @@ namespace DAL.Migrations
                         new
                         {
                             ID = 5,
-                            CreateTime = new DateTime(2023, 9, 7, 14, 29, 57, 128, DateTimeKind.Local).AddTicks(1618),
+                            CreateTime = new DateTime(2023, 9, 12, 20, 18, 19, 923, DateTimeKind.Local).AddTicks(1343),
                             KategoriAciklama = "Kola, su v.b.",
                             KategoriAdi = "Alkolsüz İçecekler",
                             UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -112,7 +112,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 7, 14, 29, 57, 128, DateTimeKind.Local).AddTicks(3172));
+                        .HasDefaultValue(new DateTime(2023, 9, 12, 20, 18, 19, 923, DateTimeKind.Local).AddTicks(3967));
 
                     b.Property<string>("KullaniciAdi")
                         .IsRequired()
@@ -138,7 +138,7 @@ namespace DAL.Migrations
                         new
                         {
                             ID = 1,
-                            CreateTime = new DateTime(2023, 9, 7, 14, 29, 57, 128, DateTimeKind.Local).AddTicks(3811),
+                            CreateTime = new DateTime(2023, 9, 12, 20, 18, 19, 923, DateTimeKind.Local).AddTicks(5146),
                             KullaniciAdi = "Admin",
                             Sifre = "123",
                             UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -156,7 +156,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 7, 14, 29, 57, 129, DateTimeKind.Local).AddTicks(1330));
+                        .HasDefaultValue(new DateTime(2023, 9, 12, 20, 18, 19, 924, DateTimeKind.Local).AddTicks(7285));
 
                     b.Property<int>("MasaID")
                         .HasColumnType("int");
@@ -209,7 +209,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 7, 14, 29, 57, 128, DateTimeKind.Local).AddTicks(5185));
+                        .HasDefaultValue(new DateTime(2023, 9, 12, 20, 18, 19, 923, DateTimeKind.Local).AddTicks(7377));
 
                     b.Property<string>("RoleAdi")
                         .IsRequired()
@@ -230,7 +230,7 @@ namespace DAL.Migrations
                         new
                         {
                             ID = 1,
-                            CreateTime = new DateTime(2023, 9, 7, 14, 29, 57, 128, DateTimeKind.Local).AddTicks(5773),
+                            CreateTime = new DateTime(2023, 9, 12, 20, 18, 19, 923, DateTimeKind.Local).AddTicks(8298),
                             RoleAdi = "Admin",
                             UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
@@ -250,7 +250,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 7, 14, 29, 57, 128, DateTimeKind.Local).AddTicks(7131));
+                        .HasDefaultValue(new DateTime(2023, 9, 12, 20, 18, 19, 924, DateTimeKind.Local).AddTicks(497));
 
                     b.Property<double>("Fiyat")
                         .HasColumnType("float");
@@ -287,12 +287,12 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 7, 14, 29, 57, 128, DateTimeKind.Local).AddTicks(9715));
+                        .HasDefaultValue(new DateTime(2023, 9, 12, 20, 18, 19, 924, DateTimeKind.Local).AddTicks(4682));
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<int>("MasaId")
+                    b.Property<int?>("MasaId")
                         .HasColumnType("int");
 
                     b.Property<double?>("ToplamTutar")
@@ -304,7 +304,8 @@ namespace DAL.Migrations
                     b.HasKey("ID");
 
                     b.HasIndex("MasaId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[MasaId] IS NOT NULL");
 
                     b.ToTable("SiparisMasterlar");
                 });
@@ -320,7 +321,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 7, 14, 29, 57, 129, DateTimeKind.Local).AddTicks(3192));
+                        .HasDefaultValue(new DateTime(2023, 9, 12, 20, 18, 19, 925, DateTimeKind.Local).AddTicks(447));
 
                     b.Property<double>("Fiyat")
                         .HasColumnType("float");
@@ -358,7 +359,7 @@ namespace DAL.Migrations
                         {
                             ID = 1,
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Fiyat = 80.0,
+                            Fiyat = 85.0,
                             KategoriID = 4,
                             UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UrunAciklama = "50",
@@ -378,7 +379,7 @@ namespace DAL.Migrations
                         {
                             ID = 3,
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Fiyat = 120.0,
+                            Fiyat = 135.0,
                             KategoriID = 4,
                             UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UrunAciklama = "50",
@@ -388,7 +389,7 @@ namespace DAL.Migrations
                         {
                             ID = 4,
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Fiyat = 240.0,
+                            Fiyat = 270.0,
                             KategoriID = 4,
                             UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UrunAciklama = "50",
@@ -398,7 +399,7 @@ namespace DAL.Migrations
                         {
                             ID = 5,
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Fiyat = 100.0,
+                            Fiyat = 120.0,
                             KategoriID = 4,
                             UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UrunAciklama = "50",
@@ -408,7 +409,7 @@ namespace DAL.Migrations
                         {
                             ID = 6,
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Fiyat = 100.0,
+                            Fiyat = 120.0,
                             KategoriID = 4,
                             UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UrunAciklama = "50",
@@ -674,9 +675,7 @@ namespace DAL.Migrations
                 {
                     b.HasOne("Entites.Concrate.Masa", "Masa")
                         .WithOne("Siparis")
-                        .HasForeignKey("Entites.Concrate.SiparisMaster", "MasaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("Entites.Concrate.SiparisMaster", "MasaId");
 
                     b.Navigation("Masa");
                 });

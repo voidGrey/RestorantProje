@@ -13,12 +13,12 @@ namespace Entites.Concrate
             builder.HasIndex(x => x.UrunAdi).IsUnique();
 
             builder.HasData(
-                new Urun { ID = 1 , UrunAdi = "Tuborg Gold" , UrunAciklama = "50" , KategoriID = 4 , Fiyat = 80.0 } ,
+                new Urun { ID = 1 , UrunAdi = "Tuborg Gold" , UrunAciklama = "50" , KategoriID = 4 , Fiyat = 85.0 } ,
                 new Urun { ID = 2 , UrunAdi = "Tuborg Red" , UrunAciklama = "50" , KategoriID = 4 , Fiyat = 85.0 } ,
-                new Urun { ID = 3 , UrunAdi = "Viski Single" , UrunAciklama = "50" , KategoriID = 4 , Fiyat = 120.0 } ,
-                new Urun { ID = 4 , UrunAdi = "Viski Double" , UrunAciklama = "50" , KategoriID = 4 , Fiyat = 240.0 } ,
-                new Urun { ID = 5 , UrunAdi = "Vodka" , UrunAciklama = "50" , KategoriID = 4 , Fiyat = 100.0 } ,
-                new Urun { ID = 6 , UrunAdi = "Cin" , UrunAciklama = "50" , KategoriID = 4 , Fiyat = 100.0 } ,
+                new Urun { ID = 3 , UrunAdi = "Viski Single" , UrunAciklama = "50" , KategoriID = 4 , Fiyat = 135.0 } ,
+                new Urun { ID = 4 , UrunAdi = "Viski Double" , UrunAciklama = "50" , KategoriID = 4 , Fiyat = 270.0 } ,
+                new Urun { ID = 5 , UrunAdi = "Vodka" , UrunAciklama = "50" , KategoriID = 4 , Fiyat = 120.0 } ,
+                new Urun { ID = 6 , UrunAdi = "Cin" , UrunAciklama = "50" , KategoriID = 4 , Fiyat = 120.0 } ,
 
                 new Urun { ID = 7 , UrunAdi = "Biftek" , UrunAciklama = "Izgara biftek" , KategoriID = 1 , Fiyat = 240.0 } ,
                 new Urun { ID = 8 , UrunAdi = "Makarna" , UrunAciklama = "Makarna" , KategoriID = 1 , Fiyat = 200.0 } ,

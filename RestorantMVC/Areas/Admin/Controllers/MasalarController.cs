@@ -173,6 +173,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
             if (masa != null)
             {
                 masa.MasaSifresi = null;
+                masa.CreateTime = DateTime.Now;
             }
 
             await _context.SaveChangesAsync();

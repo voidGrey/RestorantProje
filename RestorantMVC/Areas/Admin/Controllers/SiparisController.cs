@@ -51,23 +51,28 @@ namespace RestorantMVC.Areas.Admin.Controllers
         public async Task<IActionResult> CloseOrder(int id)
         {
             var siparis = await dbContext.SiparisMasterlar.FindAsync(id);
-
             if (siparis == null)
             {
                 return NotFound();
             }
-            var masa = await dbContext.Masalar.FindAsync(id);
-            if (masa != null)
-            {
-                masa.MasaSifresi = null;
-            }
-            siparis.IsActive = false; 
+
+            siparis.IsActive = false;
+            siparis.MasaId = null;
 
             dbContext.Update(siparis);
             await dbContext.SaveChangesAsync();
 
             var Siparisler = await dbContext.SiparisMasterlar.ToListAsync();
             return View("Index", Siparisler);
+        }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var siparismaster = await dbContext.SiparisMasterlar.FindAsync(id);
+            ICollection<SiparisDetay> siparisler = dbContext.SiparisDetaylar.Where(sd => sd.SiparisMaster.MasaId == siparismaster.MasaId).ToList();
+
+
+            return View(siparisler);
         }
     }
 }

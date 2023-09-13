@@ -4,7 +4,7 @@ namespace Entites.Concrate
 {
     public class SiparisMaster : BaseEntity
     {
-        public int MasaId { get; set; }
+        public int? MasaId { get; set; }
         public Masa Masa { get; set; }
 
         public ICollection<SiparisDetay>? SiparisDetay { get; set; }
