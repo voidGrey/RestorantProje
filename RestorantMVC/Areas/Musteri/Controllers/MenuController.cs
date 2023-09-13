@@ -35,7 +35,7 @@ namespace RestorantMVC.Areas.Musteri.Controllers
         /// <param name="id">Eklenen ürünün kimliği</param>
         [HttpGet]
         public async Task<IActionResult> Ekle(int id)
-        {
+         {
             // Cookie'den masa id'sini çekiyorum.
             int masaid = Convert.ToInt32(HttpContext.Request.Cookies["MasaId"]);
             // Masa yeni oluşturuldu mu diye bakıyorum
