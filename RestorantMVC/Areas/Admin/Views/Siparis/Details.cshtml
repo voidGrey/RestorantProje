@@ -1,5 +1,7 @@
 ﻿@model List<Entites.Concrate.SiparisDetay>
-
+@{
+    int values = 0;
+    }
 
 <h1>Index</h1>
 
@@ -41,7 +43,7 @@
                     @Html.DisplayFor(modelItem => item.SiparisMaster.MasaId)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.UrunId)
+                    @ViewBag.Urun[values].UrunAdi
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Adet)
@@ -64,6 +66,8 @@
                     <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
                 </td>
             </tr>
+
+            values += 1;
         }
     </tbody>
 </table>

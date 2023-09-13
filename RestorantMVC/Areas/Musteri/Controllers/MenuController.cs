@@ -3,6 +3,7 @@ using Entites.Concrate;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Bcpg;
 
 namespace RestorantMVC.Areas.Musteri.Controllers
 {
@@ -58,65 +59,68 @@ namespace RestorantMVC.Areas.Musteri.Controllers
             }
 
             // DB'den gelen siparisMaster' null ise yeni bir tane oluşturuyorum.
-            if (siparisMaster == null)
-            {
-                siparisMaster = new SiparisMaster();
-
-                siparisMaster.CreateTime = DateTime.Now;
-                siparisMaster.UpdateTime = DateTime.Now;
-                siparisMaster.ToplamTutar = dbContext.SiparisDetaylar.Sum(s => s.Fiyat);
-                siparisMaster.MasaId = masaid;
-                siparisMaster.Masa = await dbContext.Masalar.FindAsync(id);
-                siparisMaster.IsActive = true;
-                siparisMaster.SiparisDetay = new List<SiparisDetay>();
-            }
+            if (siparisMaster == null) { siparisMaster = await CreateSiparisMaster(id , masaid); }
             else // null değil ise yukarıda oluşturduğum details listesinin atamasını yapıyorum.
                 siparisMaster.SiparisDetay = details;
 
             // Gelen ürün sipariş detay olarak oluşturuluyor.
-            bool c = false;
+            bool AynıUrunKontrolu = false;
             foreach (var item in siparisMaster.SiparisDetay)
             {
                 if (item.UrunId == id)
                 {
-                    c = true;
+                    AynıUrunKontrolu = true;
                 }
             }
-            if (c)
+            if (AynıUrunKontrolu)
             {
                 dbContext.SiparisDetaylar.Where(x => x.UrunId == id && x.SiparisMasterId == siparisMaster.ID).FirstOrDefault().Adet++;
                 dbContext.SaveChanges();
             }
-            else
-            {
-                SiparisDetay siparisDetay = new SiparisDetay
-              (
-              siparisMaster.ID,
-              siparisMaster,
-              await dbContext.Urunler.FindAsync(id),
-              dbContext.Urunler.Find(id).ID,
-              1,
-              dbContext.Urunler.Find(id).Fiyat
-              );
+            else { await CreateSiparisDetay(id , yeniSiparis , siparisMaster); }
 
-                // Yeni eklenen ürün siparisMaster'de ki sipariş Detay listesine ekleniyor.
-                siparisMaster.SiparisDetay.Add(siparisDetay);
-
-                //DB KAYIT
-                await dbContext.SiparisDetaylar.AddAsync(siparisDetay);
-                if (yeniSiparis) // Yeni Master ise DB kayıt
-                    await dbContext.SiparisMasterlar.AddAsync(siparisMaster);
-            }
-
-
-
-
-            //SaveChange
+            //Database'e kaydedilen sipariş master'ın ToplamTutarı Güncelleniyor ve database'e yeniden kayıt ediliyor.
+            await dbContext.SaveChangesAsync();
+            siparisMaster.ToplamTutar = dbContext.SiparisDetaylar.Where(v => v.SiparisMasterId == siparisMaster.ID).Sum(x => x.Fiyat);
             await dbContext.SaveChangesAsync();
 
             //Siparişler liste olarak sayfaya gönderiliyor.
             ICollection<SiparisDetay> siparisler = dbContext.SiparisDetaylar.Where(sd => sd.SiparisMaster.MasaId == siparisMaster.MasaId).ToList();
             return RedirectToAction("Index", "Siparis");
+        }
+
+        private async Task CreateSiparisDetay(int id , bool yeniSiparis , SiparisMaster siparisMaster)
+        {
+            SiparisDetay siparisDetay = new SiparisDetay
+                  (
+                  siparisMaster.ID,
+                  siparisMaster,
+                  await dbContext.Urunler.FindAsync(id),
+                  dbContext.Urunler.Find(id).ID,
+                  1,
+                  dbContext.Urunler.Find(id).Fiyat
+                  );
+            siparisMaster.ToplamTutar = dbContext.SiparisDetaylar.Sum(x => x.Fiyat);
+
+            // Yeni eklenen ürün siparisMaster'de ki sipariş Detay listesine ekleniyor.
+            siparisMaster.SiparisDetay.Add(siparisDetay);
+
+            //DB KAYIT
+            await dbContext.SiparisDetaylar.AddAsync(siparisDetay);
+            if (yeniSiparis) // Yeni Master ise DB kayıt
+                await dbContext.SiparisMasterlar.AddAsync(siparisMaster);
+        }
+
+        private async Task<SiparisMaster> CreateSiparisMaster(int id , int masaid)
+        {
+            SiparisMaster siparisMaster = new SiparisMaster();
+            siparisMaster.CreateTime = DateTime.Now;
+            siparisMaster.UpdateTime = DateTime.Now;
+            siparisMaster.MasaId = masaid;
+            siparisMaster.Masa = await dbContext.Masalar.FindAsync(id);
+            siparisMaster.IsActive = true;
+            siparisMaster.SiparisDetay = new List<SiparisDetay>();
+            return siparisMaster;
         }
 
         /// <summary>

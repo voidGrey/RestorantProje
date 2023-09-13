@@ -71,6 +71,17 @@ namespace RestorantMVC.Areas.Admin.Controllers
             var siparismaster = await dbContext.SiparisMasterlar.FindAsync(id);
             ICollection<SiparisDetay> siparisler = dbContext.SiparisDetaylar.Where(sd => sd.SiparisMaster.MasaId == siparismaster.MasaId).ToList();
 
+            List<Urun> urunler = new List<Urun>();
+
+            foreach (var item in siparisler)
+            {
+                Urun clone = await dbContext.Urunler.Where(p=> p.ID == item.UrunId).FirstOrDefaultAsync();
+                
+               urunler.Add(clone);
+            }
+
+            ViewBag.Urun = urunler;
+
 
             return View(siparisler);
         }
