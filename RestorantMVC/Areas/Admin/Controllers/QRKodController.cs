@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using QRCoder;
 using RestorantMVC.Areas.Admin.Models;
@@ -17,6 +16,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
         {
             return View();
         }
+
         /// <summary>
         /// İçerisine gönderilen QrCode Modelini işleyip ekrana basar
         /// </summary>
@@ -36,7 +36,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
             //Bitmap qrCodeImage = qRCode.GetGraphic(20);
             //return View();
             string host = HttpContext.Request.Scheme+"//"+HttpContext.Request.Host.Value+"/QR/Scan/";
-            
+
             QRCodeGenerator QrGenerator = new QRCodeGenerator();
             QRCodeData QrCodeInfo = QrGenerator.CreateQrCode( host + qRCode.QRCodeText, QRCodeGenerator.ECCLevel.Q);
             QRCode QrCode = new QRCode(QrCodeInfo);

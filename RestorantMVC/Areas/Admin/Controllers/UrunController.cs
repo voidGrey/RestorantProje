@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using DAL.Contexts;
+using Entites.Concrate;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using DAL.Contexts;
-using Entites.Concrate;
-using Microsoft.AspNetCore.Authorization;
 
 namespace RestorantMVC.Areas.Admin.Controllers
 {
@@ -51,7 +47,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
         // GET: Admin/Urun/Create
         public IActionResult Create()
         {
-            ViewData["KategoriID"] = new SelectList(_context.Kategoriler, "ID", "KategoriAdi");
+            ViewData["KategoriID"] = new SelectList(_context.Kategoriler , "ID" , "KategoriAdi");
             return View();
         }
 
@@ -64,7 +60,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                ViewData["KategoriID"] = new SelectList(_context.Kategoriler, "ID", "KategoriAdi");
+                ViewData["KategoriID"] = new SelectList(_context.Kategoriler , "ID" , "KategoriAdi");
                 return View(urun);
             }
             try
@@ -74,8 +70,8 @@ namespace RestorantMVC.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", "Aynı İsimde bir ürün zaten mevcut");
-                ViewData["KategoriID"] = new SelectList(_context.Kategoriler, "ID", "KategoriAdi");
+                ModelState.AddModelError("" , "Aynı İsimde bir ürün zaten mevcut");
+                ViewData["KategoriID"] = new SelectList(_context.Kategoriler , "ID" , "KategoriAdi");
                 return View(urun);
             }
             return RedirectToAction("Index");
@@ -85,7 +81,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
         public async Task<IActionResult> Edit(int? id)
         {
             var urun = _context.Urunler.Find(id);
-            ViewData["KategoriID"] = new SelectList(_context.Kategoriler, "ID", "KategoriAdi");
+            ViewData["KategoriID"] = new SelectList(_context.Kategoriler , "ID" , "KategoriAdi");
             return View(urun);
         }
 
@@ -94,7 +90,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("UrunAdi,UrunAciklama,FotografLink,Fiyat,KategoriID,ID,CreateTime,UpdateTime")] Urun urun)
+        public async Task<IActionResult> Edit(int id , [Bind("UrunAdi,UrunAciklama,FotografLink,Fiyat,KategoriID,ID,CreateTime,UpdateTime")] Urun urun)
         {
             if (id != urun.ID)
             {
@@ -111,8 +107,8 @@ namespace RestorantMVC.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", "Aynı İsimde bir urun zaten mevcut");
-                ViewData["KategoriID"] = new SelectList(_context.Kategoriler, "ID", "KategoriAdi");
+                ModelState.AddModelError("" , "Aynı İsimde bir urun zaten mevcut");
+                ViewData["KategoriID"] = new SelectList(_context.Kategoriler , "ID" , "KategoriAdi");
                 return View(urun);
             }
             return RedirectToAction("Index");
@@ -151,14 +147,14 @@ namespace RestorantMVC.Areas.Admin.Controllers
             {
                 _context.Urunler.Remove(urun);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool UrunExists(int id)
         {
-          return (_context.Urunler?.Any(e => e.ID == id)).GetValueOrDefault();
+            return (_context.Urunler?.Any(e => e.ID == id)).GetValueOrDefault();
         }
     }
 }

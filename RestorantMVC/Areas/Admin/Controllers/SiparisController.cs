@@ -4,8 +4,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace RestorantMVC.Areas.Admin.Controllers
 {
@@ -63,7 +61,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
             await dbContext.SaveChangesAsync();
 
             var Siparisler = await dbContext.SiparisMasterlar.ToListAsync();
-            return View("Index", Siparisler);
+            return View("Index" , Siparisler);
         }
 
         public async Task<IActionResult> Details(int id)
@@ -76,12 +74,11 @@ namespace RestorantMVC.Areas.Admin.Controllers
             foreach (var item in siparisler)
             {
                 Urun clone = await dbContext.Urunler.Where(p=> p.ID == item.UrunId).FirstOrDefaultAsync();
-                
-               urunler.Add(clone);
+
+                urunler.Add(clone);
             }
 
             ViewBag.Urun = urunler;
-
 
             return View(siparisler);
         }

@@ -1,10 +1,6 @@
 using DAL.Contexts;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Entites.Concrate;
+using Microsoft.EntityFrameworkCore;
 
 namespace RestorantMVC
 {
@@ -16,9 +12,8 @@ namespace RestorantMVC
 
             // Add services to the container.
 
-
             builder.Services.AddControllersWithViews();
-            builder.Services.AddDbContext<SqlDbContext>(options=> options.UseSqlServer(builder.Configuration.GetConnectionString("SqlString")));
+            builder.Services.AddDbContext<SqlDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("SqlString")));
             builder.Services.AddSingleton<IHttpContextAccessor , HttpContextAccessor>();
 
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(opt => { opt.LoginPath = "/Account/Login/"; });
@@ -44,7 +39,7 @@ namespace RestorantMVC
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                  name: "Admin",
+                  name: "Admin" ,
                   pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
                 );
             });
@@ -52,7 +47,7 @@ namespace RestorantMVC
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                  name: "Musteri",
+                  name: "Musteri" ,
                   pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
                 );
             });

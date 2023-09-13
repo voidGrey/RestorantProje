@@ -7,7 +7,6 @@ var lifecycle = {
 	}
 };
 
-
 module('read', lifecycle);
 
 test('simple value', function () {
@@ -159,7 +158,6 @@ test('Call to read all with a badly encoded cookie', function () {
 	$.removeCookie('bad');
 });
 
-
 module('write', lifecycle);
 
 test('String primitive', function () {
@@ -246,7 +244,6 @@ test('json = true', function () {
 	}
 });
 
-
 module('removeCookie', lifecycle);
 
 test('deletion', function () {
@@ -307,7 +304,6 @@ test('[] used in name', function () {
 	$.removeCookie('c[1]');
 	strictEqual(document.cookie, '', 'delete the cookie');
 });
-
 
 module('conversion', lifecycle);
 

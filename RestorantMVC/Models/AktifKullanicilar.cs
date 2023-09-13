@@ -2,6 +2,6 @@
 {
     public class AktifKullanicilar
     {
-        public Dictionary<string,int> MasaIds { get; set; }
+        public Dictionary<string , int> MasaIds { get; set; }
     }
 }

@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using DAL.Contexts;
+﻿using DAL.Contexts;
 using Entites.Concrate;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace RestorantMVC.Areas.Admin.Controllers
 {
@@ -25,9 +20,9 @@ namespace RestorantMVC.Areas.Admin.Controllers
         // GET: Admin/Kategori
         public async Task<IActionResult> Index()
         {
-              return _context.Kategoriler != null ? 
-                          View(await _context.Kategoriler.ToListAsync()) :
-                          Problem("Entity set 'SqlDbContext.Kategoriler'  is null.");
+            return _context.Kategoriler != null ?
+                        View(await _context.Kategoriler.ToListAsync()) :
+                        Problem("Entity set 'SqlDbContext.Kategoriler'  is null.");
         }
 
         // GET: Admin/Kategori/Details/5
@@ -73,7 +68,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", "Aynı İsimde bir kategori zaten mevcut");
+                ModelState.AddModelError("" , "Aynı İsimde bir kategori zaten mevcut");
                 return View(kategori);
             }
             return RedirectToAction("Index");
@@ -84,7 +79,6 @@ namespace RestorantMVC.Areas.Admin.Controllers
         {
             var kategori = _context.Kategoriler.Find(id);
 
-
             return View(kategori);
         }
 
@@ -93,7 +87,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("KategoriAdi,KategoriAciklama,ID,CreateTime,UpdateTime")] Kategori kategori)
+        public async Task<IActionResult> Edit(int id , [Bind("KategoriAdi,KategoriAciklama,ID,CreateTime,UpdateTime")] Kategori kategori)
         {
             if (ModelState.IsValid)
             {
@@ -106,7 +100,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", "Aynı İsimde bir kategori zaten mevcut");
+                ModelState.AddModelError("" , "Aynı İsimde bir kategori zaten mevcut");
                 return View(kategori);
             }
             return RedirectToAction("Index");
@@ -144,14 +138,14 @@ namespace RestorantMVC.Areas.Admin.Controllers
             {
                 _context.Kategoriler.Remove(kategori);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool KategoriExists(int id)
         {
-          return (_context.Kategoriler?.Any(e => e.ID == id)).GetValueOrDefault();
+            return (_context.Kategoriler?.Any(e => e.ID == id)).GetValueOrDefault();
         }
     }
 }

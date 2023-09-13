@@ -1,12 +1,11 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using DAL.Contexts;
+using Entites.Concrate;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RestorantMVC.Models;
 using System.Security.Claims;
-using Microsoft.EntityFrameworkCore;
-using Entites.Concrate;
-using DAL.Contexts;
-using System.Net.WebSockets;
 
 namespace RestorantMVC.Controllers
 {
@@ -18,6 +17,7 @@ namespace RestorantMVC.Controllers
         {
             this.dbContext = dbContext;
         }
+
         [HttpGet]
         public IActionResult Login()
         {
@@ -34,12 +34,10 @@ namespace RestorantMVC.Controllers
             string roller = string.Empty;
             foreach (var role in user.Roller)
             {
-                roller = role.RoleAdi +";";
+                roller = role.RoleAdi + ";";
             }
 
-
-
-            if (user!=null)
+            if (user != null)
             {
                 var claims = new List<Claim>
                     {
@@ -58,12 +56,12 @@ namespace RestorantMVC.Controllers
                     // Refreshing the authentication session should be allowed.
 
                     //ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10),
-                    // The time at which the authentication ticket expires. A 
-                    // value set here overrides the ExpireTimeSpan option of 
+                    // The time at which the authentication ticket expires. A
+                    // value set here overrides the ExpireTimeSpan option of
                     // CookieAuthenticationOptions set with AddCookie.
 
                     //IsPersistent = true,
-                    // Whether the authentication session is persisted across 
+                    // Whether the authentication session is persisted across
                     // multiple requests. When used with cookies, controls
                     // whether the cookie's lifetime is absolute (matching the
                     // lifetime of the authentication ticket) or session-based.
@@ -72,7 +70,7 @@ namespace RestorantMVC.Controllers
                     // The time at which the authentication ticket was issued.
 
                     //RedirectUri = <string>
-                    // The full path or absolute URI to be used as an http 
+                    // The full path or absolute URI to be used as an http
                     // redirect response value.
                 };
 
@@ -83,14 +81,13 @@ namespace RestorantMVC.Controllers
                 // if(role!=null)
                 foreach (var role in user.Roller)
                 {
-                    if(role.RoleAdi=="Admin")
+                    if (role.RoleAdi == "Admin")
                         return RedirectToAction("Index" , "Admin" , new { area = "Admin" });
                     if (role.RoleAdi == "Musteri")
                         return RedirectToAction("Kategori" , "Menu" , new { area = "Musteri" });
                 }
                 //return RedirectToAction("Index" , "Admin");
             }
-            
 
             if (ModelState.IsValid)
             {
@@ -113,12 +110,12 @@ namespace RestorantMVC.Controllers
                         // Refreshing the authentication session should be allowed.
 
                         //ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10),
-                        // The time at which the authentication ticket expires. A 
-                        // value set here overrides the ExpireTimeSpan option of 
+                        // The time at which the authentication ticket expires. A
+                        // value set here overrides the ExpireTimeSpan option of
                         // CookieAuthenticationOptions set with AddCookie.
 
                         //IsPersistent = true,
-                        // Whether the authentication session is persisted across 
+                        // Whether the authentication session is persisted across
                         // multiple requests. When used with cookies, controls
                         // whether the cookie's lifetime is absolute (matching the
                         // lifetime of the authentication ticket) or session-based.
@@ -127,7 +124,7 @@ namespace RestorantMVC.Controllers
                         // The time at which the authentication ticket was issued.
 
                         //RedirectUri = <string>
-                        // The full path or absolute URI to be used as an http 
+                        // The full path or absolute URI to be used as an http
                         // redirect response value.
                     };
 
@@ -142,7 +139,6 @@ namespace RestorantMVC.Controllers
                     ModelState.AddModelError("Password" , "Username or Password wrong !");
                 }
             }
-
 
             return View();
         }

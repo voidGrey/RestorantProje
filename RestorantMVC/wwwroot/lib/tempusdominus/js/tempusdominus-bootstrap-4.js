@@ -15,7 +15,6 @@ if (typeof jQuery === 'undefined') {
   }
 }(jQuery);
 
-
 if (typeof moment === 'undefined') {
   throw new Error('Tempus Dominus Bootstrap4\'s requires moment.js. Moment.js must be included before Tempus Dominus Bootstrap4\'s JavaScript.');
 }
@@ -26,7 +25,6 @@ if ((version[0] <= 2 && version[1] < 17) || (version[0] >= 3)) {
 }
 
 +function () {
-
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -359,7 +357,6 @@ var DateTimePicker = function ($, moment) {
          * @return {string}
          */
 
-
         //private
 
         DateTimePicker.prototype._int = function _int() {
@@ -496,7 +493,6 @@ var DateTimePicker = function ($, moment) {
         };
 
         //noinspection JSMethodCanBeStatic
-
 
         DateTimePicker.prototype._getOptions = function _getOptions(options) {
             options = $.extend(true, {}, Default, options);
@@ -707,7 +703,6 @@ var DateTimePicker = function ($, moment) {
 
         //noinspection JSMethodCanBeStatic,SpellCheckingInspection
 
-
         DateTimePicker.prototype._keyup = function _keyup(e) {
             keyState[e.which] = 'r';
             if (keyPressHandled[e.which]) {
@@ -784,7 +779,6 @@ var DateTimePicker = function ($, moment) {
         };
 
         //public
-
 
         DateTimePicker.prototype.getMoment = function getMoment(d) {
             var returnMoment = void 0;
@@ -1509,7 +1503,6 @@ var DateTimePicker = function ($, moment) {
             /**
              * @return {string}
              */
-
         }, {
             key: 'DATA_KEY',
             get: function get() {
@@ -1519,7 +1512,6 @@ var DateTimePicker = function ($, moment) {
             /**
              * @return {string}
              */
-
         }, {
             key: 'EVENT_KEY',
             get: function get() {
@@ -1529,7 +1521,6 @@ var DateTimePicker = function ($, moment) {
             /**
              * @return {string}
              */
-
         }, {
             key: 'DATA_API_KEY',
             get: function get() {
@@ -2466,7 +2457,6 @@ var TempusDominusBootstrap4 = function ($) {
 
         //public
 
-
         TempusDominusBootstrap4.prototype.hide = function hide() {
             var transitioning = false;
             if (!this.widget) {
@@ -2677,7 +2667,6 @@ var TempusDominusBootstrap4 = function ($) {
 
         //static
 
-
         TempusDominusBootstrap4._jQueryHandleThis = function _jQueryHandleThis(me, option, argument) {
             var data = $(me).data(DateTimePicker.DATA_KEY);
             if ((typeof option === 'undefined' ? 'undefined' : _typeof(option)) === 'object') {
@@ -2718,7 +2707,6 @@ var TempusDominusBootstrap4 = function ($) {
     * jQuery
     * ------------------------------------------------------------------------
     */
-
 
     $(document).on(DateTimePicker.Event.CLICK_DATA_API, DateTimePicker.Selector.DATA_TOGGLE, function () {
         var $target = getSelectorFromElement($(this));
@@ -2775,5 +2763,4 @@ var TempusDominusBootstrap4 = function ($) {
 
     return TempusDominusBootstrap4;
 }(jQuery);
-
 }();
