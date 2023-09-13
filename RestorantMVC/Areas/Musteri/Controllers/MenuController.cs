@@ -1,16 +1,11 @@
 ﻿using DAL.Contexts;
 using Entites.Concrate;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Org.BouncyCastle.Bcpg;
 
 namespace RestorantMVC.Areas.Musteri.Controllers
 {
     [Area("Musteri")]
-    /// <summary>
-    /// Menü işlemlerini yönetmek için kullanılan Controller sınıfı.
-    /// </summary>
     public class MenuController : Controller
     {
         private readonly SqlDbContext dbContext;
@@ -36,7 +31,7 @@ namespace RestorantMVC.Areas.Musteri.Controllers
         /// <param name="id">Eklenen ürünün kimliği</param>
         [HttpGet]
         public async Task<IActionResult> Ekle(int id)
-         {
+        {
             // Cookie'den masa id'sini çekiyorum.
             int masaid = Convert.ToInt32(HttpContext.Request.Cookies["MasaId"]);
             // Masa yeni oluşturuldu mu diye bakıyorum
@@ -86,9 +81,16 @@ namespace RestorantMVC.Areas.Musteri.Controllers
 
             //Siparişler liste olarak sayfaya gönderiliyor.
             ICollection<SiparisDetay> siparisler = dbContext.SiparisDetaylar.Where(sd => sd.SiparisMaster.MasaId == siparisMaster.MasaId).ToList();
-            return RedirectToAction("Index", "Siparis");
+            return RedirectToAction("Index" , "Siparis");
         }
 
+        /// <summary>
+        /// Belirtilen ürün ID'si ve sipariş Master nesnesi ile yeni bir sipariş detayı oluşturur ve veritabanına kaydeder.
+        /// </summary>
+        /// <param name="id">Ürünün ID'si.</param>
+        /// <param name="yeniSiparis">Eğer bu yeni bir sipariş ise true, aksi takdirde false.</param>
+        /// <param name="siparisMaster">Siparişin ait olduğu Master nesnesi.</param>
+        /// <returns>Asenkron bir işlem sonucu.</returns>
         private async Task CreateSiparisDetay(int id , bool yeniSiparis , SiparisMaster siparisMaster)
         {
             SiparisDetay siparisDetay = new SiparisDetay
@@ -111,6 +113,12 @@ namespace RestorantMVC.Areas.Musteri.Controllers
                 await dbContext.SiparisMasterlar.AddAsync(siparisMaster);
         }
 
+        /// <summary>
+        /// Belirtilen masa ID'si ve sipariş oluşturma tarihi ile yeni bir sipariş Master nesnesi oluşturur.
+        /// </summary>
+        /// <param name="id">Masa ID'si.</param>
+        /// <param name="masaid">Siparişin ait olduğu masa ID'si.</param>
+        /// <returns>Oluşturulan sipariş Master nesnesi.</returns>
         private async Task<SiparisMaster> CreateSiparisMaster(int id , int masaid)
         {
             SiparisMaster siparisMaster = new SiparisMaster();
@@ -133,5 +141,4 @@ namespace RestorantMVC.Areas.Musteri.Controllers
             return View();
         }
     }
-
 }
