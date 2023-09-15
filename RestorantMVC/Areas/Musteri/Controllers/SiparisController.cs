@@ -105,6 +105,7 @@ namespace RestorantMVC.Areas.Musteri.Controllers
             }
             ViewData["SiparisMasterId"] = new SelectList(_context.SiparisMasterlar , "ID" , "ID" , siparisDetay.SiparisMasterId);
             ViewData["UrunId"] = new SelectList(_context.Urunler , "ID" , "UrunAciklama" , siparisDetay.UrunId);
+
             return View(siparisDetay);
         }
 

@@ -1,11 +1,8 @@
 ﻿@model List<Entites.Concrate.SiparisDetay>
 
 
-<h1>Index</h1>
+<h1>Siparişler</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -16,19 +13,16 @@
                 UrunAdi
             </th>
             <th>
-                Adet
+                Fiyat
             </th>
             <th>
-                Fiyat
+                Adet
             </th>
             <th>
                 Toplam
             </th>
             <th>
-                CreateTime
-            </th>
-            <th>
-                UpdateTime
+                Sipariş Tarihi
             </th>
             <th></th>
         </tr>
@@ -43,19 +37,16 @@
                 @Html.DisplayFor(modelItem => item.Urun.UrunAdi)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Fiyat) TL
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Adet)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Fiyat)
-            </td>
-            <td>
-                    @(item.Fiyat * item.Adet)
+                    @(item.Fiyat * item.Adet) TL
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CreateTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UpdateTime)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |

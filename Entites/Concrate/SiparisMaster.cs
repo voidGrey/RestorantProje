@@ -9,7 +9,6 @@ namespace Entites.Concrate
 
         public ICollection<SiparisDetay>? SiparisDetay { get; set; }
         public double? ToplamTutar { get; set; }
-
         public bool IsActive { get; set; } = true;
         
     }

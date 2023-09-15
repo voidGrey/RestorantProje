@@ -4,20 +4,13 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Ürün Detayı</h1>
 
 <div>
-    <h4>SiparisDetay</h4>
     <hr />
     <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.SiparisMaster.MasaId)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.SiparisMaster.MasaId)
-        </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Urun.UrunAdi)
+            Ürün Adı
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Urun.UrunAdi)
@@ -32,19 +25,13 @@
             @Html.DisplayNameFor(model => model.Fiyat)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Fiyat)
+            @Html.DisplayFor(model => model.Fiyat) TL
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreateTime)
+            Sipariş Tarihi
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.CreateTime)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UpdateTime)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UpdateTime)
         </dd>
     </dl>
 </div>
