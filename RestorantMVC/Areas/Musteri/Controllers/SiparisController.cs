@@ -30,7 +30,7 @@ namespace RestorantMVC.Areas.Musteri.Controllers
             // Urun'lerin isimleri null dönmesin diye ürünlerin atamasını DB'den atıyorum.
             foreach (var item in siparisDetaylari)
                 if (item.Urun == null)
-                    item.Urun = _context.Urunler.Find(item.UrunId);
+                    item.Urun = await _context.Urunler.FindAsync(item.UrunId);
 
             return View(siparisDetaylari);
         }

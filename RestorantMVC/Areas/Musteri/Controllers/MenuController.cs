@@ -1,4 +1,5 @@
 ﻿using DAL.Contexts;
+using DAL.Repository.Abstract;
 using Entites.Concrate;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -69,8 +70,14 @@ namespace RestorantMVC.Areas.Musteri.Controllers
             }
             if (AynıUrunKontrolu)
             {
-                dbContext.SiparisDetaylar.Where(x => x.UrunId == id && x.SiparisMasterId == siparisMaster.ID).FirstOrDefault().Adet++;
-                dbContext.SaveChanges();
+                var siparisDetay = dbContext.SiparisDetaylar
+                    .FirstOrDefault(x => x.UrunId == id && x.SiparisMasterId == siparisMaster.ID);
+
+                if (siparisDetay != null)
+                {
+                    siparisDetay.Adet++;
+                    dbContext.SaveChanges();
+                }
             }
             else { await CreateSiparisDetay(id , yeniSiparis , siparisMaster); }
 

@@ -66,9 +66,9 @@ namespace RestorantMVC.Areas.Admin.Controllers
             try
             {
                 _context.Urunler.Add(urun);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 ModelState.AddModelError("" , "Aynı İsimde bir ürün zaten mevcut");
                 ViewData["KategoriID"] = new SelectList(_context.Kategoriler , "ID" , "KategoriAdi");
@@ -80,7 +80,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
         // GET: Admin/Urun/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            var urun = _context.Urunler.Find(id);
+            var urun = await _context.Urunler.FindAsync(id);
             ViewData["KategoriID"] = new SelectList(_context.Kategoriler , "ID" , "KategoriAdi");
             return View(urun);
         }
@@ -103,9 +103,9 @@ namespace RestorantMVC.Areas.Admin.Controllers
             try
             {
                 _context.Urunler.Update(urun);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 ModelState.AddModelError("" , "Aynı İsimde bir urun zaten mevcut");
                 ViewData["KategoriID"] = new SelectList(_context.Kategoriler , "ID" , "KategoriAdi");

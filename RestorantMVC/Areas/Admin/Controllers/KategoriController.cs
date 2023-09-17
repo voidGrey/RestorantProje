@@ -61,12 +61,13 @@ namespace RestorantMVC.Areas.Admin.Controllers
             {
                 return View(kategori);
             }
+
             try
             {
                 _context.Kategoriler.Add(kategori);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 ModelState.AddModelError("" , "Aynı İsimde bir kategori zaten mevcut");
                 return View(kategori);
@@ -77,7 +78,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
         // GET: Admin/Kategori/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            var kategori = _context.Kategoriler.Find(id);
+            var kategori = await _context.Kategoriler.FindAsync(id);
 
             return View(kategori);
         }
@@ -96,9 +97,9 @@ namespace RestorantMVC.Areas.Admin.Controllers
             try
             {
                 _context.Kategoriler.Update(kategori);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 ModelState.AddModelError("" , "Aynı İsimde bir kategori zaten mevcut");
                 return View(kategori);
