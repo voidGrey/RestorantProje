@@ -71,3 +71,12 @@
         }
     </tbody>
 </table>
+@foreach (var item in Model)
+{
+    <center>
+        <b>
+            Toplam Tutar :  @Html.DisplayFor(modelItem => item.SiparisMaster.ToplamTutar) TL
+        </b>
+    </center>
+    break;
+}

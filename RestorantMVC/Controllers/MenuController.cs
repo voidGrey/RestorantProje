@@ -5,9 +5,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace RestorantMVC.Areas.Musteri.Controllers
+namespace RestorantMVC.Controllers
 {
-    [Area("Musteri")]
     public class MenuController : Controller
     {
         private readonly SqlDbContext dbContext;
@@ -38,7 +37,7 @@ namespace RestorantMVC.Areas.Musteri.Controllers
             int masaid = Convert.ToInt32(HttpContext.Request.Cookies["MasaId"]);
             if (masaid == 0)
             {
-                return RedirectToAction("IndexLogin", "Home", new { area = "default" });
+                return RedirectToRoute("default");
             }
             // Masa yeni oluşturuldu mu diye bakıyorum
             bool yeniSiparis = true;
@@ -60,7 +59,7 @@ namespace RestorantMVC.Areas.Musteri.Controllers
             }
 
             // DB'den gelen siparisMaster' null ise yeni bir tane oluşturuyorum.
-            if (siparisMaster == null) { siparisMaster = await CreateSiparisMaster(id , masaid); }
+            if (siparisMaster == null) { siparisMaster = await CreateSiparisMaster(id, masaid); }
             else // null değil ise yukarıda oluşturduğum details listesinin atamasını yapıyorum.
                 siparisMaster.SiparisDetay = details;
 
@@ -84,7 +83,7 @@ namespace RestorantMVC.Areas.Musteri.Controllers
                     dbContext.SaveChanges();
                 }
             }
-            else { await CreateSiparisDetay(id , yeniSiparis , siparisMaster); }
+            else { await CreateSiparisDetay(id, yeniSiparis, siparisMaster); }
 
             //Database'e kaydedilen sipariş master'ın ToplamTutarı Güncelleniyor ve database'e yeniden kayıt ediliyor.
             await dbContext.SaveChangesAsync();
@@ -93,7 +92,7 @@ namespace RestorantMVC.Areas.Musteri.Controllers
 
             //Siparişler liste olarak sayfaya gönderiliyor.
             ICollection<SiparisDetay> siparisler = dbContext.SiparisDetaylar.Where(sd => sd.SiparisMaster.MasaId == siparisMaster.MasaId).ToList();
-            return RedirectToAction("Index" , "Siparis");
+            return RedirectToAction("Index", "Siparis");
         }
 
         /// <summary>
@@ -103,7 +102,7 @@ namespace RestorantMVC.Areas.Musteri.Controllers
         /// <param name="yeniSiparis">Eğer bu yeni bir sipariş ise true, aksi takdirde false.</param>
         /// <param name="siparisMaster">Siparişin ait olduğu Master nesnesi.</param>
         /// <returns>Asenkron bir işlem sonucu.</returns>
-        private async Task CreateSiparisDetay(int id , bool yeniSiparis , SiparisMaster siparisMaster)
+        private async Task CreateSiparisDetay(int id, bool yeniSiparis, SiparisMaster siparisMaster)
         {
             SiparisDetay siparisDetay = new SiparisDetay
                   (
@@ -131,7 +130,7 @@ namespace RestorantMVC.Areas.Musteri.Controllers
         /// <param name="id">Masa ID'si.</param>
         /// <param name="masaid">Siparişin ait olduğu masa ID'si.</param>
         /// <returns>Oluşturulan sipariş Master nesnesi.</returns>
-        private async Task<SiparisMaster> CreateSiparisMaster(int id , int masaid)
+        private async Task<SiparisMaster> CreateSiparisMaster(int id, int masaid)
         {
             SiparisMaster siparisMaster = new SiparisMaster();
             siparisMaster.CreateTime = DateTime.Now;
