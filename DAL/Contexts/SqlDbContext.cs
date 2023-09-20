@@ -1,10 +1,12 @@
 ﻿using Entites.Concrate;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 namespace DAL.Contexts
 {
-    public class SqlDbContext : DbContext
+    public class SqlDbContext : IdentityDbContext<Firma,IdentityRole,string>
     {
         public DbSet<Kategori> Kategoriler { get; set; }
         public DbSet<Urun> Urunler { get; set; }
@@ -13,6 +15,10 @@ namespace DAL.Contexts
         public DbSet<SiparisDetay> SiparisDetaylar { get; set; }
         public DbSet<SiparisMaster> SiparisMasterlar { get; set; }
         public DbSet<Role> Roller { get; set; }
+
+        public DbSet<Sehir> Sehirler { get; set; }
+
+        public DbSet<Ilce> Ilceler { get; set; }
         public SqlDbContext()
         {
         }
@@ -23,12 +29,13 @@ namespace DAL.Contexts
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            base.OnConfiguring(optionsBuilder);
             optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=RestorantProje;Trusted_Connection=true;TrustServerCertificate=true");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
 
