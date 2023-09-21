@@ -1,6 +1,7 @@
 ﻿using DAL.Contexts;
 using Entites.Concrate;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,10 +13,12 @@ namespace RestorantMVC.Areas.Admin.Controllers
     public class UrunController : Controller
     {
         private readonly SqlDbContext _context;
+        private readonly UserManager<Firma> userManager;
 
-        public UrunController(SqlDbContext context)
+        public UrunController(SqlDbContext context, UserManager<Firma> userManager)
         {
             _context = context;
+            this.userManager = userManager;
         }
 
         // GET: Admin/Urun

@@ -15,7 +15,7 @@
                         <use xlink:href="#icon-user"></use>
                     </svg><span class="hidden">Kullanıcı Adı</span>
                 </label>
-                <input asp-for="Email"  class="form__input" placeholder="ornek@mail.com" required>
+                <input asp-for="Email" class="form__input" type="text" placeholder="ornek@mail.com" required>
             </div>
 
             <div class="form__field">
@@ -30,13 +30,13 @@
                 @Html.CheckBoxFor(m => m.RememberMe, true) Beni Hatırla 
             </div>
             <div class="form__field">
-                <input type="submit" value="Login">
+                <input type="submit" value="Giriş">
             </div>
 
         </form>
 
         <p class="text--center">
-            Not a member? <a asp-action="Register">Sign up now</a>
+            Üye değil misin? <a asp-action="Register">Üye ol!</a>
             <svg class="icon">
                 <use xlink:href="#icon-arrow-right"></use>
             </svg>

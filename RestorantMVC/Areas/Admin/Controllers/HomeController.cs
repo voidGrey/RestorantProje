@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Entites.Concrate;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace RestorantMVC.Areas.Admin.Controllers
@@ -7,10 +9,18 @@ namespace RestorantMVC.Areas.Admin.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        [Authorize]
-        public IActionResult Index()
+        private readonly UserManager<Firma> userManager;
+
+        public HomeController(UserManager<Firma> userManager)
         {
-            return View();
+            this.userManager = userManager;
+        }
+        [Authorize]
+        public async Task<IActionResult> Index()
+        {
+            var user = await userManager.GetUserAsync(User);
+
+            return View(user);
         }
     }
 }

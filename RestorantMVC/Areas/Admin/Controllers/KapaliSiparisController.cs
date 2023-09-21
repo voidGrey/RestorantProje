@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DAL.Contexts;
 using Entites.Concrate;
+using Microsoft.AspNetCore.Identity;
 
 namespace RestorantMVC.Areas.Admin.Controllers
 {
@@ -14,10 +15,12 @@ namespace RestorantMVC.Areas.Admin.Controllers
     public class KapaliSiparisController : Controller
     {
         private readonly SqlDbContext dbContext;
+        private readonly UserManager<Firma> userManager;
 
-        public KapaliSiparisController(SqlDbContext dbContext)
+        public KapaliSiparisController(SqlDbContext dbContext, UserManager<Firma> userManager)
         {
             this.dbContext = dbContext;
+            this.userManager = userManager;
         }
         public async Task<IActionResult> Index()
         {

@@ -21,7 +21,7 @@ namespace RestorantMVC.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("Login");
         }
 
         public async Task<IActionResult> Login()
@@ -33,6 +33,7 @@ namespace RestorantMVC.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Login(LoginDto loginDto)
+        
         {
 
             //Validasyondan geçmedi ise ayni verileri view'e geri gonder
@@ -149,6 +150,7 @@ namespace RestorantMVC.Controllers
             await signInManager.SignOutAsync();
             return RedirectToAction("Index" , "Home");
         }
+
         [Route("ConfirmEmail")]
         public async Task<IActionResult> ConfirmEmail(string uid , string code)
         {
@@ -163,7 +165,7 @@ namespace RestorantMVC.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index" , "Home");
+                    return View(model);
                 }
                 else
                 {
@@ -175,6 +177,11 @@ namespace RestorantMVC.Controllers
                 }
             }
             return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> ConfirmEmail(ConfirmEmailModel model)
+        {
+            return View(model);
         }
     }
 }

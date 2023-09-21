@@ -1,6 +1,7 @@
 ﻿using DAL.Contexts;
 using Entites.Concrate;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,10 +12,12 @@ namespace RestorantMVC.Areas.Admin.Controllers
     public class MasalarController : Controller
     {
         private readonly SqlDbContext _context;
+        private readonly UserManager<Firma> userManager;
 
-        public MasalarController(SqlDbContext context)
+        public MasalarController(SqlDbContext context, UserManager<Firma> userManager)
         {
             _context = context;
+            this.userManager = userManager;
         }
 
         // GET: Admin/Masalar

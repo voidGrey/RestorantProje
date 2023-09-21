@@ -1,8 +1,10 @@
 ﻿using DAL.Contexts;
 using Entites.Concrate;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using RestorantMVC.Extensions;
 
 namespace RestorantMVC.Areas.Admin.Controllers
 {
@@ -11,29 +13,33 @@ namespace RestorantMVC.Areas.Admin.Controllers
     public class KategoriController : Controller
     {
         private readonly SqlDbContext _context;
+        private readonly UserManager<Firma> userManager;
+        private Firma firma;
 
-        public KategoriController(SqlDbContext context)
+        public KategoriController(SqlDbContext context , UserManager<Firma> userManager)
         {
             _context = context;
+            this.userManager = userManager;
+            AssingUser();
         }
-
+        private async void AssingUser() { firma = await userManager.GetUserAsync(User); }
         // GET: Admin/Kategori
         public async Task<IActionResult> Index()
         {
-            return _context.Kategoriler != null ?
-                        View(await _context.Kategoriler.ToListAsync()) :
-                        Problem("Entity set 'SqlDbContext.Kategoriler'  is null.");
+
+            return _context.Kategoriler != null ? View(await _context.Kategoriler.FirmaFilter(firma.Id).ToListAsync()) : Problem("Entity set 'SqlDbContext.Kategoriler'  is null.");
         }
 
         // GET: Admin/Kategori/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+
             if (id == null || _context.Kategoriler == null)
             {
                 return NotFound();
             }
 
-            var kategori = await _context.Kategoriler
+            var kategori = await _context.Kategoriler.FirmaFilter(firma.Id)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (kategori == null)
             {

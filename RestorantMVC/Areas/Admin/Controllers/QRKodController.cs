@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using DAL.Contexts;
+using Entites.Concrate;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using QRCoder;
 using RestorantMVC.Areas.Admin.Models;
@@ -11,6 +14,14 @@ namespace RestorantMVC.Areas.Admin.Controllers
     [Authorize]
     public class QRKodController : Controller
     {
+        private readonly SqlDbContext dbContext;
+        private readonly UserManager<Firma> userManager;
+
+        public QRKodController(SqlDbContext dbContext, UserManager<Firma> userManager)
+        {
+            this.dbContext = dbContext;
+            this.userManager = userManager;
+        }
         [HttpGet]
         public IActionResult QRKodOlustur()
         {

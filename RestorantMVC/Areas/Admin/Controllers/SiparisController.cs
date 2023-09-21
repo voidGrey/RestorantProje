@@ -1,6 +1,7 @@
 ﻿using DAL.Contexts;
 using Entites.Concrate;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,10 +13,12 @@ namespace RestorantMVC.Areas.Admin.Controllers
     public class SiparisController : Controller
     {
         private readonly SqlDbContext dbContext;
+        private readonly UserManager<Firma> userManager;
 
-        public SiparisController(SqlDbContext dbContext)
+        public SiparisController(SqlDbContext dbContext, UserManager<Firma> userManager)
         {
             this.dbContext = dbContext;
+            this.userManager = userManager;
         }
 
         public async Task<IActionResult> Index()
