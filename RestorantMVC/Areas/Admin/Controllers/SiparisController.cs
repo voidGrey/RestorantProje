@@ -91,5 +91,15 @@ namespace RestorantMVC.Areas.Admin.Controllers
 
             return View(siparisler);
         }
+
+        public async Task<IActionResult> Onayla(int id)
+        {
+            var siparismaster = await dbContext.SiparisMasterlar.FindAsync(id);
+            siparismaster.status = (SiparisMaster.Status)2;
+            dbContext.Update(siparismaster);
+            await dbContext.SaveChangesAsync();
+
+            return View(siparismaster);
+        }
     }
 }

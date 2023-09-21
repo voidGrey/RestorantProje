@@ -28,6 +28,9 @@
                 Sipariş Durumu
             </th>
             <th>
+                Sipariş Status
+            </th>
+            <th>
                 Sipariş Tarihi
             </th>
             <th>
@@ -55,13 +58,16 @@
                         @Html.DisplayFor(modelItem => item.IsActive)
                     </td>
                     <td>
+                        @Html.DisplayFor(modelItem => item.status)
+                    </td>
+                    <td>
                         @Html.DisplayFor(modelItem => item.CreateTime)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.UpdateTime)
                     </td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                        <a asp-action="Onayla" asp-route-id="@item.ID">Onayla</a> |
                         <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
                         <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger">Kapat</a>
                     </td>

@@ -33,7 +33,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 12, 20, 18, 19, 923, DateTimeKind.Local).AddTicks(176));
+                        .HasDefaultValue(new DateTime(2023, 9, 21, 15, 52, 37, 363, DateTimeKind.Local).AddTicks(8446));
 
                     b.Property<string>("KategoriAciklama")
                         .IsRequired()
@@ -59,7 +59,7 @@ namespace DAL.Migrations
                         new
                         {
                             ID = 1,
-                            CreateTime = new DateTime(2023, 9, 12, 20, 18, 19, 923, DateTimeKind.Local).AddTicks(1332),
+                            CreateTime = new DateTime(2023, 9, 21, 15, 52, 37, 363, DateTimeKind.Local).AddTicks(9848),
                             KategoriAciklama = "Yiyecekler",
                             KategoriAdi = "Ana Yemek",
                             UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -67,7 +67,7 @@ namespace DAL.Migrations
                         new
                         {
                             ID = 2,
-                            CreateTime = new DateTime(2023, 9, 12, 20, 18, 19, 923, DateTimeKind.Local).AddTicks(1337),
+                            CreateTime = new DateTime(2023, 9, 21, 15, 52, 37, 363, DateTimeKind.Local).AddTicks(9854),
                             KategoriAciklama = "Çorba v.b.",
                             KategoriAdi = "Ara Sıcaklar",
                             UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -75,7 +75,7 @@ namespace DAL.Migrations
                         new
                         {
                             ID = 3,
-                            CreateTime = new DateTime(2023, 9, 12, 20, 18, 19, 923, DateTimeKind.Local).AddTicks(1339),
+                            CreateTime = new DateTime(2023, 9, 21, 15, 52, 37, 363, DateTimeKind.Local).AddTicks(9856),
                             KategoriAciklama = "Tatlılar",
                             KategoriAdi = "Tatlı",
                             UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -83,7 +83,7 @@ namespace DAL.Migrations
                         new
                         {
                             ID = 4,
-                            CreateTime = new DateTime(2023, 9, 12, 20, 18, 19, 923, DateTimeKind.Local).AddTicks(1340),
+                            CreateTime = new DateTime(2023, 9, 21, 15, 52, 37, 363, DateTimeKind.Local).AddTicks(9858),
                             KategoriAciklama = "Şarap v.b.",
                             KategoriAdi = "Alkollü İçecekelr",
                             UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -91,7 +91,7 @@ namespace DAL.Migrations
                         new
                         {
                             ID = 5,
-                            CreateTime = new DateTime(2023, 9, 12, 20, 18, 19, 923, DateTimeKind.Local).AddTicks(1343),
+                            CreateTime = new DateTime(2023, 9, 21, 15, 52, 37, 363, DateTimeKind.Local).AddTicks(9860),
                             KategoriAciklama = "Kola, su v.b.",
                             KategoriAdi = "Alkolsüz İçecekler",
                             UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -109,7 +109,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 12, 20, 18, 19, 923, DateTimeKind.Local).AddTicks(3967));
+                        .HasDefaultValue(new DateTime(2023, 9, 21, 15, 52, 37, 364, DateTimeKind.Local).AddTicks(2558));
 
                     b.Property<string>("KullaniciAdi")
                         .IsRequired()
@@ -135,7 +135,7 @@ namespace DAL.Migrations
                         new
                         {
                             ID = 1,
-                            CreateTime = new DateTime(2023, 9, 12, 20, 18, 19, 923, DateTimeKind.Local).AddTicks(5146),
+                            CreateTime = new DateTime(2023, 9, 21, 15, 52, 37, 364, DateTimeKind.Local).AddTicks(3724),
                             KullaniciAdi = "Admin",
                             Sifre = "123",
                             UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -153,7 +153,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 12, 20, 18, 19, 924, DateTimeKind.Local).AddTicks(7285));
+                        .HasDefaultValue(new DateTime(2023, 9, 21, 15, 52, 37, 365, DateTimeKind.Local).AddTicks(6928));
 
                     b.Property<int>("MasaID")
                         .HasColumnType("int");
@@ -206,7 +206,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 12, 20, 18, 19, 923, DateTimeKind.Local).AddTicks(7377));
+                        .HasDefaultValue(new DateTime(2023, 9, 21, 15, 52, 37, 364, DateTimeKind.Local).AddTicks(6023));
 
                     b.Property<string>("RoleAdi")
                         .IsRequired()
@@ -227,7 +227,7 @@ namespace DAL.Migrations
                         new
                         {
                             ID = 1,
-                            CreateTime = new DateTime(2023, 9, 12, 20, 18, 19, 923, DateTimeKind.Local).AddTicks(8298),
+                            CreateTime = new DateTime(2023, 9, 21, 15, 52, 37, 364, DateTimeKind.Local).AddTicks(7065),
                             RoleAdi = "Admin",
                             UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
@@ -247,7 +247,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 12, 20, 18, 19, 924, DateTimeKind.Local).AddTicks(497));
+                        .HasDefaultValue(new DateTime(2023, 9, 21, 15, 52, 37, 364, DateTimeKind.Local).AddTicks(9372));
 
                     b.Property<double>("Fiyat")
                         .HasColumnType("float");
@@ -284,7 +284,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 12, 20, 18, 19, 924, DateTimeKind.Local).AddTicks(4682));
+                        .HasDefaultValue(new DateTime(2023, 9, 21, 15, 52, 37, 365, DateTimeKind.Local).AddTicks(4098));
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -297,6 +297,9 @@ namespace DAL.Migrations
 
                     b.Property<DateTime>("UpdateTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("status")
+                        .HasColumnType("int");
 
                     b.HasKey("ID");
 
@@ -318,7 +321,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 12, 20, 18, 19, 925, DateTimeKind.Local).AddTicks(447));
+                        .HasDefaultValue(new DateTime(2023, 9, 21, 15, 52, 37, 366, DateTimeKind.Local).AddTicks(632));
 
                     b.Property<double>("Fiyat")
                         .HasColumnType("float");
