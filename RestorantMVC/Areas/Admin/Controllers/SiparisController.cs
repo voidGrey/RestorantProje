@@ -45,14 +45,22 @@ namespace RestorantMVC.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
-        public async Task<IActionResult> CloseOrder(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var siparis = await dbContext.SiparisMasterlar.FindAsync(id);
             if (siparis == null)
             {
                 return NotFound();
             }
+
+            return View(siparis);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var siparis = await dbContext.SiparisMasterlar.FindAsync(id);
 
             siparis.IsActive = false;
             siparis.MasaId = null;
@@ -61,8 +69,9 @@ namespace RestorantMVC.Areas.Admin.Controllers
             await dbContext.SaveChangesAsync();
 
             var Siparisler = await dbContext.SiparisMasterlar.ToListAsync();
-            return View("Index" , Siparisler);
+            return View("Index", Siparisler);
         }
+
 
         public async Task<IActionResult> Details(int id)
         {
