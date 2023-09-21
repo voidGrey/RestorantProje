@@ -22,6 +22,9 @@
                 Toplam
             </th>
             <th>
+                Sipariş Durumu
+            </th>
+            <th>
                 Sipariş Tarihi
             </th>
             <th></th>
@@ -44,6 +47,9 @@
             </td>
             <td>
                     @(item.Fiyat * item.Adet) TL
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SiparisMaster.status)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CreateTime)

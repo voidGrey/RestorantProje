@@ -151,9 +151,11 @@ namespace DAL.Migrations
 
                     b.Property<string>("IlceAdi")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int?>("SehirId")
+                        .HasMaxLength(3)
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -161,6 +163,242 @@ namespace DAL.Migrations
                     b.HasIndex("SehirId");
 
                     b.ToTable("Ilceler");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IlceAdi = "Adalar",
+                            SehirId = 34
+                        },
+                        new
+                        {
+                            Id = 2,
+                            IlceAdi = "Arnavutköy",
+                            SehirId = 34
+                        },
+                        new
+                        {
+                            Id = 3,
+                            IlceAdi = "Ataşehir",
+                            SehirId = 34
+                        },
+                        new
+                        {
+                            Id = 4,
+                            IlceAdi = "Avcılar",
+                            SehirId = 34
+                        },
+                        new
+                        {
+                            Id = 5,
+                            IlceAdi = "Bağcılar",
+                            SehirId = 34
+                        },
+                        new
+                        {
+                            Id = 6,
+                            IlceAdi = "Bahçelievler",
+                            SehirId = 34
+                        },
+                        new
+                        {
+                            Id = 7,
+                            IlceAdi = "Bakırköy",
+                            SehirId = 34
+                        },
+                        new
+                        {
+                            Id = 8,
+                            IlceAdi = "Başakşehir",
+                            SehirId = 34
+                        },
+                        new
+                        {
+                            Id = 9,
+                            IlceAdi = "Bayrampaşa",
+                            SehirId = 34
+                        },
+                        new
+                        {
+                            Id = 10,
+                            IlceAdi = "Beşiktaş",
+                            SehirId = 34
+                        },
+                        new
+                        {
+                            Id = 11,
+                            IlceAdi = "Beykoz",
+                            SehirId = 34
+                        },
+                        new
+                        {
+                            Id = 12,
+                            IlceAdi = "Beylikdüzü",
+                            SehirId = 34
+                        },
+                        new
+                        {
+                            Id = 13,
+                            IlceAdi = "Beyoğlu",
+                            SehirId = 34
+                        },
+                        new
+                        {
+                            Id = 14,
+                            IlceAdi = "Büyükçekmece",
+                            SehirId = 34
+                        },
+                        new
+                        {
+                            Id = 15,
+                            IlceAdi = "Çatalca",
+                            SehirId = 34
+                        },
+                        new
+                        {
+                            Id = 16,
+                            IlceAdi = "Çekmeköy",
+                            SehirId = 34
+                        },
+                        new
+                        {
+                            Id = 17,
+                            IlceAdi = "Esenler",
+                            SehirId = 34
+                        },
+                        new
+                        {
+                            Id = 18,
+                            IlceAdi = "Esenyurt",
+                            SehirId = 34
+                        },
+                        new
+                        {
+                            Id = 19,
+                            IlceAdi = "Eyüpsultan",
+                            SehirId = 34
+                        },
+                        new
+                        {
+                            Id = 20,
+                            IlceAdi = "Fatih",
+                            SehirId = 34
+                        },
+                        new
+                        {
+                            Id = 21,
+                            IlceAdi = "Gaziosmanpaşa",
+                            SehirId = 34
+                        },
+                        new
+                        {
+                            Id = 22,
+                            IlceAdi = "Güngören",
+                            SehirId = 34
+                        },
+                        new
+                        {
+                            Id = 23,
+                            IlceAdi = "Kadıköy",
+                            SehirId = 34
+                        },
+                        new
+                        {
+                            Id = 24,
+                            IlceAdi = "Kağıthane",
+                            SehirId = 34
+                        },
+                        new
+                        {
+                            Id = 25,
+                            IlceAdi = "Kartal",
+                            SehirId = 34
+                        },
+                        new
+                        {
+                            Id = 26,
+                            IlceAdi = "Küçükçekmece",
+                            SehirId = 34
+                        },
+                        new
+                        {
+                            Id = 27,
+                            IlceAdi = "Maltepe",
+                            SehirId = 34
+                        },
+                        new
+                        {
+                            Id = 28,
+                            IlceAdi = "Pendik",
+                            SehirId = 34
+                        },
+                        new
+                        {
+                            Id = 29,
+                            IlceAdi = "Sancaktepe",
+                            SehirId = 34
+                        },
+                        new
+                        {
+                            Id = 30,
+                            IlceAdi = "Sarıyer",
+                            SehirId = 34
+                        },
+                        new
+                        {
+                            Id = 31,
+                            IlceAdi = "Silivri",
+                            SehirId = 34
+                        },
+                        new
+                        {
+                            Id = 32,
+                            IlceAdi = "Sultanbeyli",
+                            SehirId = 34
+                        },
+                        new
+                        {
+                            Id = 33,
+                            IlceAdi = "Sultangazi",
+                            SehirId = 34
+                        },
+                        new
+                        {
+                            Id = 34,
+                            IlceAdi = "Şile",
+                            SehirId = 34
+                        },
+                        new
+                        {
+                            Id = 35,
+                            IlceAdi = "Şişli",
+                            SehirId = 34
+                        },
+                        new
+                        {
+                            Id = 36,
+                            IlceAdi = "Tuzla",
+                            SehirId = 34
+                        },
+                        new
+                        {
+                            Id = 37,
+                            IlceAdi = "Ümraniye",
+                            SehirId = 34
+                        },
+                        new
+                        {
+                            Id = 38,
+                            IlceAdi = "Üsküdar",
+                            SehirId = 34
+                        },
+                        new
+                        {
+                            Id = 39,
+                            IlceAdi = "Zeytinburnu",
+                            SehirId = 34
+                        });
                 });
 
             modelBuilder.Entity("Entites.Concrate.Kategori", b =>
@@ -174,7 +412,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 20, 16, 32, 56, 592, DateTimeKind.Local).AddTicks(784));
+                        .HasDefaultValue(new DateTime(2023, 9, 21, 15, 30, 41, 896, DateTimeKind.Local).AddTicks(2020));
 
                     b.Property<string>("FirmaId")
                         .HasColumnType("nvarchar(450)");
@@ -205,35 +443,35 @@ namespace DAL.Migrations
                         new
                         {
                             ID = 1,
-                            CreateTime = new DateTime(2023, 9, 20, 16, 32, 56, 592, DateTimeKind.Local).AddTicks(1319),
+                            CreateTime = new DateTime(2023, 9, 21, 15, 30, 41, 896, DateTimeKind.Local).AddTicks(4175),
                             KategoriAciklama = "Yiyecekler",
                             KategoriAdi = "Ana Yemek"
                         },
                         new
                         {
                             ID = 2,
-                            CreateTime = new DateTime(2023, 9, 20, 16, 32, 56, 592, DateTimeKind.Local).AddTicks(1321),
+                            CreateTime = new DateTime(2023, 9, 21, 15, 30, 41, 896, DateTimeKind.Local).AddTicks(4183),
                             KategoriAciklama = "Çorba v.b.",
                             KategoriAdi = "Ara Sıcaklar"
                         },
                         new
                         {
                             ID = 3,
-                            CreateTime = new DateTime(2023, 9, 20, 16, 32, 56, 592, DateTimeKind.Local).AddTicks(1322),
+                            CreateTime = new DateTime(2023, 9, 21, 15, 30, 41, 896, DateTimeKind.Local).AddTicks(4186),
                             KategoriAciklama = "Tatlılar",
                             KategoriAdi = "Tatlı"
                         },
                         new
                         {
                             ID = 4,
-                            CreateTime = new DateTime(2023, 9, 20, 16, 32, 56, 592, DateTimeKind.Local).AddTicks(1323),
+                            CreateTime = new DateTime(2023, 9, 21, 15, 30, 41, 896, DateTimeKind.Local).AddTicks(4189),
                             KategoriAciklama = "Şarap v.b.",
                             KategoriAdi = "Alkollü İçecekelr"
                         },
                         new
                         {
                             ID = 5,
-                            CreateTime = new DateTime(2023, 9, 20, 16, 32, 56, 592, DateTimeKind.Local).AddTicks(1324),
+                            CreateTime = new DateTime(2023, 9, 21, 15, 30, 41, 896, DateTimeKind.Local).AddTicks(4191),
                             KategoriAciklama = "Kola, su v.b.",
                             KategoriAdi = "Alkolsüz İçecekler"
                         });
@@ -250,7 +488,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 20, 16, 32, 56, 592, DateTimeKind.Local).AddTicks(2703));
+                        .HasDefaultValue(new DateTime(2023, 9, 21, 15, 30, 41, 896, DateTimeKind.Local).AddTicks(8416));
 
                     b.Property<string>("FirmaId")
                         .HasColumnType("nvarchar(450)");
@@ -281,7 +519,7 @@ namespace DAL.Migrations
                         new
                         {
                             ID = 1,
-                            CreateTime = new DateTime(2023, 9, 20, 16, 32, 56, 592, DateTimeKind.Local).AddTicks(3111),
+                            CreateTime = new DateTime(2023, 9, 21, 15, 30, 41, 897, DateTimeKind.Local).AddTicks(673),
                             KullaniciAdi = "Admin",
                             Sifre = "123"
                         });
@@ -298,7 +536,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 20, 16, 32, 56, 592, DateTimeKind.Local).AddTicks(9426));
+                        .HasDefaultValue(new DateTime(2023, 9, 21, 15, 30, 41, 899, DateTimeKind.Local).AddTicks(7914));
 
                     b.Property<string>("FirmaId")
                         .HasColumnType("nvarchar(450)");
@@ -353,7 +591,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 20, 16, 32, 56, 592, DateTimeKind.Local).AddTicks(4270));
+                        .HasDefaultValue(new DateTime(2023, 9, 21, 15, 30, 41, 897, DateTimeKind.Local).AddTicks(4441));
 
                     b.Property<string>("FirmaId")
                         .HasColumnType("nvarchar(450)");
@@ -379,7 +617,7 @@ namespace DAL.Migrations
                         new
                         {
                             ID = 1,
-                            CreateTime = new DateTime(2023, 9, 20, 16, 32, 56, 592, DateTimeKind.Local).AddTicks(4665),
+                            CreateTime = new DateTime(2023, 9, 21, 15, 30, 41, 897, DateTimeKind.Local).AddTicks(6401),
                             RoleAdi = "Admin"
                         });
                 });
@@ -411,6 +649,494 @@ namespace DAL.Migrations
                         .IsUnique();
 
                     b.ToTable("Sehirler");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            PlakaKodu = "01",
+                            SehirAdi = "Adana"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            PlakaKodu = "02",
+                            SehirAdi = "Adıyaman"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            PlakaKodu = "03",
+                            SehirAdi = "Afyonkarahisar"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            PlakaKodu = "04",
+                            SehirAdi = "Ağrı"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            PlakaKodu = "05",
+                            SehirAdi = "Amasya"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            PlakaKodu = "06",
+                            SehirAdi = "Ankara"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            PlakaKodu = "07",
+                            SehirAdi = "Antalya"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            PlakaKodu = "08",
+                            SehirAdi = "Artvin"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            PlakaKodu = "09",
+                            SehirAdi = "Aydın"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            PlakaKodu = "10",
+                            SehirAdi = "Balıkesir"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            PlakaKodu = "11",
+                            SehirAdi = "Bilecik"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            PlakaKodu = "12",
+                            SehirAdi = "Bingöl"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            PlakaKodu = "13",
+                            SehirAdi = "Bitlis"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            PlakaKodu = "14",
+                            SehirAdi = "Bolu"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            PlakaKodu = "15",
+                            SehirAdi = "Burdur"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            PlakaKodu = "16",
+                            SehirAdi = "Bursa"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            PlakaKodu = "17",
+                            SehirAdi = "Çanakkale"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            PlakaKodu = "18",
+                            SehirAdi = "Çankırı"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            PlakaKodu = "19",
+                            SehirAdi = "Çorum"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            PlakaKodu = "20",
+                            SehirAdi = "Denizli"
+                        },
+                        new
+                        {
+                            Id = 21,
+                            PlakaKodu = "21",
+                            SehirAdi = "Diyarbakır"
+                        },
+                        new
+                        {
+                            Id = 22,
+                            PlakaKodu = "22",
+                            SehirAdi = "Edirne"
+                        },
+                        new
+                        {
+                            Id = 23,
+                            PlakaKodu = "23",
+                            SehirAdi = "Elazığ"
+                        },
+                        new
+                        {
+                            Id = 24,
+                            PlakaKodu = "24",
+                            SehirAdi = "Erzincan"
+                        },
+                        new
+                        {
+                            Id = 25,
+                            PlakaKodu = "25",
+                            SehirAdi = "Erzurum"
+                        },
+                        new
+                        {
+                            Id = 26,
+                            PlakaKodu = "26",
+                            SehirAdi = "Eskişehir"
+                        },
+                        new
+                        {
+                            Id = 27,
+                            PlakaKodu = "27",
+                            SehirAdi = "Gaziantep"
+                        },
+                        new
+                        {
+                            Id = 28,
+                            PlakaKodu = "28",
+                            SehirAdi = "Giresun"
+                        },
+                        new
+                        {
+                            Id = 29,
+                            PlakaKodu = "29",
+                            SehirAdi = "Gümüşhane"
+                        },
+                        new
+                        {
+                            Id = 30,
+                            PlakaKodu = "30",
+                            SehirAdi = "Hakkâri"
+                        },
+                        new
+                        {
+                            Id = 31,
+                            PlakaKodu = "31",
+                            SehirAdi = "Hatay"
+                        },
+                        new
+                        {
+                            Id = 32,
+                            PlakaKodu = "32",
+                            SehirAdi = "Isparta"
+                        },
+                        new
+                        {
+                            Id = 33,
+                            PlakaKodu = "33",
+                            SehirAdi = "Mersin"
+                        },
+                        new
+                        {
+                            Id = 34,
+                            PlakaKodu = "34",
+                            SehirAdi = "Istanbul"
+                        },
+                        new
+                        {
+                            Id = 35,
+                            PlakaKodu = "35",
+                            SehirAdi = "İzmir"
+                        },
+                        new
+                        {
+                            Id = 36,
+                            PlakaKodu = "36",
+                            SehirAdi = "Kars"
+                        },
+                        new
+                        {
+                            Id = 37,
+                            PlakaKodu = "37",
+                            SehirAdi = "Kastamonu"
+                        },
+                        new
+                        {
+                            Id = 38,
+                            PlakaKodu = "38",
+                            SehirAdi = "Kayseri"
+                        },
+                        new
+                        {
+                            Id = 39,
+                            PlakaKodu = "39",
+                            SehirAdi = "Kırklareli"
+                        },
+                        new
+                        {
+                            Id = 40,
+                            PlakaKodu = "40",
+                            SehirAdi = "Kırşehir"
+                        },
+                        new
+                        {
+                            Id = 41,
+                            PlakaKodu = "41",
+                            SehirAdi = "Kocaeli"
+                        },
+                        new
+                        {
+                            Id = 42,
+                            PlakaKodu = "42",
+                            SehirAdi = "Konya"
+                        },
+                        new
+                        {
+                            Id = 43,
+                            PlakaKodu = "43",
+                            SehirAdi = "Kütahya"
+                        },
+                        new
+                        {
+                            Id = 44,
+                            PlakaKodu = "44",
+                            SehirAdi = "Malatya"
+                        },
+                        new
+                        {
+                            Id = 45,
+                            PlakaKodu = "45",
+                            SehirAdi = "Manisa"
+                        },
+                        new
+                        {
+                            Id = 46,
+                            PlakaKodu = "46",
+                            SehirAdi = "Kahramanmaraş"
+                        },
+                        new
+                        {
+                            Id = 47,
+                            PlakaKodu = "47",
+                            SehirAdi = "Mardin"
+                        },
+                        new
+                        {
+                            Id = 48,
+                            PlakaKodu = "48",
+                            SehirAdi = "Muğla"
+                        },
+                        new
+                        {
+                            Id = 49,
+                            PlakaKodu = "49",
+                            SehirAdi = "Muş"
+                        },
+                        new
+                        {
+                            Id = 50,
+                            PlakaKodu = "50",
+                            SehirAdi = "Nevşehir"
+                        },
+                        new
+                        {
+                            Id = 51,
+                            PlakaKodu = "51",
+                            SehirAdi = "Niğde"
+                        },
+                        new
+                        {
+                            Id = 52,
+                            PlakaKodu = "52",
+                            SehirAdi = "Ordu"
+                        },
+                        new
+                        {
+                            Id = 53,
+                            PlakaKodu = "53",
+                            SehirAdi = "Rize"
+                        },
+                        new
+                        {
+                            Id = 54,
+                            PlakaKodu = "54",
+                            SehirAdi = "Sakarya"
+                        },
+                        new
+                        {
+                            Id = 55,
+                            PlakaKodu = "55",
+                            SehirAdi = "Samsun"
+                        },
+                        new
+                        {
+                            Id = 56,
+                            PlakaKodu = "56",
+                            SehirAdi = "Siirt"
+                        },
+                        new
+                        {
+                            Id = 57,
+                            PlakaKodu = "57",
+                            SehirAdi = "Sinop"
+                        },
+                        new
+                        {
+                            Id = 58,
+                            PlakaKodu = "58",
+                            SehirAdi = "Sivas"
+                        },
+                        new
+                        {
+                            Id = 59,
+                            PlakaKodu = "59",
+                            SehirAdi = "Tekirdağ"
+                        },
+                        new
+                        {
+                            Id = 60,
+                            PlakaKodu = "60",
+                            SehirAdi = "Tokat"
+                        },
+                        new
+                        {
+                            Id = 61,
+                            PlakaKodu = "61",
+                            SehirAdi = "Trabzon"
+                        },
+                        new
+                        {
+                            Id = 62,
+                            PlakaKodu = "62",
+                            SehirAdi = "Tunceli"
+                        },
+                        new
+                        {
+                            Id = 63,
+                            PlakaKodu = "63",
+                            SehirAdi = "Şanlıurfa"
+                        },
+                        new
+                        {
+                            Id = 64,
+                            PlakaKodu = "64",
+                            SehirAdi = "Uşak"
+                        },
+                        new
+                        {
+                            Id = 65,
+                            PlakaKodu = "65",
+                            SehirAdi = "Van"
+                        },
+                        new
+                        {
+                            Id = 66,
+                            PlakaKodu = "66",
+                            SehirAdi = "Yozgat"
+                        },
+                        new
+                        {
+                            Id = 67,
+                            PlakaKodu = "67",
+                            SehirAdi = "Zonguldak"
+                        },
+                        new
+                        {
+                            Id = 68,
+                            PlakaKodu = "68",
+                            SehirAdi = "Aksaray"
+                        },
+                        new
+                        {
+                            Id = 69,
+                            PlakaKodu = "69",
+                            SehirAdi = "Bayburt"
+                        },
+                        new
+                        {
+                            Id = 70,
+                            PlakaKodu = "70",
+                            SehirAdi = "Karaman"
+                        },
+                        new
+                        {
+                            Id = 71,
+                            PlakaKodu = "71",
+                            SehirAdi = "Kırıkkale"
+                        },
+                        new
+                        {
+                            Id = 72,
+                            PlakaKodu = "72",
+                            SehirAdi = "Batman"
+                        },
+                        new
+                        {
+                            Id = 73,
+                            PlakaKodu = "73",
+                            SehirAdi = "Şırnak"
+                        },
+                        new
+                        {
+                            Id = 74,
+                            PlakaKodu = "74",
+                            SehirAdi = "Bartın"
+                        },
+                        new
+                        {
+                            Id = 75,
+                            PlakaKodu = "75",
+                            SehirAdi = "Ardahan"
+                        },
+                        new
+                        {
+                            Id = 76,
+                            PlakaKodu = "76",
+                            SehirAdi = "Iğdır"
+                        },
+                        new
+                        {
+                            Id = 77,
+                            PlakaKodu = "77",
+                            SehirAdi = "Yalova"
+                        },
+                        new
+                        {
+                            Id = 78,
+                            PlakaKodu = "78",
+                            SehirAdi = "Karabük"
+                        },
+                        new
+                        {
+                            Id = 79,
+                            PlakaKodu = "79",
+                            SehirAdi = "Kilis"
+                        },
+                        new
+                        {
+                            Id = 80,
+                            PlakaKodu = "80",
+                            SehirAdi = "Osmaniye"
+                        },
+                        new
+                        {
+                            Id = 81,
+                            PlakaKodu = "81",
+                            SehirAdi = "Düzce"
+                        });
                 });
 
             modelBuilder.Entity("Entites.Concrate.SiparisDetay", b =>
@@ -427,7 +1153,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 20, 16, 32, 56, 592, DateTimeKind.Local).AddTicks(6888));
+                        .HasDefaultValue(new DateTime(2023, 9, 21, 15, 30, 41, 898, DateTimeKind.Local).AddTicks(6730));
 
                     b.Property<string>("FirmaId")
                         .HasColumnType("nvarchar(450)");
@@ -469,7 +1195,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 20, 16, 32, 56, 592, DateTimeKind.Local).AddTicks(8327));
+                        .HasDefaultValue(new DateTime(2023, 9, 21, 15, 30, 41, 899, DateTimeKind.Local).AddTicks(3300));
 
                     b.Property<string>("FirmaId")
                         .HasColumnType("nvarchar(450)");
@@ -485,6 +1211,9 @@ namespace DAL.Migrations
 
                     b.Property<DateTime?>("UpdateTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("status")
+                        .HasColumnType("int");
 
                     b.HasKey("ID");
 
@@ -508,7 +1237,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 20, 16, 32, 56, 593, DateTimeKind.Local).AddTicks(831));
+                        .HasDefaultValue(new DateTime(2023, 9, 21, 15, 30, 41, 900, DateTimeKind.Local).AddTicks(3670));
 
                     b.Property<string>("FirmaId")
                         .HasColumnType("nvarchar(450)");

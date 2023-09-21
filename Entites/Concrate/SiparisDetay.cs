@@ -12,6 +12,7 @@ namespace Entites.Concrate
         public double Adet { get; set; }
         public double Fiyat { get; set; }
 
+
         public SiparisDetay()
         {}
 
