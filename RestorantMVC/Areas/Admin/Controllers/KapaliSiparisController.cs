@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using DAL.Contexts;
 using Entites.Concrate;
 using Microsoft.AspNetCore.Identity;
+using RestorantMVC.Extensions;
 
 namespace RestorantMVC.Areas.Admin.Controllers
 {
@@ -16,6 +17,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
     {
         private readonly SqlDbContext dbContext;
         private readonly UserManager<Firma> userManager;
+        private string firmaId;
 
         public KapaliSiparisController(SqlDbContext dbContext, UserManager<Firma> userManager)
         {
@@ -24,8 +26,11 @@ namespace RestorantMVC.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var sqlDbContext = dbContext.SiparisMasterlar.Include(s => s.Masa);
-            return View(await sqlDbContext.ToListAsync());
+            await this.SetUser(userManager);
+
+            firmaId = userManager.GetUserId(User);
+
+            return dbContext.SiparisMasterlar != null ? View(await dbContext.SiparisMasterlar.FirmaFilter(firmaId).ToListAsync()) : Problem("Entity set 'SqlDbContext.Kategoriler'  is null.");
         }
         public async Task<IActionResult> Details(int? id)
         {
