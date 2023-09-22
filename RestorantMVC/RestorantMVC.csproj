@@ -158,7 +158,7 @@
     <None Include="wwwroot\assets\scss\components\plugin-overrides\_codemirror.scss" />
     <None Include="wwwroot\assets\scss\components\plugin-overrides\_colcade.scss" />
     <None Include="wwwroot\assets\scss\components\plugin-overrides\_colorpicker.scss" />
-    <None Include="wwwroot\assets\scss\components\plugin-overrides\_context-menu.scss" />
+    <None Include="wwwroot\assets\scss\components\plugin-overrides\dbContext-menu.scss" />
     <None Include="wwwroot\assets\scss\components\plugin-overrides\_data-tables.scss" />
     <None Include="wwwroot\assets\scss\components\plugin-overrides\_datepicker.scss" />
     <None Include="wwwroot\assets\scss\components\plugin-overrides\_dropify.scss" />

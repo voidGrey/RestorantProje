@@ -13,13 +13,13 @@ namespace RestorantMVC.Areas.Admin.Controllers
     [Authorize]
     public class UrunController : Controller
     {
-        private readonly SqlDbContext _context;
+        private readonly SqlDbContext dbContext;
         private readonly UserManager<Firma> userManager;
 
 
         public UrunController(SqlDbContext context, UserManager<Firma> userManager)
         {
-            _context = context;
+            dbContext = context;
             this.userManager = userManager;
 
         }
@@ -29,7 +29,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
         {
             await this.SetUser(userManager);
 
-            var sqlDbContext = _context.Urunler.Include(u => u.Kategori);
+            var sqlDbContext = dbContext.Urunler.Include(u => u.Kategori);
 
             return View(await sqlDbContext.ToListAsync());
         }
@@ -39,7 +39,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
         {
             await this.SetUser(userManager);
 
-            if (id == null || _context.Urunler == null)
+            if (id == null || dbContext.Urunler == null)
 
             {
                 return NotFound();
@@ -61,7 +61,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
         {
             await this.SetUser(userManager);
 
-            ViewData["KategoriID"] = new SelectList(_context.Kategoriler , "ID" , "KategoriAdi");
+            ViewData["KategoriID"] = new SelectList(dbContext.Kategoriler , "ID" , "KategoriAdi");
 
             return View();
         }
@@ -99,8 +99,8 @@ namespace RestorantMVC.Areas.Admin.Controllers
         {
             await this.SetUser(userManager);
 
-            var urun = _context.Urunler.Find(id);
-            ViewData["KategoriID"] = new SelectList(_context.Kategoriler , "ID" , "KategoriAdi");
+            var urun = dbContext.Urunler.Find(id);
+            ViewData["KategoriID"] = new SelectList(dbContext.Kategoriler , "ID" , "KategoriAdi");
 
             return View(urun);
         }
@@ -141,7 +141,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
         {
             await this.SetUser(userManager);
 
-            if (id == null || _context.Urunler == null)
+            if (id == null || dbContext.Urunler == null)
 
             {
                 return NotFound();
@@ -165,7 +165,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
         {
             await this.SetUser(userManager);
 
-            if (_context.Urunler == null)
+            if (dbContext.Urunler == null)
 
             {
                 return Problem("Entity set 'SqlDbContext.Urunler'  is null.");

@@ -12,13 +12,13 @@ namespace RestorantMVC.Areas.Admin.Controllers
     [Authorize]
     public class MasalarController : Controller
     {
-        private readonly SqlDbContext _context;
+        private readonly SqlDbContext dbContext;
         private readonly UserManager<Firma> userManager;
 
 
         public MasalarController(SqlDbContext context, UserManager<Firma> userManager)
         {
-            _context = context;
+            dbContext = context;
             this.userManager = userManager;
 
         }
@@ -28,8 +28,8 @@ namespace RestorantMVC.Areas.Admin.Controllers
         {
             await this.SetUser(userManager);
 
-            return _context.Masalar != null ?
-                        View(await _context.Masalar.ToListAsync()) :
+            return dbContext.Masalar != null ?
+                        View(await dbContext.Masalar.ToListAsync()) :
 
                         Problem("Entity set 'SqlDbContext.Masalar'  is null.");
         }
@@ -39,7 +39,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
         {
             await this.SetUser(userManager);
 
-            if (id == null || _context.Masalar == null)
+            if (id == null || dbContext.Masalar == null)
 
             {
                 return NotFound();
@@ -86,7 +86,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
         {
             await this.SetUser(userManager);
 
-            if (id == null || _context.Masalar == null)
+            if (id == null || dbContext.Masalar == null)
 
             {
                 return NotFound();
@@ -142,7 +142,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
         {
             await this.SetUser(userManager);
 
-            if (id == null || _context.Masalar == null)
+            if (id == null || dbContext.Masalar == null)
 
             {
                 return NotFound();
@@ -165,7 +165,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
         {
             await this.SetUser(userManager);
 
-            if (_context.Masalar == null)
+            if (dbContext.Masalar == null)
 
             {
                 return Problem("Entity set 'SqlDbContext.Masalar'  is null.");
@@ -196,7 +196,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
         {
             await this.SetUser(userManager);
 
-            if (_context.Masalar == null)
+            if (dbContext.Masalar == null)
 
             {
                 return Problem("Entity set 'SqlDbContext.Masalar'  is null.");
@@ -215,7 +215,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
         private bool MasaExists(int id)
         {
 
-            return (_context.Masalar?.Any(e => e.ID == id)).GetValueOrDefault();
+            return (dbContext.Masalar?.Any(e => e.ID == id)).GetValueOrDefault();
 
         }
     }

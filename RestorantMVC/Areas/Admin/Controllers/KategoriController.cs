@@ -13,14 +13,14 @@ namespace RestorantMVC.Areas.Admin.Controllers
     [Authorize]
     public class KategoriController : Controller
     {
-        private readonly SqlDbContext _context;
+        private readonly SqlDbContext dbContext;
         private readonly UserManager<Firma> userManager;
         private string firmaId;
 
 
         public KategoriController(SqlDbContext context , UserManager<Firma> userManager)
         {
-            _context = context;
+            dbContext = context;
             this.userManager = userManager;
             //AssingUser();
             
@@ -32,7 +32,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
             await this.SetUser(userManager);
 
             firmaId = userManager.GetUserId(User);
-            return _context.Kategoriler != null ? View(await _context.Kategoriler.FirmaFilter(firmaId).ToListAsync()) : Problem("Entity set 'SqlDbContext.Kategoriler'  is null.");
+            return dbContext.Kategoriler != null ? View(await dbContext.Kategoriler.FirmaFilter(firmaId).ToListAsync()) : Problem("Entity set 'SqlDbContext.Kategoriler'  is null.");
 
         }
 
@@ -42,13 +42,13 @@ namespace RestorantMVC.Areas.Admin.Controllers
             await this.SetUser(userManager);
 
             firmaId = userManager.GetUserId(User);
-            if (id == null || _context.Kategoriler == null)
+            if (id == null || dbContext.Kategoriler == null)
 
             {
                 return NotFound();
             }
 
-            var kategori = await _context.Kategoriler.FirmaFilter(firmaId)
+            var kategori = await dbContext.Kategoriler.FirmaFilter(firmaId)
 
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (kategori == null)
@@ -101,7 +101,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
         {
             await this.SetUser(userManager);
 
-            var kategori = _context.Kategoriler.Find(id);
+            var kategori = dbContext.Kategoriler.Find(id);
 
 
             return View(kategori);
@@ -140,13 +140,13 @@ namespace RestorantMVC.Areas.Admin.Controllers
 
             firmaId = userManager.GetUserId(User);
 
-            if (id == null || _context.Kategoriler == null)
+            if (id == null || dbContext.Kategoriler == null)
 
             {
                 return NotFound();
             }
 
-            var kategori = await _context.Kategoriler.FirmaFilter(firmaId)
+            var kategori = await dbContext.Kategoriler.FirmaFilter(firmaId)
 
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (kategori == null)
@@ -164,7 +164,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
         {
             await this.SetUser(userManager);
 
-            if (_context.Kategoriler == null)
+            if (dbContext.Kategoriler == null)
 
             {
                 return Problem("Entity set 'SqlDbContext.Kategoriler'  is null.");
