@@ -14,11 +14,12 @@ namespace Entites.Concrate
 
         public enum Status
         {
-            Onaylanmadı = 1,
-            Hazırlanıyor = 2,
-            TeslimeHazır = 3,
-            Iptal = 4,
-            TeslimEdildi = 5,
+            Onay_Bekliyor = 1,
+            Onaylandı = 2,
+            Hazırlanıyor = 3,
+            Teslime_Hazır = 4,
+            Iptal = 5,
+            Teslim_Edildi = 6
         }
         
     }

@@ -10,30 +10,30 @@ namespace RestorantMVC.Areas.Admin.Controllers
     [Authorize]
     public class MasalarController : Controller
     {
-        private readonly SqlDbContext _context;
+        private readonly SqlDbContext dbContext;
 
         public MasalarController(SqlDbContext context)
         {
-            _context = context;
+            dbContext = context;
         }
 
         // GET: Admin/Masalar
         public async Task<IActionResult> Index()
         {
-            return _context.Masalar != null ?
-                        View(await _context.Masalar.ToListAsync()) :
+            return dbContext.Masalar != null ?
+                        View(await dbContext.Masalar.ToListAsync()) :
                         Problem("Entity set 'SqlDbContext.Masalar'  is null.");
         }
 
         // GET: Admin/Masalar/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Masalar == null)
+            if (id == null || dbContext.Masalar == null)
             {
                 return NotFound();
             }
 
-            var masa = await _context.Masalar
+            var masa = await dbContext.Masalar
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (masa == null)
             {
@@ -58,8 +58,8 @@ namespace RestorantMVC.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(masa);
-                await _context.SaveChangesAsync();
+                dbContext.Add(masa);
+                await dbContext.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(masa);
@@ -68,12 +68,12 @@ namespace RestorantMVC.Areas.Admin.Controllers
         // GET: Admin/Masalar/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Masalar == null)
+            if (id == null || dbContext.Masalar == null)
             {
                 return NotFound();
             }
 
-            var masa = await _context.Masalar.FindAsync(id);
+            var masa = await dbContext.Masalar.FindAsync(id);
             if (masa == null)
             {
                 return NotFound();
@@ -97,8 +97,8 @@ namespace RestorantMVC.Areas.Admin.Controllers
             {
                 try
                 {
-                    _context.Update(masa);
-                    await _context.SaveChangesAsync();
+                    dbContext.Update(masa);
+                    await dbContext.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -119,12 +119,12 @@ namespace RestorantMVC.Areas.Admin.Controllers
         // GET: Admin/Masalar/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Masalar == null)
+            if (id == null || dbContext.Masalar == null)
             {
                 return NotFound();
             }
 
-            var masa = await _context.Masalar
+            var masa = await dbContext.Masalar
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (masa == null)
             {
@@ -139,24 +139,24 @@ namespace RestorantMVC.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Masalar == null)
+            if (dbContext.Masalar == null)
             {
                 return Problem("Entity set 'SqlDbContext.Masalar'  is null.");
             }
-            var masa = await _context.Masalar.FindAsync(id);
+            var masa = await dbContext.Masalar.FindAsync(id);
             if (masa != null)
             {
-                _context.Masalar.Remove(masa);
+                dbContext.Masalar.Remove(masa);
             }
 
-            await _context.SaveChangesAsync();
+            await dbContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> SiparisiKapat(int? id)
         {
             if (id == null) { return NotFound(); }
-            var masa = await _context.Masalar.FirstOrDefaultAsync(m => m.ID == id);
+            var masa = await dbContext.Masalar.FirstOrDefaultAsync(m => m.ID == id);
             if (masa == null) { return NotFound(); }
 
             return View(masa);
@@ -165,24 +165,24 @@ namespace RestorantMVC.Areas.Admin.Controllers
         [HttpPost, ActionName("SiparisiKapat")]
         public async Task<IActionResult> SiparisiKapatConfirmed(int id)
         {
-            if (_context.Masalar == null)
+            if (dbContext.Masalar == null)
             {
                 return Problem("Entity set 'SqlDbContext.Masalar'  is null.");
             }
-            var masa = await _context.Masalar.FindAsync(id);
+            var masa = await dbContext.Masalar.FindAsync(id);
             if (masa != null)
             {
                 masa.MasaSifresi = null;
                 masa.CreateTime = DateTime.Now;
             }
 
-            await _context.SaveChangesAsync();
+            await dbContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool MasaExists(int id)
         {
-            return (_context.Masalar?.Any(e => e.ID == id)).GetValueOrDefault();
+            return (dbContext.Masalar?.Any(e => e.ID == id)).GetValueOrDefault();
         }
     }
 }

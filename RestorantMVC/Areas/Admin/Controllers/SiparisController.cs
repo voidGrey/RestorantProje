@@ -92,10 +92,20 @@ namespace RestorantMVC.Areas.Admin.Controllers
             return View(siparisler);
         }
 
-        public async Task<IActionResult> Onayla(int id)
+        public async Task<IActionResult> Hazırlanıyor(int id)
         {
             var siparismaster = await dbContext.SiparisMasterlar.FindAsync(id);
-            siparismaster.status = (SiparisMaster.Status)2;
+            siparismaster.status = (SiparisMaster.Status)3;
+            dbContext.Update(siparismaster);
+            await dbContext.SaveChangesAsync();
+
+            return View(siparismaster);
+        }
+
+        public async Task<IActionResult> TeslimEdildi(int id)
+        {
+            var siparismaster = await dbContext.SiparisMasterlar.FindAsync(id);
+            siparismaster.status = (SiparisMaster.Status)6;
             dbContext.Update(siparismaster);
             await dbContext.SaveChangesAsync();
 

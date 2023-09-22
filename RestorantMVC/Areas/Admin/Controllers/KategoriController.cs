@@ -10,30 +10,30 @@ namespace RestorantMVC.Areas.Admin.Controllers
     [Authorize]
     public class KategoriController : Controller
     {
-        private readonly SqlDbContext _context;
+        private readonly SqlDbContext dbContext;
 
         public KategoriController(SqlDbContext context)
         {
-            _context = context;
+            dbContext = context;
         }
 
         // GET: Admin/Kategori
         public async Task<IActionResult> Index()
         {
-            return _context.Kategoriler != null ?
-                        View(await _context.Kategoriler.ToListAsync()) :
+            return dbContext.Kategoriler != null ?
+                        View(await dbContext.Kategoriler.ToListAsync()) :
                         Problem("Entity set 'SqlDbContext.Kategoriler'  is null.");
         }
 
         // GET: Admin/Kategori/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Kategoriler == null)
+            if (id == null || dbContext.Kategoriler == null)
             {
                 return NotFound();
             }
 
-            var kategori = await _context.Kategoriler
+            var kategori = await dbContext.Kategoriler
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (kategori == null)
             {
@@ -64,8 +64,8 @@ namespace RestorantMVC.Areas.Admin.Controllers
 
             try
             {
-                _context.Kategoriler.Add(kategori);
-                await _context.SaveChangesAsync();
+                dbContext.Kategoriler.Add(kategori);
+                await dbContext.SaveChangesAsync();
             }
             catch (Exception)
             {
@@ -78,7 +78,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
         // GET: Admin/Kategori/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            var kategori = await _context.Kategoriler.FindAsync(id);
+            var kategori = await dbContext.Kategoriler.FindAsync(id);
 
             return View(kategori);
         }
@@ -96,8 +96,8 @@ namespace RestorantMVC.Areas.Admin.Controllers
             }
             try
             {
-                _context.Kategoriler.Update(kategori);
-                await _context.SaveChangesAsync();
+                dbContext.Kategoriler.Update(kategori);
+                await dbContext.SaveChangesAsync();
             }
             catch (Exception)
             {
@@ -110,12 +110,12 @@ namespace RestorantMVC.Areas.Admin.Controllers
         // GET: Admin/Kategori/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Kategoriler == null)
+            if (id == null || dbContext.Kategoriler == null)
             {
                 return NotFound();
             }
 
-            var kategori = await _context.Kategoriler
+            var kategori = await dbContext.Kategoriler
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (kategori == null)
             {
@@ -130,23 +130,23 @@ namespace RestorantMVC.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Kategoriler == null)
+            if (dbContext.Kategoriler == null)
             {
                 return Problem("Entity set 'SqlDbContext.Kategoriler'  is null.");
             }
-            var kategori = await _context.Kategoriler.FindAsync(id);
+            var kategori = await dbContext.Kategoriler.FindAsync(id);
             if (kategori != null)
             {
-                _context.Kategoriler.Remove(kategori);
+                dbContext.Kategoriler.Remove(kategori);
             }
 
-            await _context.SaveChangesAsync();
+            await dbContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool KategoriExists(int id)
         {
-            return (_context.Kategoriler?.Any(e => e.ID == id)).GetValueOrDefault();
+            return (dbContext.Kategoriler?.Any(e => e.ID == id)).GetValueOrDefault();
         }
     }
 }

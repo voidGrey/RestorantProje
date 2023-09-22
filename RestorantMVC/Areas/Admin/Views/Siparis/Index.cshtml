@@ -67,9 +67,11 @@
                         @Html.DisplayFor(modelItem => item.UpdateTime)
                     </td>
                     <td>
-                        <a asp-action="Onayla" asp-route-id="@item.ID">Onayla</a> |
+                        
                         <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
                         <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger">Kapat</a>
+                        <a asp-action="Hazırlanıyor" asp-route-id="@item.ID">Hazırla</a> |
+                        <a asp-action="TeslimEdildi" asp-route-id="@item.ID">Teslim Edildi</a> |
                     </td>
                 </tr>
             }
