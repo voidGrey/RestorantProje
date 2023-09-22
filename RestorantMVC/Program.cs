@@ -23,6 +23,7 @@ namespace RestorantMVC
             builder.Services.IdentityAyarlari();
             builder.Services.AddAutoMapper(typeof(MyAutoMapper));
 
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

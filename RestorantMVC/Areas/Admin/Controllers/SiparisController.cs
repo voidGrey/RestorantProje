@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using RestorantMVC.Extensions;
 
 namespace RestorantMVC.Areas.Admin.Controllers
 {
@@ -23,13 +24,17 @@ namespace RestorantMVC.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
+            await this.SetUser(userManager);
+
             var Siparisler = await dbContext.SiparisMasterlar.ToListAsync();
             return View(Siparisler);
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            await this.SetUser(userManager);
+
             var masaListesi = (from item in dbContext.Masalar
                                select new SelectListItem
                                {
@@ -43,6 +48,8 @@ namespace RestorantMVC.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(SiparisMaster siparisMaster)
         {
+            await this.SetUser(userManager);
+
             dbContext.SiparisMasterlar.Add(siparisMaster);
             await dbContext.SaveChangesAsync();
             return RedirectToAction("Index");
@@ -51,6 +58,8 @@ namespace RestorantMVC.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> CloseOrder(int id)
         {
+            await this.SetUser(userManager);
+
             var siparis = await dbContext.SiparisMasterlar.FindAsync(id);
             if (siparis == null)
             {
@@ -69,6 +78,8 @@ namespace RestorantMVC.Areas.Admin.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
+            await this.SetUser(userManager);
+
             var siparismaster = await dbContext.SiparisMasterlar.FindAsync(id);
             ICollection<SiparisDetay> siparisler = dbContext.SiparisDetaylar.Where(sd => sd.SiparisMaster.MasaId == siparismaster.MasaId).ToList();
 

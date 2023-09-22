@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using RestorantMVC.Extensions;
 
 namespace RestorantMVC.Areas.Admin.Controllers
 {
@@ -18,9 +19,8 @@ namespace RestorantMVC.Areas.Admin.Controllers
         [Authorize]
         public async Task<IActionResult> Index()
         {
-            var user = await userManager.GetUserAsync(User);
-
-            return View(user);
+            await this.SetUser(userManager);
+            return View();
         }
     }
 }

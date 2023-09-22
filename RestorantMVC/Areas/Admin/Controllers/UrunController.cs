@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using RestorantMVC.Extensions;
 
 namespace RestorantMVC.Areas.Admin.Controllers
 {
@@ -24,6 +25,8 @@ namespace RestorantMVC.Areas.Admin.Controllers
         // GET: Admin/Urun
         public async Task<IActionResult> Index()
         {
+            await this.SetUser(userManager);
+
             var sqlDbContext = _context.Urunler.Include(u => u.Kategori);
             return View(await sqlDbContext.ToListAsync());
         }
@@ -31,6 +34,8 @@ namespace RestorantMVC.Areas.Admin.Controllers
         // GET: Admin/Urun/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            await this.SetUser(userManager);
+
             if (id == null || _context.Urunler == null)
             {
                 return NotFound();
@@ -48,8 +53,10 @@ namespace RestorantMVC.Areas.Admin.Controllers
         }
 
         // GET: Admin/Urun/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            await this.SetUser(userManager);
+
             ViewData["KategoriID"] = new SelectList(_context.Kategoriler , "ID" , "KategoriAdi");
             return View();
         }
@@ -61,6 +68,8 @@ namespace RestorantMVC.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("UrunAdi,UrunAciklama,FotografLink,Fiyat,KategoriID,ID,CreateTime,UpdateTime")] Urun urun)
         {
+            await this.SetUser(userManager);
+
             if (ModelState.IsValid)
             {
                 ViewData["KategoriID"] = new SelectList(_context.Kategoriler , "ID" , "KategoriAdi");
@@ -83,6 +92,8 @@ namespace RestorantMVC.Areas.Admin.Controllers
         // GET: Admin/Urun/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            await this.SetUser(userManager);
+
             var urun = _context.Urunler.Find(id);
             ViewData["KategoriID"] = new SelectList(_context.Kategoriler , "ID" , "KategoriAdi");
             return View(urun);
@@ -95,6 +106,8 @@ namespace RestorantMVC.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id , [Bind("UrunAdi,UrunAciklama,FotografLink,Fiyat,KategoriID,ID,CreateTime,UpdateTime")] Urun urun)
         {
+            await this.SetUser(userManager);
+
             if (id != urun.ID)
             {
                 return NotFound();
@@ -120,6 +133,8 @@ namespace RestorantMVC.Areas.Admin.Controllers
         // GET: Admin/Urun/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            await this.SetUser(userManager);
+
             if (id == null || _context.Urunler == null)
             {
                 return NotFound();
@@ -141,6 +156,8 @@ namespace RestorantMVC.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            await this.SetUser(userManager);
+
             if (_context.Urunler == null)
             {
                 return Problem("Entity set 'SqlDbContext.Urunler'  is null.");

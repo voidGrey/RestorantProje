@@ -27,6 +27,8 @@ namespace RestorantMVC.Areas.Admin.Controllers
         // GET: Admin/Kategori
         public async Task<IActionResult> Index()
         {
+            await this.SetUser(userManager);
+
             firmaId = userManager.GetUserId(User);
             return _context.Kategoriler != null ? View(await _context.Kategoriler.FirmaFilter(firmaId).ToListAsync()) : Problem("Entity set 'SqlDbContext.Kategoriler'  is null.");
         }
@@ -34,6 +36,8 @@ namespace RestorantMVC.Areas.Admin.Controllers
         // GET: Admin/Kategori/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            await this.SetUser(userManager);
+
             firmaId = userManager.GetUserId(User);
             if (id == null || _context.Kategoriler == null)
             {
@@ -51,8 +55,9 @@ namespace RestorantMVC.Areas.Admin.Controllers
         }
 
         // GET: Admin/Kategori/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            await this.SetUser(userManager);
             Kategori kategori = new();
             return View(kategori);
         }
@@ -64,6 +69,8 @@ namespace RestorantMVC.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("KategoriAdi,KategoriAciklama,ID,CreateTime,UpdateTime")] Kategori kategori)
         {
+            await this.SetUser(userManager);
+
             firmaId = userManager.GetUserId(User);
             kategori.FirmaId = firmaId;
             if (ModelState.IsValid)
@@ -86,6 +93,8 @@ namespace RestorantMVC.Areas.Admin.Controllers
         // GET: Admin/Kategori/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            await this.SetUser(userManager);
+
             var kategori = _context.Kategoriler.Find(id);
 
             return View(kategori);
@@ -98,6 +107,8 @@ namespace RestorantMVC.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id , [Bind("KategoriAdi,KategoriAciklama,ID,CreateTime,UpdateTime")] Kategori kategori)
         {
+            await this.SetUser(userManager);
+
             if (ModelState.IsValid)
             {
                 return View(kategori);
@@ -118,6 +129,8 @@ namespace RestorantMVC.Areas.Admin.Controllers
         // GET: Admin/Kategori/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            await this.SetUser(userManager);
+
             firmaId = userManager.GetUserId(User);
 
             if (id == null || _context.Kategoriler == null)
@@ -140,6 +153,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            await this.SetUser(userManager);
 
             if (_context.Kategoriler == null)
             {

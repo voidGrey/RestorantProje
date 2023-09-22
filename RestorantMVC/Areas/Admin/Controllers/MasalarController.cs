@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using RestorantMVC.Extensions;
 
 namespace RestorantMVC.Areas.Admin.Controllers
 {
@@ -23,6 +24,8 @@ namespace RestorantMVC.Areas.Admin.Controllers
         // GET: Admin/Masalar
         public async Task<IActionResult> Index()
         {
+            await this.SetUser(userManager);
+
             return _context.Masalar != null ?
                         View(await _context.Masalar.ToListAsync()) :
                         Problem("Entity set 'SqlDbContext.Masalar'  is null.");
@@ -31,6 +34,8 @@ namespace RestorantMVC.Areas.Admin.Controllers
         // GET: Admin/Masalar/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            await this.SetUser(userManager);
+
             if (id == null || _context.Masalar == null)
             {
                 return NotFound();
@@ -47,8 +52,10 @@ namespace RestorantMVC.Areas.Admin.Controllers
         }
 
         // GET: Admin/Masalar/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            await this.SetUser(userManager);
+
             return View();
         }
 
@@ -59,6 +66,8 @@ namespace RestorantMVC.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("MasaID,MasaSifresi,ID,CreateTime,UpdateTime")] Masa masa)
         {
+            await this.SetUser(userManager);
+
             if (ModelState.IsValid)
             {
                 _context.Add(masa);
@@ -71,6 +80,8 @@ namespace RestorantMVC.Areas.Admin.Controllers
         // GET: Admin/Masalar/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            await this.SetUser(userManager);
+
             if (id == null || _context.Masalar == null)
             {
                 return NotFound();
@@ -91,6 +102,8 @@ namespace RestorantMVC.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id , [Bind("MasaID,MasaSifresi,ID,CreateTime,UpdateTime")] Masa masa)
         {
+            await this.SetUser(userManager);
+
             if (id != masa.ID)
             {
                 return NotFound();
@@ -122,6 +135,8 @@ namespace RestorantMVC.Areas.Admin.Controllers
         // GET: Admin/Masalar/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            await this.SetUser(userManager);
+
             if (id == null || _context.Masalar == null)
             {
                 return NotFound();
@@ -142,6 +157,8 @@ namespace RestorantMVC.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            await this.SetUser(userManager);
+
             if (_context.Masalar == null)
             {
                 return Problem("Entity set 'SqlDbContext.Masalar'  is null.");
@@ -158,6 +175,8 @@ namespace RestorantMVC.Areas.Admin.Controllers
 
         public async Task<IActionResult> SiparisiKapat(int? id)
         {
+            await this.SetUser(userManager);
+
             if (id == null) { return NotFound(); }
             var masa = await _context.Masalar.FirstOrDefaultAsync(m => m.ID == id);
             if (masa == null) { return NotFound(); }
@@ -168,6 +187,8 @@ namespace RestorantMVC.Areas.Admin.Controllers
         [HttpPost, ActionName("SiparisiKapat")]
         public async Task<IActionResult> SiparisiKapatConfirmed(int id)
         {
+            await this.SetUser(userManager);
+
             if (_context.Masalar == null)
             {
                 return Problem("Entity set 'SqlDbContext.Masalar'  is null.");
@@ -185,6 +206,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
 
         private bool MasaExists(int id)
         {
+
             return (_context.Masalar?.Any(e => e.ID == id)).GetValueOrDefault();
         }
     }

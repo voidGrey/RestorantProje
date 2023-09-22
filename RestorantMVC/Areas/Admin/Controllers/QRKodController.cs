@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using QRCoder;
 using RestorantMVC.Areas.Admin.Models;
+using RestorantMVC.Extensions;
 using System.Drawing;
 using System.Drawing.Imaging;
 
@@ -23,8 +24,10 @@ namespace RestorantMVC.Areas.Admin.Controllers
             this.userManager = userManager;
         }
         [HttpGet]
-        public IActionResult QRKodOlustur()
+        public async Task<IActionResult> QRKodOlustur()
         {
+            await this.SetUser(userManager);
+
             return View();
         }
 
@@ -39,8 +42,10 @@ namespace RestorantMVC.Areas.Admin.Controllers
         /// <param name="QrUri">QRCoder için oluşturulmu formatlı bir string</param>
 
         [HttpPost]
-        public IActionResult QRKodOlustur(QRCodeModel qRCode)
+        public async Task<IActionResult> QRKodOlustur(QRCodeModel qRCode)
         {
+            await this.SetUser(userManager);
+
             //QRCodeGenerator qrGenarator = new QRCodeGenerator();
             //QRCodeData qrCodeData = qrGenarator.CreateQrCode("GELECEK URL MASA ID V.B." , QRCodeGenerator.ECCLevel.Q);
             //QRCode qRCode = new(qrCodeData);
