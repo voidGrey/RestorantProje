@@ -23,6 +23,11 @@ namespace RestorantMVC.Controllers
             return View(viewModel);
         }
 
+        public IActionResult IndexLogin()
+        {
+            return View();
+        }
+
         public async Task<IActionResult> Menu(int? id)
         {
             var urunler =  await dbContext.Urunler.Where(a => a.KategoriID == id).ToListAsync();

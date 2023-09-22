@@ -1862,7 +1862,7 @@ Expr = Sizzle.selectors = {
 					return !!elem.parentNode;
 				} :
 
-				function( elem, _context, xml ) {
+				function( elem, dbContext, xml ) {
 					var cache, uniqueCache, outerCache, node, nodeIndex, start,
 						dir = simple !== forward ? "nextSibling" : "previousSibling",
 						parent = elem.parentNode,
@@ -2023,7 +2023,7 @@ Expr = Sizzle.selectors = {
 				matcher = compile( selector.replace( rtrim, "$1" ) );
 
 			return matcher[ expando ] ?
-				markFunction( function( seed, matches, _context, xml ) {
+				markFunction( function( seed, matches, dbContext, xml ) {
 					var elem,
 						unmatched = matcher( seed, null, xml, [] ),
 						i = seed.length;
@@ -2035,7 +2035,7 @@ Expr = Sizzle.selectors = {
 						}
 					}
 				} ) :
-				function( elem, _context, xml ) {
+				function( elem, dbContext, xml ) {
 					input[ 0 ] = elem;
 					matcher( input, null, xml, results );
 

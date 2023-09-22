@@ -30,10 +30,43 @@ namespace RestorantMVC.Areas.Admin.Controllers
         public async Task<IActionResult> Details(int? id)
         {
             var siparismaster = await dbContext.SiparisMasterlar.FindAsync(id);
+            ICollection<SiparisDetay> siparisler = dbContext.SiparisDetaylar.Where(sd => sd.SiparisMaster.ID == siparismaster.ID).ToList();
 
-            return View(siparismaster);
+            List<Urun> urunler = new List<Urun>();
+
+            foreach (var item in siparisler)
+            {
+                Urun clone = await dbContext.Urunler.Where(p => p.ID == item.UrunId).FirstOrDefaultAsync();
+
+                urunler.Add(clone);
+            }
+
+            ViewBag.Urun = urunler;
+
+            return View(siparisler);
         }
 
-        
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var siparismaster = await dbContext.SiparisMasterlar.FindAsync(id);
+            
+            if (siparismaster == null)
+            {
+                return NotFound();
+            }
+            
+            return View(siparismaster);
+        }
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var siparismaster = await dbContext.SiparisMasterlar.FindAsync(id);
+            dbContext.SiparisMasterlar.Remove(siparismaster);
+
+            await dbContext.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

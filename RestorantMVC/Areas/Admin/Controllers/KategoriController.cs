@@ -17,12 +17,14 @@ namespace RestorantMVC.Areas.Admin.Controllers
         private readonly UserManager<Firma> userManager;
         private string firmaId;
 
+
         public KategoriController(SqlDbContext context , UserManager<Firma> userManager)
         {
             _context = context;
             this.userManager = userManager;
             //AssingUser();
             
+
         }
         // GET: Admin/Kategori
         public async Task<IActionResult> Index()
@@ -31,6 +33,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
 
             firmaId = userManager.GetUserId(User);
             return _context.Kategoriler != null ? View(await _context.Kategoriler.FirmaFilter(firmaId).ToListAsync()) : Problem("Entity set 'SqlDbContext.Kategoriler'  is null.");
+
         }
 
         // GET: Admin/Kategori/Details/5
@@ -40,11 +43,13 @@ namespace RestorantMVC.Areas.Admin.Controllers
 
             firmaId = userManager.GetUserId(User);
             if (id == null || _context.Kategoriler == null)
+
             {
                 return NotFound();
             }
 
             var kategori = await _context.Kategoriler.FirmaFilter(firmaId)
+
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (kategori == null)
             {
@@ -77,12 +82,13 @@ namespace RestorantMVC.Areas.Admin.Controllers
             {
                 return View(kategori);
             }
+
             try
             {
-                _context.Kategoriler.Add(kategori);
-                _context.SaveChanges();
+                dbContext.Kategoriler.Add(kategori);
+                await dbContext.SaveChangesAsync();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 ModelState.AddModelError("" , "Aynı İsimde bir kategori zaten mevcut");
                 return View(kategori);
@@ -96,6 +102,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
             await this.SetUser(userManager);
 
             var kategori = _context.Kategoriler.Find(id);
+
 
             return View(kategori);
         }
@@ -115,10 +122,10 @@ namespace RestorantMVC.Areas.Admin.Controllers
             }
             try
             {
-                _context.Kategoriler.Update(kategori);
-                _context.SaveChanges();
+                dbContext.Kategoriler.Update(kategori);
+                await dbContext.SaveChangesAsync();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 ModelState.AddModelError("" , "Aynı İsimde bir kategori zaten mevcut");
                 return View(kategori);
@@ -134,11 +141,13 @@ namespace RestorantMVC.Areas.Admin.Controllers
             firmaId = userManager.GetUserId(User);
 
             if (id == null || _context.Kategoriler == null)
+
             {
                 return NotFound();
             }
 
             var kategori = await _context.Kategoriler.FirmaFilter(firmaId)
+
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (kategori == null)
             {
@@ -156,22 +165,23 @@ namespace RestorantMVC.Areas.Admin.Controllers
             await this.SetUser(userManager);
 
             if (_context.Kategoriler == null)
+
             {
                 return Problem("Entity set 'SqlDbContext.Kategoriler'  is null.");
             }
-            var kategori = await _context.Kategoriler.FindAsync(id);
+            var kategori = await dbContext.Kategoriler.FindAsync(id);
             if (kategori != null)
             {
-                _context.Kategoriler.Remove(kategori);
+                dbContext.Kategoriler.Remove(kategori);
             }
 
-            await _context.SaveChangesAsync();
+            await dbContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool KategoriExists(int id)
         {
-            return (_context.Kategoriler?.Any(e => e.ID == id)).GetValueOrDefault();
+            return (dbContext.Kategoriler?.Any(e => e.ID == id)).GetValueOrDefault();
         }
     }
 }

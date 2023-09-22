@@ -1,48 +1,82 @@
-﻿@model Entites.Concrate.SiparisMaster
-
+﻿@model List<Entites.Concrate.SiparisDetay>
 @{
-    ViewData["Title"] = "Details";
+    int values = 0;
 }
 
-<h1>Details</h1>
+<h1>Index</h1>
 
-<div>
-    <h4>SiparisMaster</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Masa)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Masa.ID)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ToplamTutar)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ToplamTutar)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IsActive)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsActive)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreateTime)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreateTime)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UpdateTime)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UpdateTime)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.ID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Masa ID
+            </th>
+            <th>
+                Urun ID
+            </th>
+            <th>
+                Adet
+            </th>
+            <th>
+                Fiyat
+            </th>
+            <th>
+                Toplam
+            </th>
+            <th>
+                CreateTime
+            </th>
+            <th>
+                UpdateTime
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SiparisMaster.MasaId)
+                </td>
+                <td>
+                    @ViewBag.Urun[values].UrunAdi
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Adet)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fiyat)
+                </td>
+                <td>
+                    @(item.Fiyat * item.Adet)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreateTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UpdateTime)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+
+            values += 1;
+        }
+    </tbody>
+</table>
+@foreach (var item in Model)
+{
+    <center>
+        <b>
+            Toplam Tutar :  @Html.DisplayFor(modelItem => item.SiparisMaster.ToplamTutar) TL
+        </b>
+    </center>
+    break;
+}

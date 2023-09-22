@@ -55,8 +55,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
-        public async Task<IActionResult> CloseOrder(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             await this.SetUser(userManager);
 
@@ -66,6 +65,15 @@ namespace RestorantMVC.Areas.Admin.Controllers
                 return NotFound();
             }
 
+            return View(siparis);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var siparis = await dbContext.SiparisMasterlar.FindAsync(id);
+
             siparis.IsActive = false;
             siparis.MasaId = null;
 
@@ -73,8 +81,9 @@ namespace RestorantMVC.Areas.Admin.Controllers
             await dbContext.SaveChangesAsync();
 
             var Siparisler = await dbContext.SiparisMasterlar.ToListAsync();
-            return View("Index" , Siparisler);
+            return View("Index", Siparisler);
         }
+
 
         public async Task<IActionResult> Details(int id)
         {
@@ -95,6 +104,26 @@ namespace RestorantMVC.Areas.Admin.Controllers
             ViewBag.Urun = urunler;
 
             return View(siparisler);
+        }
+
+        public async Task<IActionResult> Hazırlanıyor(int id)
+        {
+            var siparismaster = await dbContext.SiparisMasterlar.FindAsync(id);
+            siparismaster.status = (SiparisMaster.Status)3;
+            dbContext.Update(siparismaster);
+            await dbContext.SaveChangesAsync();
+
+            return View(siparismaster);
+        }
+
+        public async Task<IActionResult> TeslimEdildi(int id)
+        {
+            var siparismaster = await dbContext.SiparisMasterlar.FindAsync(id);
+            siparismaster.status = (SiparisMaster.Status)6;
+            dbContext.Update(siparismaster);
+            await dbContext.SaveChangesAsync();
+
+            return View(siparismaster);
         }
     }
 }

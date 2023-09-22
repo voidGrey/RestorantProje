@@ -1,4 +1,5 @@
 ﻿/********** Template CSS **********/
+
 :root {
     --primary: #FEA116;
     --light: #F1F8FF;
@@ -103,6 +104,9 @@
 .navbar-dark .navbar-brand img {
     max-height: 60px;
     transition: .5s;
+}
+.nav-item {
+    list-style: none;
 }
 
 .sticky-top.navbar-dark .navbar-brand img {

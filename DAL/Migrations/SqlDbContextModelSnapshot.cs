@@ -179,6 +179,7 @@ namespace DAL.Migrations
                     b.Property<string>("FirmaId")
                         .HasColumnType("nvarchar(450)");
 
+
                     b.Property<string>("KategoriAciklama")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -206,6 +207,7 @@ namespace DAL.Migrations
                         {
                             ID = 1,
                             CreateTime = new DateTime(2023, 9, 20, 16, 32, 56, 592, DateTimeKind.Local).AddTicks(1319),
+
                             KategoriAciklama = "Yiyecekler",
                             KategoriAdi = "Ana Yemek"
                         },
@@ -213,6 +215,7 @@ namespace DAL.Migrations
                         {
                             ID = 2,
                             CreateTime = new DateTime(2023, 9, 20, 16, 32, 56, 592, DateTimeKind.Local).AddTicks(1321),
+
                             KategoriAciklama = "Çorba v.b.",
                             KategoriAdi = "Ara Sıcaklar"
                         },
@@ -220,6 +223,7 @@ namespace DAL.Migrations
                         {
                             ID = 3,
                             CreateTime = new DateTime(2023, 9, 20, 16, 32, 56, 592, DateTimeKind.Local).AddTicks(1322),
+
                             KategoriAciklama = "Tatlılar",
                             KategoriAdi = "Tatlı"
                         },
@@ -227,6 +231,7 @@ namespace DAL.Migrations
                         {
                             ID = 4,
                             CreateTime = new DateTime(2023, 9, 20, 16, 32, 56, 592, DateTimeKind.Local).AddTicks(1323),
+
                             KategoriAciklama = "Şarap v.b.",
                             KategoriAdi = "Alkollü İçecekelr"
                         },
@@ -234,6 +239,7 @@ namespace DAL.Migrations
                         {
                             ID = 5,
                             CreateTime = new DateTime(2023, 9, 20, 16, 32, 56, 592, DateTimeKind.Local).AddTicks(1324),
+
                             KategoriAciklama = "Kola, su v.b.",
                             KategoriAdi = "Alkolsüz İçecekler"
                         });
@@ -254,6 +260,7 @@ namespace DAL.Migrations
 
                     b.Property<string>("FirmaId")
                         .HasColumnType("nvarchar(450)");
+
 
                     b.Property<string>("KullaniciAdi")
                         .IsRequired()
@@ -282,6 +289,7 @@ namespace DAL.Migrations
                         {
                             ID = 1,
                             CreateTime = new DateTime(2023, 9, 20, 16, 32, 56, 592, DateTimeKind.Local).AddTicks(3111),
+
                             KullaniciAdi = "Admin",
                             Sifre = "123"
                         });
@@ -302,6 +310,7 @@ namespace DAL.Migrations
 
                     b.Property<string>("FirmaId")
                         .HasColumnType("nvarchar(450)");
+
 
                     b.Property<int>("MasaID")
                         .HasColumnType("int");
@@ -358,6 +367,7 @@ namespace DAL.Migrations
                     b.Property<string>("FirmaId")
                         .HasColumnType("nvarchar(450)");
 
+
                     b.Property<string>("RoleAdi")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -381,6 +391,7 @@ namespace DAL.Migrations
                             ID = 1,
                             CreateTime = new DateTime(2023, 9, 20, 16, 32, 56, 592, DateTimeKind.Local).AddTicks(4665),
                             RoleAdi = "Admin"
+
                         });
                 });
 
@@ -432,6 +443,7 @@ namespace DAL.Migrations
                     b.Property<string>("FirmaId")
                         .HasColumnType("nvarchar(450)");
 
+
                     b.Property<double>("Fiyat")
                         .HasColumnType("float");
 
@@ -474,6 +486,7 @@ namespace DAL.Migrations
                     b.Property<string>("FirmaId")
                         .HasColumnType("nvarchar(450)");
 
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -485,6 +498,9 @@ namespace DAL.Migrations
 
                     b.Property<DateTime?>("UpdateTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("status")
+                        .HasColumnType("int");
 
                     b.HasKey("ID");
 
@@ -512,6 +528,7 @@ namespace DAL.Migrations
 
                     b.Property<string>("FirmaId")
                         .HasColumnType("nvarchar(450)");
+
 
                     b.Property<double>("Fiyat")
                         .HasColumnType("float");

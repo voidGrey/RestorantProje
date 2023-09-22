@@ -9,11 +9,11 @@ namespace RestorantMVC.Areas.Musteri.Controllers
     [Area("Musteri")]
     public class SiparisController : Controller
     {
-        private readonly SqlDbContext _context;
+        private readonly SqlDbContext dbContext;
 
         public SiparisController(SqlDbContext context)
         {
-            _context = context;
+            dbContext = context;
         }
 
         /// <summary>
@@ -23,14 +23,14 @@ namespace RestorantMVC.Areas.Musteri.Controllers
         {
             //MasaID'nin siparişleri listelenir.
             int masaid = Convert.ToInt32(HttpContext.Request.Cookies["MasaId"]);
-            var siparisMasterlar = _context.SiparisMasterlar.Where(s => s.MasaId == masaid);
+            var siparisMasterlar = dbContext.SiparisMasterlar.Where(s => s.MasaId == masaid);
             var siparisMaster = siparisMasterlar.FirstOrDefault();
-            var siparisDetaylari = _context.SiparisDetaylar.Where(d => d.SiparisMasterId == siparisMaster.ID).ToList();
+            var siparisDetaylari = dbContext.SiparisDetaylar.Where(d => d.SiparisMasterId == siparisMaster.ID).ToList();
 
             // Urun'lerin isimleri null dönmesin diye ürünlerin atamasını DB'den atıyorum.
             foreach (var item in siparisDetaylari)
                 if (item.Urun == null)
-                    item.Urun = _context.Urunler.Find(item.UrunId);
+                    item.Urun = await dbContext.Urunler.FindAsync(item.UrunId);
 
             return View(siparisDetaylari);
         }
@@ -41,12 +41,12 @@ namespace RestorantMVC.Areas.Musteri.Controllers
         /// <param name="id">Sipariş detayının kimliği</param>
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.SiparisDetaylar == null)
+            if (id == null || dbContext.SiparisDetaylar == null)
             {
                 return NotFound();
             }
 
-            var siparisDetay = await _context.SiparisDetaylar
+            var siparisDetay = await dbContext.SiparisDetaylar
             .Include(s => s.SiparisMaster)
             .Include(s => s.Urun)
             .FirstOrDefaultAsync(m => m.ID == id);
@@ -63,8 +63,8 @@ namespace RestorantMVC.Areas.Musteri.Controllers
         /// </summary>
         public IActionResult Create()
         {
-            ViewData["SiparisMasterId"] = new SelectList(_context.SiparisMasterlar , "ID" , "ID");
-            ViewData["UrunId"] = new SelectList(_context.Urunler , "ID" , "UrunAciklama");
+            ViewData["SiparisMasterId"] = new SelectList(dbContext.SiparisMasterlar , "ID" , "ID");
+            ViewData["UrunId"] = new SelectList(dbContext.Urunler , "ID" , "UrunAciklama");
             return View();
         }
 
@@ -78,12 +78,12 @@ namespace RestorantMVC.Areas.Musteri.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(siparisDetay);
-                await _context.SaveChangesAsync();
+                dbContext.Add(siparisDetay);
+                await dbContext.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SiparisMasterId"] = new SelectList(_context.SiparisMasterlar , "ID" , "ID" , siparisDetay.SiparisMasterId);
-            ViewData["UrunId"] = new SelectList(_context.Urunler , "ID" , "UrunAciklama" , siparisDetay.UrunId);
+            ViewData["SiparisMasterId"] = new SelectList(dbContext.SiparisMasterlar , "ID" , "ID" , siparisDetay.SiparisMasterId);
+            ViewData["UrunId"] = new SelectList(dbContext.Urunler , "ID" , "UrunAciklama" , siparisDetay.UrunId);
             return View(siparisDetay);
         }
 
@@ -93,18 +93,18 @@ namespace RestorantMVC.Areas.Musteri.Controllers
         /// <param name="id">Düzenlenecek sipariş detayının kimliği</param>
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.SiparisDetaylar == null)
+            if (id == null || dbContext.SiparisDetaylar == null)
             {
                 return NotFound();
             }
 
-            var siparisDetay = await _context.SiparisDetaylar.FindAsync(id);
+            var siparisDetay = await dbContext.SiparisDetaylar.FindAsync(id);
             if (siparisDetay == null)
             {
                 return NotFound();
             }
-            ViewData["SiparisMasterId"] = new SelectList(_context.SiparisMasterlar , "ID" , "ID" , siparisDetay.SiparisMasterId);
-            ViewData["UrunId"] = new SelectList(_context.Urunler , "ID" , "UrunAciklama" , siparisDetay.UrunId);
+            ViewData["SiparisMasterId"] = new SelectList(dbContext.SiparisMasterlar , "ID" , "ID" , siparisDetay.SiparisMasterId);
+            ViewData["UrunId"] = new SelectList(dbContext.Urunler , "ID" , "UrunAciklama" , siparisDetay.UrunId);
 
             return View(siparisDetay);
         }
@@ -127,8 +127,8 @@ namespace RestorantMVC.Areas.Musteri.Controllers
             {
                 try
                 {
-                    _context.Update(siparisDetay);
-                    await _context.SaveChangesAsync();
+                    dbContext.Update(siparisDetay);
+                    await dbContext.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -143,8 +143,8 @@ namespace RestorantMVC.Areas.Musteri.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SiparisMasterId"] = new SelectList(_context.SiparisMasterlar , "ID" , "ID" , siparisDetay.SiparisMasterId);
-            ViewData["UrunId"] = new SelectList(_context.Urunler , "ID" , "UrunAciklama" , siparisDetay.UrunId);
+            ViewData["SiparisMasterId"] = new SelectList(dbContext.SiparisMasterlar , "ID" , "ID" , siparisDetay.SiparisMasterId);
+            ViewData["UrunId"] = new SelectList(dbContext.Urunler , "ID" , "UrunAciklama" , siparisDetay.UrunId);
             return View(siparisDetay);
         }
 
@@ -154,12 +154,12 @@ namespace RestorantMVC.Areas.Musteri.Controllers
         /// <param name="id">Silinecek sipariş detayının kimliği</param>
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.SiparisDetaylar == null)
+            if (id == null || dbContext.SiparisDetaylar == null)
             {
                 return NotFound();
             }
 
-            var siparisDetay = await _context.SiparisDetaylar
+            var siparisDetay = await dbContext.SiparisDetaylar
             .Include(s => s.SiparisMaster)
             .Include(s => s.Urun)
             .FirstOrDefaultAsync(m => m.ID == id);
@@ -179,23 +179,34 @@ namespace RestorantMVC.Areas.Musteri.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.SiparisDetaylar == null)
+            if (dbContext.SiparisDetaylar == null)
             {
                 return Problem("Entity set 'SqlDbContext.SiparisDetaylar'  is null.");
             }
-            var siparisDetay = await _context.SiparisDetaylar.FindAsync(id);
+            var siparisDetay = await dbContext.SiparisDetaylar.FindAsync(id);
             if (siparisDetay != null)
             {
-                _context.SiparisDetaylar.Remove(siparisDetay);
+                dbContext.SiparisDetaylar.Remove(siparisDetay);
             }
 
-            await _context.SaveChangesAsync();
+            await dbContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool SiparisDetayExists(int id)
         {
-            return (_context.SiparisDetaylar?.Any(e => e.ID == id)).GetValueOrDefault();
+            return (dbContext.SiparisDetaylar?.Any(e => e.ID == id)).GetValueOrDefault();
         }
+
+        public async Task<IActionResult> Onayla(int id)
+        {
+            var siparismaster = await dbContext.SiparisMasterlar.FindAsync(id);
+            siparismaster.status = (SiparisMaster.Status)2;
+            dbContext.Update(siparismaster);
+            await dbContext.SaveChangesAsync();
+
+            return View(siparismaster);
+        }
+
     }
 }

@@ -16,10 +16,12 @@ namespace RestorantMVC.Areas.Admin.Controllers
         private readonly SqlDbContext _context;
         private readonly UserManager<Firma> userManager;
 
+
         public UrunController(SqlDbContext context, UserManager<Firma> userManager)
         {
             _context = context;
             this.userManager = userManager;
+
         }
 
         // GET: Admin/Urun
@@ -28,6 +30,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
             await this.SetUser(userManager);
 
             var sqlDbContext = _context.Urunler.Include(u => u.Kategori);
+
             return View(await sqlDbContext.ToListAsync());
         }
 
@@ -37,11 +40,12 @@ namespace RestorantMVC.Areas.Admin.Controllers
             await this.SetUser(userManager);
 
             if (id == null || _context.Urunler == null)
+
             {
                 return NotFound();
             }
 
-            var urun = await _context.Urunler
+            var urun = await dbContext.Urunler
                 .Include(u => u.Kategori)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (urun == null)
@@ -58,6 +62,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
             await this.SetUser(userManager);
 
             ViewData["KategoriID"] = new SelectList(_context.Kategoriler , "ID" , "KategoriAdi");
+
             return View();
         }
 
@@ -72,18 +77,18 @@ namespace RestorantMVC.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
-                ViewData["KategoriID"] = new SelectList(_context.Kategoriler , "ID" , "KategoriAdi");
+                ViewData["KategoriID"] = new SelectList(dbContext.Kategoriler , "ID" , "KategoriAdi");
                 return View(urun);
             }
             try
             {
-                _context.Urunler.Add(urun);
-                _context.SaveChanges();
+                dbContext.Urunler.Add(urun);
+                await dbContext.SaveChangesAsync();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 ModelState.AddModelError("" , "Aynı İsimde bir ürün zaten mevcut");
-                ViewData["KategoriID"] = new SelectList(_context.Kategoriler , "ID" , "KategoriAdi");
+                ViewData["KategoriID"] = new SelectList(dbContext.Kategoriler , "ID" , "KategoriAdi");
                 return View(urun);
             }
             return RedirectToAction("Index");
@@ -96,6 +101,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
 
             var urun = _context.Urunler.Find(id);
             ViewData["KategoriID"] = new SelectList(_context.Kategoriler , "ID" , "KategoriAdi");
+
             return View(urun);
         }
 
@@ -118,13 +124,13 @@ namespace RestorantMVC.Areas.Admin.Controllers
             }
             try
             {
-                _context.Urunler.Update(urun);
-                _context.SaveChanges();
+                dbContext.Urunler.Update(urun);
+                await dbContext.SaveChangesAsync();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 ModelState.AddModelError("" , "Aynı İsimde bir urun zaten mevcut");
-                ViewData["KategoriID"] = new SelectList(_context.Kategoriler , "ID" , "KategoriAdi");
+                ViewData["KategoriID"] = new SelectList(dbContext.Kategoriler , "ID" , "KategoriAdi");
                 return View(urun);
             }
             return RedirectToAction("Index");
@@ -136,11 +142,12 @@ namespace RestorantMVC.Areas.Admin.Controllers
             await this.SetUser(userManager);
 
             if (id == null || _context.Urunler == null)
+
             {
                 return NotFound();
             }
 
-            var urun = await _context.Urunler
+            var urun = await dbContext.Urunler
                 .Include(u => u.Kategori)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (urun == null)
@@ -159,22 +166,23 @@ namespace RestorantMVC.Areas.Admin.Controllers
             await this.SetUser(userManager);
 
             if (_context.Urunler == null)
+
             {
                 return Problem("Entity set 'SqlDbContext.Urunler'  is null.");
             }
-            var urun = await _context.Urunler.FindAsync(id);
+            var urun = await dbContext.Urunler.FindAsync(id);
             if (urun != null)
             {
-                _context.Urunler.Remove(urun);
+                dbContext.Urunler.Remove(urun);
             }
 
-            await _context.SaveChangesAsync();
+            await dbContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool UrunExists(int id)
         {
-            return (_context.Urunler?.Any(e => e.ID == id)).GetValueOrDefault();
+            return (dbContext.Urunler?.Any(e => e.ID == id)).GetValueOrDefault();
         }
     }
 }
