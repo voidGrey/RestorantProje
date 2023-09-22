@@ -21,7 +21,6 @@ namespace RestorantMVC.Areas.Admin.Controllers
         {
             dbContext = context;
             this.userManager = userManager;
-
         }
 
         // GET: Admin/Urun

@@ -30,8 +30,9 @@ namespace RestorantMVC.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             await this.SetUser(userManager);
-
             firmaId = userManager.GetUserId(User);
+
+
             return dbContext.Kategoriler != null ? View(await dbContext.Kategoriler.FirmaFilter(firmaId).ToListAsync()) : Problem("Entity set 'SqlDbContext.Kategoriler'  is null.");
 
         }
