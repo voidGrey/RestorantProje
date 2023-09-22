@@ -1,7 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using DAL.Contexts;
+using Entites.Concrate;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using QRCoder;
 using RestorantMVC.Areas.Admin.Models;
+using RestorantMVC.Extensions;
 using System.Drawing;
 using System.Drawing.Imaging;
 
@@ -11,9 +15,19 @@ namespace RestorantMVC.Areas.Admin.Controllers
     [Authorize]
     public class QRKodController : Controller
     {
-        [HttpGet]
-        public IActionResult QRKodOlustur()
+        private readonly SqlDbContext dbContext;
+        private readonly UserManager<Firma> userManager;
+
+        public QRKodController(SqlDbContext dbContext, UserManager<Firma> userManager)
         {
+            this.dbContext = dbContext;
+            this.userManager = userManager;
+        }
+        [HttpGet]
+        public async Task<IActionResult> QRKodOlustur()
+        {
+            await this.SetUser(userManager);
+
             return View();
         }
 
@@ -28,8 +42,10 @@ namespace RestorantMVC.Areas.Admin.Controllers
         /// <param name="QrUri">QRCoder için oluşturulmu formatlı bir string</param>
 
         [HttpPost]
-        public IActionResult QRKodOlustur(QRCodeModel qRCode)
+        public async Task<IActionResult> QRKodOlustur(QRCodeModel qRCode)
         {
+            await this.SetUser(userManager);
+
             //QRCodeGenerator qrGenarator = new QRCodeGenerator();
             //QRCodeData qrCodeData = qrGenarator.CreateQrCode("GELECEK URL MASA ID V.B." , QRCodeGenerator.ECCLevel.Q);
             //QRCode qRCode = new(qrCodeData);

@@ -1,6 +1,10 @@
 using DAL.Contexts;
+using Entites.Concrate;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using RestorantMVC.AutoMapperConfig;
+using RestorantMVC.Extensions;
 
 namespace RestorantMVC
 {
@@ -13,10 +17,12 @@ namespace RestorantMVC
             // Add services to the container.
 
             builder.Services.AddControllersWithViews();
-            builder.Services.AddDbContext<SqlDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("SqlString")));
+            //builder.Services.AddDbContext<SqlDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("SqlString")));
             builder.Services.AddSingleton<IHttpContextAccessor , HttpContextAccessor>();
 
-            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(opt => { opt.LoginPath = "/Account/Login/"; });
+            builder.Services.IdentityAyarlari();
+            builder.Services.AddAutoMapper(typeof(MyAutoMapper));
+
 
             var app = builder.Build();
 

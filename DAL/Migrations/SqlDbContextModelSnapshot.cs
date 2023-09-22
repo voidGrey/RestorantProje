@@ -22,6 +22,147 @@ namespace DAL.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Entites.Concrate.Adres", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("CaddeSokak")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FirmaId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("IlceId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PostaKodu")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SehirId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdateTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("FirmaId")
+                        .IsUnique()
+                        .HasFilter("[FirmaId] IS NOT NULL");
+
+                    b.HasIndex("IlceId");
+
+                    b.HasIndex("SehirId");
+
+                    b.ToTable("Adres");
+                });
+
+            modelBuilder.Entity("Entites.Concrate.Firma", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("FirmaAdi")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("VergiDairesi")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VergiNo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("Entites.Concrate.Ilce", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("IlceAdi")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("SehirId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SehirId");
+
+                    b.ToTable("Ilceler");
+                });
+
             modelBuilder.Entity("Entites.Concrate.Kategori", b =>
                 {
                     b.Property<int>("ID")
@@ -33,7 +174,11 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 22, 15, 29, 20, 858, DateTimeKind.Local).AddTicks(9841));
+                        .HasDefaultValue(new DateTime(2023, 9, 20, 16, 32, 56, 592, DateTimeKind.Local).AddTicks(784));
+
+                    b.Property<string>("FirmaId")
+                        .HasColumnType("nvarchar(450)");
+
 
                     b.Property<string>("KategoriAciklama")
                         .IsRequired()
@@ -45,10 +190,12 @@ namespace DAL.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<DateTime>("UpdateTime")
+                    b.Property<DateTime?>("UpdateTime")
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("FirmaId");
 
                     b.HasIndex("KategoriAdi")
                         .IsUnique();
@@ -59,42 +206,42 @@ namespace DAL.Migrations
                         new
                         {
                             ID = 1,
-                            CreateTime = new DateTime(2023, 9, 22, 15, 29, 20, 859, DateTimeKind.Local).AddTicks(1030),
+                            CreateTime = new DateTime(2023, 9, 20, 16, 32, 56, 592, DateTimeKind.Local).AddTicks(1319),
+
                             KategoriAciklama = "Yiyecekler",
-                            KategoriAdi = "Ana Yemek",
-                            UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            KategoriAdi = "Ana Yemek"
                         },
                         new
                         {
                             ID = 2,
-                            CreateTime = new DateTime(2023, 9, 22, 15, 29, 20, 859, DateTimeKind.Local).AddTicks(1036),
+                            CreateTime = new DateTime(2023, 9, 20, 16, 32, 56, 592, DateTimeKind.Local).AddTicks(1321),
+
                             KategoriAciklama = "Çorba v.b.",
-                            KategoriAdi = "Ara Sıcaklar",
-                            UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            KategoriAdi = "Ara Sıcaklar"
                         },
                         new
                         {
                             ID = 3,
-                            CreateTime = new DateTime(2023, 9, 22, 15, 29, 20, 859, DateTimeKind.Local).AddTicks(1037),
+                            CreateTime = new DateTime(2023, 9, 20, 16, 32, 56, 592, DateTimeKind.Local).AddTicks(1322),
+
                             KategoriAciklama = "Tatlılar",
-                            KategoriAdi = "Tatlı",
-                            UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            KategoriAdi = "Tatlı"
                         },
                         new
                         {
                             ID = 4,
-                            CreateTime = new DateTime(2023, 9, 22, 15, 29, 20, 859, DateTimeKind.Local).AddTicks(1039),
+                            CreateTime = new DateTime(2023, 9, 20, 16, 32, 56, 592, DateTimeKind.Local).AddTicks(1323),
+
                             KategoriAciklama = "Şarap v.b.",
-                            KategoriAdi = "Alkollü İçecekelr",
-                            UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            KategoriAdi = "Alkollü İçecekelr"
                         },
                         new
                         {
                             ID = 5,
-                            CreateTime = new DateTime(2023, 9, 22, 15, 29, 20, 859, DateTimeKind.Local).AddTicks(1040),
+                            CreateTime = new DateTime(2023, 9, 20, 16, 32, 56, 592, DateTimeKind.Local).AddTicks(1324),
+
                             KategoriAciklama = "Kola, su v.b.",
-                            KategoriAdi = "Alkolsüz İçecekler",
-                            UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            KategoriAdi = "Alkolsüz İçecekler"
                         });
                 });
 
@@ -109,7 +256,11 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 22, 15, 29, 20, 859, DateTimeKind.Local).AddTicks(3726));
+                        .HasDefaultValue(new DateTime(2023, 9, 20, 16, 32, 56, 592, DateTimeKind.Local).AddTicks(2703));
+
+                    b.Property<string>("FirmaId")
+                        .HasColumnType("nvarchar(450)");
+
 
                     b.Property<string>("KullaniciAdi")
                         .IsRequired()
@@ -121,10 +272,12 @@ namespace DAL.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<DateTime>("UpdateTime")
+                    b.Property<DateTime?>("UpdateTime")
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("FirmaId");
 
                     b.HasIndex("KullaniciAdi")
                         .IsUnique();
@@ -135,10 +288,10 @@ namespace DAL.Migrations
                         new
                         {
                             ID = 1,
-                            CreateTime = new DateTime(2023, 9, 22, 15, 29, 20, 859, DateTimeKind.Local).AddTicks(4945),
+                            CreateTime = new DateTime(2023, 9, 20, 16, 32, 56, 592, DateTimeKind.Local).AddTicks(3111),
+
                             KullaniciAdi = "Admin",
-                            Sifre = "123",
-                            UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Sifre = "123"
                         });
                 });
 
@@ -153,7 +306,11 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 22, 15, 29, 20, 860, DateTimeKind.Local).AddTicks(7261));
+                        .HasDefaultValue(new DateTime(2023, 9, 20, 16, 32, 56, 592, DateTimeKind.Local).AddTicks(9426));
+
+                    b.Property<string>("FirmaId")
+                        .HasColumnType("nvarchar(450)");
+
 
                     b.Property<int>("MasaID")
                         .HasColumnType("int");
@@ -161,10 +318,12 @@ namespace DAL.Migrations
                     b.Property<string>("MasaSifresi")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("UpdateTime")
+                    b.Property<DateTime?>("UpdateTime")
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("FirmaId");
 
                     b.HasIndex("MasaID")
                         .IsUnique();
@@ -176,22 +335,19 @@ namespace DAL.Migrations
                         {
                             ID = 1,
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            MasaID = 1,
-                            UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            MasaID = 1
                         },
                         new
                         {
                             ID = 2,
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            MasaID = 2,
-                            UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            MasaID = 2
                         },
                         new
                         {
                             ID = 3,
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            MasaID = 3,
-                            UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            MasaID = 3
                         });
                 });
 
@@ -206,17 +362,23 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 22, 15, 29, 20, 859, DateTimeKind.Local).AddTicks(7183));
+                        .HasDefaultValue(new DateTime(2023, 9, 20, 16, 32, 56, 592, DateTimeKind.Local).AddTicks(4270));
+
+                    b.Property<string>("FirmaId")
+                        .HasColumnType("nvarchar(450)");
+
 
                     b.Property<string>("RoleAdi")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<DateTime>("UpdateTime")
+                    b.Property<DateTime?>("UpdateTime")
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("FirmaId");
 
                     b.HasIndex("RoleAdi")
                         .IsUnique();
@@ -227,10 +389,39 @@ namespace DAL.Migrations
                         new
                         {
                             ID = 1,
-                            CreateTime = new DateTime(2023, 9, 22, 15, 29, 20, 859, DateTimeKind.Local).AddTicks(8162),
-                            RoleAdi = "Admin",
-                            UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            CreateTime = new DateTime(2023, 9, 20, 16, 32, 56, 592, DateTimeKind.Local).AddTicks(4665),
+                            RoleAdi = "Admin"
+
                         });
+                });
+
+            modelBuilder.Entity("Entites.Concrate.Sehir", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("PlakaKodu")
+                        .HasMaxLength(3)
+                        .HasColumnType("nvarchar(3)");
+
+                    b.Property<string>("SehirAdi")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PlakaKodu")
+                        .IsUnique()
+                        .HasFilter("[PlakaKodu] IS NOT NULL");
+
+                    b.HasIndex("SehirAdi")
+                        .IsUnique();
+
+                    b.ToTable("Sehirler");
                 });
 
             modelBuilder.Entity("Entites.Concrate.SiparisDetay", b =>
@@ -247,7 +438,11 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 22, 15, 29, 20, 860, DateTimeKind.Local).AddTicks(367));
+                        .HasDefaultValue(new DateTime(2023, 9, 20, 16, 32, 56, 592, DateTimeKind.Local).AddTicks(6888));
+
+                    b.Property<string>("FirmaId")
+                        .HasColumnType("nvarchar(450)");
+
 
                     b.Property<double>("Fiyat")
                         .HasColumnType("float");
@@ -255,13 +450,15 @@ namespace DAL.Migrations
                     b.Property<int>("SiparisMasterId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("UpdateTime")
+                    b.Property<DateTime?>("UpdateTime")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("UrunId")
                         .HasColumnType("int");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("FirmaId");
 
                     b.HasIndex("SiparisMasterId");
 
@@ -284,7 +481,11 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 22, 15, 29, 20, 860, DateTimeKind.Local).AddTicks(4611));
+                        .HasDefaultValue(new DateTime(2023, 9, 20, 16, 32, 56, 592, DateTimeKind.Local).AddTicks(8327));
+
+                    b.Property<string>("FirmaId")
+                        .HasColumnType("nvarchar(450)");
+
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -295,13 +496,15 @@ namespace DAL.Migrations
                     b.Property<double?>("ToplamTutar")
                         .HasColumnType("float");
 
-                    b.Property<DateTime>("UpdateTime")
+                    b.Property<DateTime?>("UpdateTime")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("status")
                         .HasColumnType("int");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("FirmaId");
 
                     b.HasIndex("MasaId")
                         .IsUnique()
@@ -321,7 +524,11 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 22, 15, 29, 20, 861, DateTimeKind.Local).AddTicks(781));
+                        .HasDefaultValue(new DateTime(2023, 9, 20, 16, 32, 56, 593, DateTimeKind.Local).AddTicks(831));
+
+                    b.Property<string>("FirmaId")
+                        .HasColumnType("nvarchar(450)");
+
 
                     b.Property<double>("Fiyat")
                         .HasColumnType("float");
@@ -332,7 +539,7 @@ namespace DAL.Migrations
                     b.Property<int>("KategoriID")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("UpdateTime")
+                    b.Property<DateTime?>("UpdateTime")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UrunAciklama")
@@ -346,6 +553,8 @@ namespace DAL.Migrations
                         .HasColumnType("nvarchar(20)");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("FirmaId");
 
                     b.HasIndex("KategoriID");
 
@@ -361,7 +570,6 @@ namespace DAL.Migrations
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Fiyat = 85.0,
                             KategoriID = 4,
-                            UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UrunAciklama = "50",
                             UrunAdi = "Tuborg Gold"
                         },
@@ -371,7 +579,6 @@ namespace DAL.Migrations
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Fiyat = 85.0,
                             KategoriID = 4,
-                            UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UrunAciklama = "50",
                             UrunAdi = "Tuborg Red"
                         },
@@ -381,7 +588,6 @@ namespace DAL.Migrations
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Fiyat = 135.0,
                             KategoriID = 4,
-                            UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UrunAciklama = "50",
                             UrunAdi = "Viski Single"
                         },
@@ -391,7 +597,6 @@ namespace DAL.Migrations
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Fiyat = 270.0,
                             KategoriID = 4,
-                            UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UrunAciklama = "50",
                             UrunAdi = "Viski Double"
                         },
@@ -401,7 +606,6 @@ namespace DAL.Migrations
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Fiyat = 120.0,
                             KategoriID = 4,
-                            UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UrunAciklama = "50",
                             UrunAdi = "Vodka"
                         },
@@ -411,7 +615,6 @@ namespace DAL.Migrations
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Fiyat = 120.0,
                             KategoriID = 4,
-                            UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UrunAciklama = "50",
                             UrunAdi = "Cin"
                         },
@@ -421,7 +624,6 @@ namespace DAL.Migrations
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Fiyat = 240.0,
                             KategoriID = 1,
-                            UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UrunAciklama = "Izgara biftek",
                             UrunAdi = "Biftek"
                         },
@@ -431,7 +633,6 @@ namespace DAL.Migrations
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Fiyat = 200.0,
                             KategoriID = 1,
-                            UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UrunAciklama = "Makarna",
                             UrunAdi = "Makarna"
                         },
@@ -441,7 +642,6 @@ namespace DAL.Migrations
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Fiyat = 100.0,
                             KategoriID = 1,
-                            UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UrunAciklama = "Pilav",
                             UrunAdi = "Pilav"
                         },
@@ -451,7 +651,6 @@ namespace DAL.Migrations
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Fiyat = 100.0,
                             KategoriID = 1,
-                            UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UrunAciklama = "Izgara tavuk",
                             UrunAdi = "Tavuk"
                         },
@@ -461,7 +660,6 @@ namespace DAL.Migrations
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Fiyat = 180.0,
                             KategoriID = 1,
-                            UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UrunAciklama = "Izgara köfte",
                             UrunAdi = "Köfte"
                         },
@@ -471,7 +669,6 @@ namespace DAL.Migrations
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Fiyat = 200.0,
                             KategoriID = 1,
-                            UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UrunAciklama = "bursa iskender",
                             UrunAdi = "İskender"
                         },
@@ -481,7 +678,6 @@ namespace DAL.Migrations
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Fiyat = 240.0,
                             KategoriID = 3,
-                            UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UrunAciklama = "güllaç",
                             UrunAdi = "Güllaç"
                         },
@@ -491,7 +687,6 @@ namespace DAL.Migrations
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Fiyat = 240.0,
                             KategoriID = 3,
-                            UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UrunAciklama = "kazandibi",
                             UrunAdi = "Kazandibi"
                         },
@@ -501,7 +696,6 @@ namespace DAL.Migrations
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Fiyat = 240.0,
                             KategoriID = 3,
-                            UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UrunAciklama = "kazandibi",
                             UrunAdi = "Tavuk göğüsü"
                         },
@@ -511,7 +705,6 @@ namespace DAL.Migrations
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Fiyat = 240.0,
                             KategoriID = 3,
-                            UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UrunAciklama = "kazandibi",
                             UrunAdi = "Sufle"
                         },
@@ -521,7 +714,6 @@ namespace DAL.Migrations
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Fiyat = 240.0,
                             KategoriID = 3,
-                            UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UrunAciklama = "kazandibi",
                             UrunAdi = "Cheese Kek"
                         },
@@ -531,7 +723,6 @@ namespace DAL.Migrations
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Fiyat = 24.0,
                             KategoriID = 5,
-                            UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UrunAciklama = "Kola",
                             UrunAdi = "Kola"
                         },
@@ -541,7 +732,6 @@ namespace DAL.Migrations
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Fiyat = 24.0,
                             KategoriID = 5,
-                            UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UrunAciklama = "Sarı Kola",
                             UrunAdi = "Sarı Kola"
                         },
@@ -551,7 +741,6 @@ namespace DAL.Migrations
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Fiyat = 14.0,
                             KategoriID = 5,
-                            UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UrunAciklama = "Su",
                             UrunAdi = "Su"
                         },
@@ -561,7 +750,6 @@ namespace DAL.Migrations
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Fiyat = 24.0,
                             KategoriID = 5,
-                            UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UrunAciklama = "Gazoz",
                             UrunAdi = "Gazoz"
                         },
@@ -571,7 +759,6 @@ namespace DAL.Migrations
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Fiyat = 24.0,
                             KategoriID = 5,
-                            UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UrunAciklama = "Ayran",
                             UrunAdi = "Ayran"
                         },
@@ -581,7 +768,6 @@ namespace DAL.Migrations
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Fiyat = 14.0,
                             KategoriID = 5,
-                            UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UrunAciklama = "Çay",
                             UrunAdi = "Çay"
                         },
@@ -591,7 +777,6 @@ namespace DAL.Migrations
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Fiyat = 14.0,
                             KategoriID = 2,
-                            UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UrunAciklama = "kazandibi",
                             UrunAdi = "Mercimek Ç."
                         },
@@ -601,7 +786,6 @@ namespace DAL.Migrations
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Fiyat = 14.0,
                             KategoriID = 2,
-                            UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UrunAciklama = "kazandibi",
                             UrunAdi = "Ezogelin Ç."
                         },
@@ -611,7 +795,6 @@ namespace DAL.Migrations
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Fiyat = 14.0,
                             KategoriID = 2,
-                            UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UrunAciklama = "kazandibi",
                             UrunAdi = "Domates Ç."
                         },
@@ -621,7 +804,6 @@ namespace DAL.Migrations
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Fiyat = 14.0,
                             KategoriID = 2,
-                            UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UrunAciklama = "kazandibi",
                             UrunAdi = "Tarhana Ç."
                         },
@@ -631,7 +813,6 @@ namespace DAL.Migrations
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Fiyat = 14.0,
                             KategoriID = 2,
-                            UpdateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UrunAciklama = "kazandibi",
                             UrunAdi = "İşembe Ç."
                         });
@@ -652,8 +833,215 @@ namespace DAL.Migrations
                     b.ToTable("KullaniciRole");
                 });
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("Entites.Concrate.Adres", b =>
+                {
+                    b.HasOne("Entites.Concrate.Firma", "Firma")
+                        .WithOne("Adres")
+                        .HasForeignKey("Entites.Concrate.Adres", "FirmaId");
+
+                    b.HasOne("Entites.Concrate.Ilce", "Ilce")
+                        .WithMany()
+                        .HasForeignKey("IlceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entites.Concrate.Sehir", "Sehir")
+                        .WithMany()
+                        .HasForeignKey("SehirId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Firma");
+
+                    b.Navigation("Ilce");
+
+                    b.Navigation("Sehir");
+                });
+
+            modelBuilder.Entity("Entites.Concrate.Ilce", b =>
+                {
+                    b.HasOne("Entites.Concrate.Sehir", "Sehir")
+                        .WithMany("Ilceler")
+                        .HasForeignKey("SehirId");
+
+                    b.Navigation("Sehir");
+                });
+
+            modelBuilder.Entity("Entites.Concrate.Kategori", b =>
+                {
+                    b.HasOne("Entites.Concrate.Firma", "Firma")
+                        .WithMany()
+                        .HasForeignKey("FirmaId");
+
+                    b.Navigation("Firma");
+                });
+
+            modelBuilder.Entity("Entites.Concrate.Kullanici", b =>
+                {
+                    b.HasOne("Entites.Concrate.Firma", "Firma")
+                        .WithMany()
+                        .HasForeignKey("FirmaId");
+
+                    b.Navigation("Firma");
+                });
+
+            modelBuilder.Entity("Entites.Concrate.Masa", b =>
+                {
+                    b.HasOne("Entites.Concrate.Firma", "Firma")
+                        .WithMany()
+                        .HasForeignKey("FirmaId");
+
+                    b.Navigation("Firma");
+                });
+
+            modelBuilder.Entity("Entites.Concrate.Role", b =>
+                {
+                    b.HasOne("Entites.Concrate.Firma", "Firma")
+                        .WithMany()
+                        .HasForeignKey("FirmaId");
+
+                    b.Navigation("Firma");
+                });
+
             modelBuilder.Entity("Entites.Concrate.SiparisDetay", b =>
                 {
+                    b.HasOne("Entites.Concrate.Firma", "Firma")
+                        .WithMany()
+                        .HasForeignKey("FirmaId");
+
                     b.HasOne("Entites.Concrate.SiparisMaster", "SiparisMaster")
                         .WithMany("SiparisDetay")
                         .HasForeignKey("SiparisMasterId")
@@ -666,6 +1054,8 @@ namespace DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Firma");
+
                     b.Navigation("SiparisMaster");
 
                     b.Navigation("Urun");
@@ -673,20 +1063,32 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("Entites.Concrate.SiparisMaster", b =>
                 {
+                    b.HasOne("Entites.Concrate.Firma", "Firma")
+                        .WithMany()
+                        .HasForeignKey("FirmaId");
+
                     b.HasOne("Entites.Concrate.Masa", "Masa")
                         .WithOne("Siparis")
                         .HasForeignKey("Entites.Concrate.SiparisMaster", "MasaId");
+
+                    b.Navigation("Firma");
 
                     b.Navigation("Masa");
                 });
 
             modelBuilder.Entity("Entites.Concrate.Urun", b =>
                 {
+                    b.HasOne("Entites.Concrate.Firma", "Firma")
+                        .WithMany()
+                        .HasForeignKey("FirmaId");
+
                     b.HasOne("Entites.Concrate.Kategori", "Kategori")
                         .WithMany("Stoklar")
                         .HasForeignKey("KategoriID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Firma");
 
                     b.Navigation("Kategori");
                 });
@@ -706,6 +1108,62 @@ namespace DAL.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("Entites.Concrate.Firma", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("Entites.Concrate.Firma", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entites.Concrate.Firma", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("Entites.Concrate.Firma", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Entites.Concrate.Firma", b =>
+                {
+                    b.Navigation("Adres");
+                });
+
             modelBuilder.Entity("Entites.Concrate.Kategori", b =>
                 {
                     b.Navigation("Stoklar");
@@ -714,6 +1172,11 @@ namespace DAL.Migrations
             modelBuilder.Entity("Entites.Concrate.Masa", b =>
                 {
                     b.Navigation("Siparis");
+                });
+
+            modelBuilder.Entity("Entites.Concrate.Sehir", b =>
+                {
+                    b.Navigation("Ilceler");
                 });
 
             modelBuilder.Entity("Entites.Concrate.SiparisMaster", b =>

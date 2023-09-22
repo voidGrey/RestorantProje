@@ -1,9 +1,11 @@
 ﻿using DAL.Contexts;
 using Entites.Concrate;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using RestorantMVC.Extensions;
 
 namespace RestorantMVC.Areas.Admin.Controllers
 {
@@ -11,24 +13,34 @@ namespace RestorantMVC.Areas.Admin.Controllers
     [Authorize]
     public class UrunController : Controller
     {
-        private readonly SqlDbContext dbContext;
+        private readonly SqlDbContext _context;
+        private readonly UserManager<Firma> userManager;
 
-        public UrunController(SqlDbContext context)
+
+        public UrunController(SqlDbContext context, UserManager<Firma> userManager)
         {
-            dbContext = context;
+            _context = context;
+            this.userManager = userManager;
+
         }
 
         // GET: Admin/Urun
         public async Task<IActionResult> Index()
         {
-            var sqlDbContext = dbContext.Urunler.Include(u => u.Kategori);
+            await this.SetUser(userManager);
+
+            var sqlDbContext = _context.Urunler.Include(u => u.Kategori);
+
             return View(await sqlDbContext.ToListAsync());
         }
 
         // GET: Admin/Urun/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || dbContext.Urunler == null)
+            await this.SetUser(userManager);
+
+            if (id == null || _context.Urunler == null)
+
             {
                 return NotFound();
             }
@@ -45,9 +57,12 @@ namespace RestorantMVC.Areas.Admin.Controllers
         }
 
         // GET: Admin/Urun/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["KategoriID"] = new SelectList(dbContext.Kategoriler , "ID" , "KategoriAdi");
+            await this.SetUser(userManager);
+
+            ViewData["KategoriID"] = new SelectList(_context.Kategoriler , "ID" , "KategoriAdi");
+
             return View();
         }
 
@@ -58,6 +73,8 @@ namespace RestorantMVC.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("UrunAdi,UrunAciklama,FotografLink,Fiyat,KategoriID,ID,CreateTime,UpdateTime")] Urun urun)
         {
+            await this.SetUser(userManager);
+
             if (ModelState.IsValid)
             {
                 ViewData["KategoriID"] = new SelectList(dbContext.Kategoriler , "ID" , "KategoriAdi");
@@ -80,8 +97,11 @@ namespace RestorantMVC.Areas.Admin.Controllers
         // GET: Admin/Urun/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            var urun = await dbContext.Urunler.FindAsync(id);
-            ViewData["KategoriID"] = new SelectList(dbContext.Kategoriler , "ID" , "KategoriAdi");
+            await this.SetUser(userManager);
+
+            var urun = _context.Urunler.Find(id);
+            ViewData["KategoriID"] = new SelectList(_context.Kategoriler , "ID" , "KategoriAdi");
+
             return View(urun);
         }
 
@@ -92,6 +112,8 @@ namespace RestorantMVC.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id , [Bind("UrunAdi,UrunAciklama,FotografLink,Fiyat,KategoriID,ID,CreateTime,UpdateTime")] Urun urun)
         {
+            await this.SetUser(userManager);
+
             if (id != urun.ID)
             {
                 return NotFound();
@@ -117,7 +139,10 @@ namespace RestorantMVC.Areas.Admin.Controllers
         // GET: Admin/Urun/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || dbContext.Urunler == null)
+            await this.SetUser(userManager);
+
+            if (id == null || _context.Urunler == null)
+
             {
                 return NotFound();
             }
@@ -138,7 +163,10 @@ namespace RestorantMVC.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (dbContext.Urunler == null)
+            await this.SetUser(userManager);
+
+            if (_context.Urunler == null)
+
             {
                 return Problem("Entity set 'SqlDbContext.Urunler'  is null.");
             }
