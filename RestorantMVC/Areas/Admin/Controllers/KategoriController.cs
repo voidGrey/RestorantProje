@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RestorantMVC.Extensions;
+using System.Security.Claims;
 
 namespace RestorantMVC.Areas.Admin.Controllers
 {
@@ -14,32 +15,32 @@ namespace RestorantMVC.Areas.Admin.Controllers
     {
         private readonly SqlDbContext _context;
         private readonly UserManager<Firma> userManager;
-        private Firma firma;
+        private string firmaId;
 
         public KategoriController(SqlDbContext context , UserManager<Firma> userManager)
         {
             _context = context;
             this.userManager = userManager;
-            AssingUser();
+            //AssingUser();
+            
         }
-        private async void AssingUser() { firma = await userManager.GetUserAsync(User); }
         // GET: Admin/Kategori
         public async Task<IActionResult> Index()
         {
-
-            return _context.Kategoriler != null ? View(await _context.Kategoriler.FirmaFilter(firma.Id).ToListAsync()) : Problem("Entity set 'SqlDbContext.Kategoriler'  is null.");
+            firmaId = userManager.GetUserId(User);
+            return _context.Kategoriler != null ? View(await _context.Kategoriler.FirmaFilter(firmaId).ToListAsync()) : Problem("Entity set 'SqlDbContext.Kategoriler'  is null.");
         }
 
         // GET: Admin/Kategori/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-
+            firmaId = userManager.GetUserId(User);
             if (id == null || _context.Kategoriler == null)
             {
                 return NotFound();
             }
 
-            var kategori = await _context.Kategoriler.FirmaFilter(firma.Id)
+            var kategori = await _context.Kategoriler.FirmaFilter(firmaId)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (kategori == null)
             {
@@ -63,6 +64,8 @@ namespace RestorantMVC.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("KategoriAdi,KategoriAciklama,ID,CreateTime,UpdateTime")] Kategori kategori)
         {
+            firmaId = userManager.GetUserId(User);
+            kategori.FirmaId = firmaId;
             if (ModelState.IsValid)
             {
                 return View(kategori);
@@ -115,12 +118,14 @@ namespace RestorantMVC.Areas.Admin.Controllers
         // GET: Admin/Kategori/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            firmaId = userManager.GetUserId(User);
+
             if (id == null || _context.Kategoriler == null)
             {
                 return NotFound();
             }
 
-            var kategori = await _context.Kategoriler
+            var kategori = await _context.Kategoriler.FirmaFilter(firmaId)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (kategori == null)
             {
@@ -135,6 +140,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+
             if (_context.Kategoriler == null)
             {
                 return Problem("Entity set 'SqlDbContext.Kategoriler'  is null.");
