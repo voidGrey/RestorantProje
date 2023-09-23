@@ -1,6 +1,10 @@
 ﻿using DAL.Contexts;
 using Entites.Concrate;
+using Google.Protobuf.WellKnownTypes;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.EntityFrameworkCore;
+using RestorantMVC.Extensions;
 
 namespace RestorantMVC.Controllers
 {
@@ -25,15 +29,20 @@ namespace RestorantMVC.Controllers
         /// ID ile gelen kullanıcıya Cookie yapıştırarak tanınmasını sağlar.
         /// </summary>
         /// <param name="id">MasaID Değeri</param>
-        public async Task<IActionResult> Scan(int id)
+        public async Task<IActionResult> Scan(int id, string f)
         {
+            byte[] firmaId = WebEncoders.Base64UrlDecode(f);
+            string decryptValue = await RestorantExtension.DecryptAsync(firmaId,"YeyoYoOyeŞifrehehe");
+
+            
+
             if (id == null || string.IsNullOrEmpty(id.ToString()) || id == 0)
             {
                 return Content("Okuttuğunuz QR Geçersiz veya Zarar görmüş lütfen bir garsondan yardım isteyiniz.");
             }
             else
             {
-                var masa = await dbContext.Masalar.FindAsync(id);
+                var masa = await dbContext.Masalar.FirmaFilter(decryptValue).Where(p=> p.MasaID == id).FirstOrDefaultAsync();
 
                 if (string.IsNullOrEmpty(masa.MasaSifresi)) // Masa şifresi var mı diye kontrol edilir.
                 {
