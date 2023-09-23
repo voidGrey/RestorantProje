@@ -17,6 +17,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
     {
         private readonly SqlDbContext dbContext;
         private readonly UserManager<Firma> userManager;
+        private string firmaId;
 
         public QRKodController(SqlDbContext dbContext, UserManager<Firma> userManager)
         {
@@ -45,16 +46,16 @@ namespace RestorantMVC.Areas.Admin.Controllers
         public async Task<IActionResult> QRKodOlustur(QRCodeModel qRCode)
         {
             await this.SetUser(userManager);
-
+            firmaId = userManager.GetUserId(User);
             //QRCodeGenerator qrGenarator = new QRCodeGenerator();
             //QRCodeData qrCodeData = qrGenarator.CreateQrCode("GELECEK URL MASA ID V.B." , QRCodeGenerator.ECCLevel.Q);
             //QRCode qRCode = new(qrCodeData);
             //Bitmap qrCodeImage = qRCode.GetGraphic(20);
             //return View();
-            string host = HttpContext.Request.Scheme+"//"+HttpContext.Request.Host.Value+"/QR/Scan/";
+            string host = HttpContext.Request.Scheme+"//"+HttpContext.Request.Host.Value+"/QR/Scan/" ;
 
             QRCodeGenerator QrGenerator = new QRCodeGenerator();
-            QRCodeData QrCodeInfo = QrGenerator.CreateQrCode( host + qRCode.QRCodeText, QRCodeGenerator.ECCLevel.Q);
+            QRCodeData QrCodeInfo = QrGenerator.CreateQrCode( host + qRCode.QRCodeText , QRCodeGenerator.ECCLevel.Q);
             QRCode QrCode = new QRCode(QrCodeInfo);
             Image QrBitmap = QrCode.GetGraphic(60);
             byte[] BitmapArray = ImageToByte(QrBitmap);

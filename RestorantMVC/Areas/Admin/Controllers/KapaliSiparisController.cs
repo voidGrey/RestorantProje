@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using DAL.Contexts;
 using Entites.Concrate;
 using Microsoft.AspNetCore.Identity;
+using RestorantMVC.Extensions;
 
 namespace RestorantMVC.Areas.Admin.Controllers
 {
@@ -16,7 +17,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
     {
         private readonly SqlDbContext dbContext;
         private readonly UserManager<Firma> userManager;
-
+        private string firmaId;
         public KapaliSiparisController(SqlDbContext dbContext, UserManager<Firma> userManager)
         {
             this.dbContext = dbContext;
@@ -24,7 +25,10 @@ namespace RestorantMVC.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var sqlDbContext = dbContext.SiparisMasterlar.Include(s => s.Masa);
+            await this.SetUser(userManager);
+            firmaId = userManager.GetUserId(User);
+
+            var sqlDbContext = dbContext.SiparisMasterlar.FirmaFilter(firmaId).Include(s => s.Masa);
             return View(await sqlDbContext.ToListAsync());
         }
         public async Task<IActionResult> Details(int? id)

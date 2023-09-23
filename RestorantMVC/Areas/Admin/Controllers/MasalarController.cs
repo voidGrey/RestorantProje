@@ -14,7 +14,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
     {
         private readonly SqlDbContext dbContext;
         private readonly UserManager<Firma> userManager;
-
+        private string firmaId;
 
         public MasalarController(SqlDbContext context, UserManager<Firma> userManager)
         {
@@ -26,10 +26,12 @@ namespace RestorantMVC.Areas.Admin.Controllers
         // GET: Admin/Masalar
         public async Task<IActionResult> Index()
         {
+
             await this.SetUser(userManager);
+            firmaId = userManager.GetUserId(User);
 
             return dbContext.Masalar != null ?
-                        View(await dbContext.Masalar.ToListAsync()) :
+                        View(await dbContext.Masalar.FirmaFilter(firmaId).ToListAsync()) :
 
                         Problem("Entity set 'SqlDbContext.Masalar'  is null.");
         }
@@ -71,7 +73,9 @@ namespace RestorantMVC.Areas.Admin.Controllers
         public async Task<IActionResult> Create([Bind("MasaID,MasaSifresi,ID,CreateTime,UpdateTime")] Masa masa)
         {
             await this.SetUser(userManager);
+            firmaId = userManager.GetUserId(User);
 
+            masa.FirmaId = firmaId;
             if (ModelState.IsValid)
             {
                 dbContext.Add(masa);
