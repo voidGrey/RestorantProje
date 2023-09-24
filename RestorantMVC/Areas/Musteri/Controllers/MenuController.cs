@@ -2,8 +2,11 @@
 using DAL.Repository.Abstract;
 using Entites.Concrate;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
+using RestorantMVC.Extensions;
 
 namespace RestorantMVC.Areas.Musteri.Controllers
 {
@@ -11,11 +14,19 @@ namespace RestorantMVC.Areas.Musteri.Controllers
     public class MenuController : Controller
     {
         private readonly SqlDbContext dbContext;
-
+        private string decryptValue;
         public MenuController(SqlDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
+
+        public async Task<IActionResult> Index()
+        {
+            await this.ViewBagSettings(dbContext);
+
+            return View();
+        }
+
 
         /// <summary>
         /// Belirli bir kategoriye ait ürünleri listelemek için kullanılan işlem.
@@ -23,7 +34,13 @@ namespace RestorantMVC.Areas.Musteri.Controllers
         /// <param name="id">Kategori kimliği</param>
         public async Task<IActionResult> Kategori(int? id)
         {
-            var urunler = await dbContext.Urunler.Where(a => a.KategoriID == id).ToListAsync();
+            await this.ViewBagSettings(dbContext);
+
+            Request.Cookies.TryGetValue("f" , out decryptValue);
+            byte[] bytes = WebEncoders.Base64UrlDecode(decryptValue);
+            string firmaId = await RestorantExtension.DecryptAsync(bytes,"YeyoYoOyeŞifrehehe");
+
+            var urunler = await dbContext.Urunler.FirmaFilter(firmaId).Where(a => a.KategoriID == id).ToListAsync();
             return View(urunler);
         }
 
@@ -34,6 +51,8 @@ namespace RestorantMVC.Areas.Musteri.Controllers
         [HttpGet]
         public async Task<IActionResult> Ekle(int id)
         {
+            await this.ViewBagSettings(dbContext);
+
             // Cookie'den masa id'sini çekiyorum.
             int masaid = Convert.ToInt32(HttpContext.Request.Cookies["MasaId"]);
             if (masaid == 0)
@@ -105,6 +124,8 @@ namespace RestorantMVC.Areas.Musteri.Controllers
         /// <returns>Asenkron bir işlem sonucu.</returns>
         private async Task CreateSiparisDetay(int id , bool yeniSiparis , SiparisMaster siparisMaster)
         {
+            await this.ViewBagSettings(dbContext);
+
             SiparisDetay siparisDetay = new SiparisDetay
                   (
                   siparisMaster.ID,
@@ -133,6 +154,8 @@ namespace RestorantMVC.Areas.Musteri.Controllers
         /// <returns>Oluşturulan sipariş Master nesnesi.</returns>
         private async Task<SiparisMaster> CreateSiparisMaster(int id , int masaid)
         {
+            await this.ViewBagSettings(dbContext);
+
             SiparisMaster siparisMaster = new SiparisMaster();
             siparisMaster.CreateTime = DateTime.Now;
             siparisMaster.UpdateTime = DateTime.Now;
@@ -150,6 +173,8 @@ namespace RestorantMVC.Areas.Musteri.Controllers
         [HttpPost]
         public async Task<IActionResult> Ekle(SiparisMaster siparisMaster)
         {
+            await this.ViewBagSettings(dbContext);
+
             return View();
         }
     }

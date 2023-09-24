@@ -8,6 +8,11 @@ using RestorantMVC.Areas.Admin.Models;
 using RestorantMVC.Extensions;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Text;
+using System.Security.Cryptography;
+using System.Runtime.InteropServices;
+using Microsoft.AspNetCore.WebUtilities;
+using System.Collections.Immutable;
 
 namespace RestorantMVC.Areas.Admin.Controllers
 {
@@ -17,12 +22,14 @@ namespace RestorantMVC.Areas.Admin.Controllers
     {
         private readonly SqlDbContext dbContext;
         private readonly UserManager<Firma> userManager;
+        private string firmaId;
 
         public QRKodController(SqlDbContext dbContext, UserManager<Firma> userManager)
         {
             this.dbContext = dbContext;
             this.userManager = userManager;
         }
+
         [HttpGet]
         public async Task<IActionResult> QRKodOlustur()
         {
@@ -45,21 +52,35 @@ namespace RestorantMVC.Areas.Admin.Controllers
         public async Task<IActionResult> QRKodOlustur(QRCodeModel qRCode)
         {
             await this.SetUser(userManager);
+            firmaId = userManager.GetUserId(User);
 
-            //QRCodeGenerator qrGenarator = new QRCodeGenerator();
-            //QRCodeData qrCodeData = qrGenarator.CreateQrCode("GELECEK URL MASA ID V.B." , QRCodeGenerator.ECCLevel.Q);
-            //QRCode qRCode = new(qrCodeData);
-            //Bitmap qrCodeImage = qRCode.GetGraphic(20);
-            //return View();
-            string host = HttpContext.Request.Scheme+"//"+HttpContext.Request.Host.Value+"/QR/Scan/";
+            // Restoran kimliğini şifrele
+            byte[] value = await RestorantExtension.EncryptAsync(firmaId , "YeyoYoOyeŞifrehehe");
+
+            string v = WebEncoders.Base64UrlEncode(value);
+
+            // QR kodu tarayıcı sayfasının temel URL'sini al.
+            string host = HttpContext.Request.Scheme+"://"+HttpContext.Request.Host.Value+"/QR/Scan/"
+                + qRCode.QRCodeText + "?f=" + v ;
+
+
+
+            // QR kodu verilerini oluştur.
 
             QRCodeGenerator QrGenerator = new QRCodeGenerator();
-            QRCodeData QrCodeInfo = QrGenerator.CreateQrCode( host + qRCode.QRCodeText, QRCodeGenerator.ECCLevel.Q);
+            QRCodeData QrCodeInfo = QrGenerator.CreateQrCode( host , QRCodeGenerator.ECCLevel.L);
+
+            // QR kodu görüntüsünü oluştur.
             QRCode QrCode = new QRCode(QrCodeInfo);
             Image QrBitmap = QrCode.GetGraphic(60);
+
+            // QR kodu görüntüsünü bayt dizisine dönüştür.
             byte[] BitmapArray = ImageToByte(QrBitmap);
 
+            // Bayt dizisini base64 dizesine dönüştür.
             string QrUri = string.Format("data:image/png;base64,{0}", Convert.ToBase64String(BitmapArray));
+
+            // Base64 dizesini ViewBag'e kaydet, böylece görünümde görüntülenebilir.
             ViewBag.QrCodeUri = QrUri;
             return View();
         }

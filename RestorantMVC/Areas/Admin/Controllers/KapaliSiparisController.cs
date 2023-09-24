@@ -27,10 +27,11 @@ namespace RestorantMVC.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             await this.SetUser(userManager);
-
             firmaId = userManager.GetUserId(User);
 
-            return dbContext.SiparisMasterlar != null ? View(await dbContext.SiparisMasterlar.FirmaFilter(firmaId).ToListAsync()) : Problem("Entity set 'SqlDbContext.Kategoriler'  is null.");
+            var sqlDbContext = dbContext.SiparisMasterlar.FirmaFilter(firmaId).Include(s => s.Masa);
+            return View(await sqlDbContext.ToListAsync());
+
         }
         public async Task<IActionResult> Details(int? id)
         {

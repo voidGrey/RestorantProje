@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class initDB : Migration
+    public partial class initDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -184,7 +184,7 @@ namespace DAL.Migrations
                     KategoriAdi = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     KategoriAciklama = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     FirmaId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 9, 22, 16, 25, 58, 16, DateTimeKind.Local).AddTicks(1380)),
+                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 9, 23, 15, 38, 59, 699, DateTimeKind.Local).AddTicks(6297)),
                     UpdateTime = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
@@ -206,7 +206,7 @@ namespace DAL.Migrations
                     KullaniciAdi = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Sifre = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     FirmaId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 9, 22, 16, 25, 58, 16, DateTimeKind.Local).AddTicks(5406)),
+                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 9, 23, 15, 38, 59, 699, DateTimeKind.Local).AddTicks(8085)),
                     UpdateTime = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
@@ -225,10 +225,10 @@ namespace DAL.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    MasaID = table.Column<int>(type: "int", nullable: false),
+                    MasaID = table.Column<int>(type: "int", nullable: true),
                     MasaSifresi = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FirmaId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 9, 22, 16, 25, 58, 18, DateTimeKind.Local).AddTicks(3553)),
+                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdateTime = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
@@ -249,7 +249,7 @@ namespace DAL.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RoleAdi = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     FirmaId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 9, 22, 16, 25, 58, 16, DateTimeKind.Local).AddTicks(9097)),
+                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 9, 23, 15, 38, 59, 699, DateTimeKind.Local).AddTicks(9456)),
                     UpdateTime = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
@@ -293,7 +293,7 @@ namespace DAL.Migrations
                     Fiyat = table.Column<double>(type: "float", nullable: false),
                     KategoriID = table.Column<int>(type: "int", nullable: false),
                     FirmaId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 9, 22, 16, 25, 58, 18, DateTimeKind.Local).AddTicks(6915)),
+                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 9, 23, 15, 38, 59, 700, DateTimeKind.Local).AddTicks(6481)),
                     UpdateTime = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
@@ -323,7 +323,7 @@ namespace DAL.Migrations
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     status = table.Column<int>(type: "int", nullable: false),
                     FirmaId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 9, 22, 16, 25, 58, 18, DateTimeKind.Local).AddTicks(252)),
+                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 9, 23, 15, 38, 59, 700, DateTimeKind.Local).AddTicks(4477)),
                     UpdateTime = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
@@ -412,7 +412,7 @@ namespace DAL.Migrations
                     Adet = table.Column<double>(type: "float", nullable: false),
                     Fiyat = table.Column<double>(type: "float", nullable: false),
                     FirmaId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 9, 22, 16, 25, 58, 17, DateTimeKind.Local).AddTicks(6508)),
+                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 9, 23, 15, 38, 59, 700, DateTimeKind.Local).AddTicks(1976)),
                     UpdateTime = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
@@ -442,32 +442,32 @@ namespace DAL.Migrations
                 columns: new[] { "ID", "CreateTime", "FirmaId", "KategoriAciklama", "KategoriAdi", "UpdateTime" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 9, 22, 16, 25, 58, 16, DateTimeKind.Local).AddTicks(2853), null, "Yiyecekler", "Ana Yemek", null },
-                    { 2, new DateTime(2023, 9, 22, 16, 25, 58, 16, DateTimeKind.Local).AddTicks(2858), null, "Çorba v.b.", "Ara Sıcaklar", null },
-                    { 3, new DateTime(2023, 9, 22, 16, 25, 58, 16, DateTimeKind.Local).AddTicks(2860), null, "Tatlılar", "Tatlı", null },
-                    { 4, new DateTime(2023, 9, 22, 16, 25, 58, 16, DateTimeKind.Local).AddTicks(2861), null, "Şarap v.b.", "Alkollü İçecekelr", null },
-                    { 5, new DateTime(2023, 9, 22, 16, 25, 58, 16, DateTimeKind.Local).AddTicks(2863), null, "Kola, su v.b.", "Alkolsüz İçecekler", null }
+                    { 1, new DateTime(2023, 9, 23, 15, 38, 59, 699, DateTimeKind.Local).AddTicks(6916), null, "Yiyecekler", "Ana Yemek", null },
+                    { 2, new DateTime(2023, 9, 23, 15, 38, 59, 699, DateTimeKind.Local).AddTicks(6918), null, "Çorba v.b.", "Ara Sıcaklar", null },
+                    { 3, new DateTime(2023, 9, 23, 15, 38, 59, 699, DateTimeKind.Local).AddTicks(6920), null, "Tatlılar", "Tatlı", null },
+                    { 4, new DateTime(2023, 9, 23, 15, 38, 59, 699, DateTimeKind.Local).AddTicks(6921), null, "Şarap v.b.", "Alkollü İçecekelr", null },
+                    { 5, new DateTime(2023, 9, 23, 15, 38, 59, 699, DateTimeKind.Local).AddTicks(6922), null, "Kola, su v.b.", "Alkolsüz İçecekler", null }
                 });
 
             migrationBuilder.InsertData(
                 table: "Kullanicilar",
                 columns: new[] { "ID", "CreateTime", "FirmaId", "KullaniciAdi", "Sifre", "UpdateTime" },
-                values: new object[] { 1, new DateTime(2023, 9, 22, 16, 25, 58, 16, DateTimeKind.Local).AddTicks(6657), null, "Admin", "123", null });
+                values: new object[] { 1, new DateTime(2023, 9, 23, 15, 38, 59, 699, DateTimeKind.Local).AddTicks(8512), null, "Admin", "123", null });
 
             migrationBuilder.InsertData(
                 table: "Masalar",
-                columns: new[] { "ID", "FirmaId", "MasaID", "MasaSifresi", "UpdateTime" },
+                columns: new[] { "ID", "CreateTime", "FirmaId", "MasaID", "MasaSifresi", "UpdateTime" },
                 values: new object[,]
                 {
-                    { 1, null, 1, null, null },
-                    { 2, null, 2, null, null },
-                    { 3, null, 3, null, null }
+                    { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, 1, null, null },
+                    { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, 2, null, null },
+                    { 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, 3, null, null }
                 });
 
             migrationBuilder.InsertData(
                 table: "Roller",
                 columns: new[] { "ID", "CreateTime", "FirmaId", "RoleAdi", "UpdateTime" },
-                values: new object[] { 1, new DateTime(2023, 9, 22, 16, 25, 58, 17, DateTimeKind.Local).AddTicks(261), null, "Admin", null });
+                values: new object[] { 1, new DateTime(2023, 9, 23, 15, 38, 59, 699, DateTimeKind.Local).AddTicks(9820), null, "Admin", null });
 
             migrationBuilder.InsertData(
                 table: "Sehirler",
@@ -730,12 +730,6 @@ namespace DAL.Migrations
                 name: "IX_Masalar_FirmaId",
                 table: "Masalar",
                 column: "FirmaId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Masalar_MasaID",
-                table: "Masalar",
-                column: "MasaID",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Roller_FirmaId",

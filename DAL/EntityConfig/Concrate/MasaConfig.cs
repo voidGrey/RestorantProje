@@ -8,8 +8,6 @@ namespace Entites.Concrate
     {
         public override void Configure(EntityTypeBuilder<Masa> builder)
         {
-            base.Configure(builder);
-            builder.HasIndex(x => x.MasaID).IsUnique();
 
 
             builder.HasData(new Masa { ID = 1, MasaID = 1},

@@ -15,6 +15,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
     {
         private readonly SqlDbContext dbContext;
         private readonly UserManager<Firma> userManager;
+        private string firmaId;
 
 
         public UrunController(SqlDbContext context, UserManager<Firma> userManager)
@@ -27,8 +28,9 @@ namespace RestorantMVC.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             await this.SetUser(userManager);
+            firmaId = userManager.GetUserId(User);
 
-            var sqlDbContext = dbContext.Urunler.Include(u => u.Kategori);
+            var sqlDbContext = dbContext.Urunler.FirmaFilter(firmaId).Include(u => u.Kategori);
 
             return View(await sqlDbContext.ToListAsync());
         }
@@ -59,8 +61,9 @@ namespace RestorantMVC.Areas.Admin.Controllers
         public async Task<IActionResult> Create()
         {
             await this.SetUser(userManager);
+            firmaId = userManager.GetUserId(User);
 
-            ViewData["KategoriID"] = new SelectList(dbContext.Kategoriler , "ID" , "KategoriAdi");
+            ViewData["KategoriID"] = new SelectList(dbContext.Kategoriler.FirmaFilter(firmaId) , "ID" , "KategoriAdi");;
 
             return View();
         }
@@ -73,10 +76,13 @@ namespace RestorantMVC.Areas.Admin.Controllers
         public async Task<IActionResult> Create([Bind("UrunAdi,UrunAciklama,FotografLink,Fiyat,KategoriID,ID,CreateTime,UpdateTime")] Urun urun)
         {
             await this.SetUser(userManager);
+            firmaId = userManager.GetUserId(User);
+
+            urun.FirmaId = firmaId;
 
             if (ModelState.IsValid)
             {
-                ViewData["KategoriID"] = new SelectList(dbContext.Kategoriler , "ID" , "KategoriAdi");
+                ViewData["KategoriID"] = new SelectList(dbContext.Kategoriler.FirmaFilter(firmaId) , "ID" , "KategoriAdi");
                 return View(urun);
             }
             try
@@ -87,7 +93,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
             catch (Exception)
             {
                 ModelState.AddModelError("" , "Aynı İsimde bir ürün zaten mevcut");
-                ViewData["KategoriID"] = new SelectList(dbContext.Kategoriler , "ID" , "KategoriAdi");
+                ViewData["KategoriID"] = new SelectList(dbContext.Kategoriler.FirmaFilter(firmaId) , "ID" , "KategoriAdi");
                 return View(urun);
             }
             return RedirectToAction("Index");

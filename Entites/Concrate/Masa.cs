@@ -4,7 +4,7 @@ namespace Entites.Concrate
 {
     public class Masa : BaseEntity
     {
-        public int MasaID { get; set; }
+        public int? MasaID { get; set; }
         public string? MasaSifresi { get; set; }
         public virtual SiparisMaster? Siparis { get; set; }
 
