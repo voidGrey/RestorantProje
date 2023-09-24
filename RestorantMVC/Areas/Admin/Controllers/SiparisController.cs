@@ -16,6 +16,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
         private readonly SqlDbContext dbContext;
         private readonly UserManager<Firma> userManager;
         private string firmaId;
+
         public SiparisController(SqlDbContext dbContext, UserManager<Firma> userManager)
         {
             this.dbContext = dbContext;
@@ -60,7 +61,6 @@ namespace RestorantMVC.Areas.Admin.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             await this.SetUser(userManager);
-
             var siparis = await dbContext.SiparisMasterlar.FindAsync(id);
             if (siparis == null)
             {
@@ -74,6 +74,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            await this.SetUser(userManager);
             var siparis = await dbContext.SiparisMasterlar.FindAsync(id);
 
             siparis.IsActive = false;
@@ -82,8 +83,8 @@ namespace RestorantMVC.Areas.Admin.Controllers
             dbContext.Update(siparis);
             await dbContext.SaveChangesAsync();
 
-            var Siparisler = await dbContext.SiparisMasterlar.ToListAsync();
-            return View("Index", Siparisler);
+            return RedirectToAction("Index");
+
         }
 
 
@@ -110,6 +111,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
 
         public async Task<IActionResult> Hazırlanıyor(int id)
         {
+            await this.SetUser(userManager);
             var siparismaster = await dbContext.SiparisMasterlar.FindAsync(id);
             siparismaster.status = (SiparisMaster.Status)3;
             dbContext.Update(siparismaster);
@@ -120,6 +122,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
 
         public async Task<IActionResult> TeslimEdildi(int id)
         {
+            await this.SetUser(userManager);
             var siparismaster = await dbContext.SiparisMasterlar.FindAsync(id);
             siparismaster.status = (SiparisMaster.Status)6;
             dbContext.Update(siparismaster);

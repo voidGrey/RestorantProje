@@ -18,6 +18,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
         private readonly SqlDbContext dbContext;
         private readonly UserManager<Firma> userManager;
         private string firmaId;
+
         public KapaliSiparisController(SqlDbContext dbContext, UserManager<Firma> userManager)
         {
             this.dbContext = dbContext;
@@ -30,6 +31,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
 
             var sqlDbContext = dbContext.SiparisMasterlar.FirmaFilter(firmaId).Include(s => s.Masa);
             return View(await sqlDbContext.ToListAsync());
+
         }
         public async Task<IActionResult> Details(int? id)
         {
