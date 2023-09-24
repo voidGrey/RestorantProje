@@ -2,6 +2,7 @@
 using Entites.Concrate;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using RestorantMVC.Extensions;
 
@@ -11,6 +12,7 @@ namespace RestorantMVC.Areas.Musteri.Controllers
     public class SiparisController : Controller
     {
         private readonly SqlDbContext dbContext;
+        private string decryptValue;
 
         public SiparisController(SqlDbContext context)
         {
@@ -24,11 +26,16 @@ namespace RestorantMVC.Areas.Musteri.Controllers
         {
             await this.ViewBagSettings(dbContext);
 
+            Request.Cookies.TryGetValue("f" , out decryptValue);
+            byte[] bytes = WebEncoders.Base64UrlDecode(decryptValue);
+            string firmaId = await RestorantExtension.DecryptAsync(bytes,"YeyoYoOyeŞifrehehe");
+
             //MasaID'nin siparişleri listelenir.
             int masaid = Convert.ToInt32(HttpContext.Request.Cookies["MasaId"]);
-            var siparisMasterlar = dbContext.SiparisMasterlar.Where(s => s.MasaId == masaid);
+
+            var siparisMasterlar = dbContext.SiparisMasterlar.FirmaFilter(firmaId).Where(s => s.MasaId == masaid);
             var siparisMaster = siparisMasterlar.FirstOrDefault();
-            var siparisDetaylari = dbContext.SiparisDetaylar.Where(d => d.SiparisMasterId == siparisMaster.ID).ToList();
+            var siparisDetaylari = dbContext.SiparisDetaylar.FirmaFilter(firmaId).Where(d => d.SiparisMasterId == siparisMaster.ID).ToList();
 
             // Urun'lerin isimleri null dönmesin diye ürünlerin atamasını DB'den atıyorum.
             foreach (var item in siparisDetaylari)
@@ -84,6 +91,12 @@ namespace RestorantMVC.Areas.Musteri.Controllers
         public async Task<IActionResult> Create([Bind("SiparisMasterId,UrunId,Adet,Fiyat,ID,CreateTime,UpdateTime")] SiparisDetay siparisDetay)
         {
             await this.ViewBagSettings(dbContext);
+
+            Request.Cookies.TryGetValue("f" , out decryptValue);
+            byte[] bytes = WebEncoders.Base64UrlDecode(decryptValue);
+            string firmaId = await RestorantExtension.DecryptAsync(bytes,"YeyoYoOyeŞifrehehe");
+
+            siparisDetay.FirmaId = firmaId;
 
             if (ModelState.IsValid)
             {
