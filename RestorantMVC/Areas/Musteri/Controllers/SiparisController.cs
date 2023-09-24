@@ -3,6 +3,7 @@ using Entites.Concrate;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using RestorantMVC.Extensions;
 
 namespace RestorantMVC.Areas.Musteri.Controllers
 {
@@ -21,6 +22,8 @@ namespace RestorantMVC.Areas.Musteri.Controllers
         /// </summary>
         public async Task<IActionResult> Index()
         {
+            await this.ViewBagSettings(dbContext);
+
             //MasaID'nin siparişleri listelenir.
             int masaid = Convert.ToInt32(HttpContext.Request.Cookies["MasaId"]);
             var siparisMasterlar = dbContext.SiparisMasterlar.Where(s => s.MasaId == masaid);
@@ -41,6 +44,8 @@ namespace RestorantMVC.Areas.Musteri.Controllers
         /// <param name="id">Sipariş detayının kimliği</param>
         public async Task<IActionResult> Details(int? id)
         {
+            await this.ViewBagSettings(dbContext);
+
             if (id == null || dbContext.SiparisDetaylar == null)
             {
                 return NotFound();
@@ -61,8 +66,10 @@ namespace RestorantMVC.Areas.Musteri.Controllers
         /// <summary>
         /// Yeni bir sipariş detayı oluşturmak için kullanılan işlem.
         /// </summary>
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            await this.ViewBagSettings(dbContext);
+
             ViewData["SiparisMasterId"] = new SelectList(dbContext.SiparisMasterlar , "ID" , "ID");
             ViewData["UrunId"] = new SelectList(dbContext.Urunler , "ID" , "UrunAciklama");
             return View();
@@ -76,6 +83,8 @@ namespace RestorantMVC.Areas.Musteri.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("SiparisMasterId,UrunId,Adet,Fiyat,ID,CreateTime,UpdateTime")] SiparisDetay siparisDetay)
         {
+            await this.ViewBagSettings(dbContext);
+
             if (ModelState.IsValid)
             {
                 dbContext.Add(siparisDetay);
@@ -93,6 +102,8 @@ namespace RestorantMVC.Areas.Musteri.Controllers
         /// <param name="id">Düzenlenecek sipariş detayının kimliği</param>
         public async Task<IActionResult> Edit(int? id)
         {
+            await this.ViewBagSettings(dbContext);
+
             if (id == null || dbContext.SiparisDetaylar == null)
             {
                 return NotFound();
@@ -118,6 +129,8 @@ namespace RestorantMVC.Areas.Musteri.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id , [Bind("SiparisMasterId,UrunId,Adet,Fiyat,ID,CreateTime,UpdateTime")] SiparisDetay siparisDetay)
         {
+            await this.ViewBagSettings(dbContext);
+
             if (id != siparisDetay.ID)
             {
                 return NotFound();
@@ -154,6 +167,8 @@ namespace RestorantMVC.Areas.Musteri.Controllers
         /// <param name="id">Silinecek sipariş detayının kimliği</param>
         public async Task<IActionResult> Delete(int? id)
         {
+            await this.ViewBagSettings(dbContext);
+
             if (id == null || dbContext.SiparisDetaylar == null)
             {
                 return NotFound();
@@ -179,6 +194,8 @@ namespace RestorantMVC.Areas.Musteri.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            await this.ViewBagSettings(dbContext);
+
             if (dbContext.SiparisDetaylar == null)
             {
                 return Problem("Entity set 'SqlDbContext.SiparisDetaylar'  is null.");
@@ -200,6 +217,8 @@ namespace RestorantMVC.Areas.Musteri.Controllers
 
         public async Task<IActionResult> Onayla(int id)
         {
+            await this.ViewBagSettings(dbContext);
+
             var siparismaster = await dbContext.SiparisMasterlar.FindAsync(id);
             siparismaster.status = (SiparisMaster.Status)2;
             dbContext.Update(siparismaster);

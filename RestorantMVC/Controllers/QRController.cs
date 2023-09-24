@@ -1,6 +1,5 @@
 ﻿using DAL.Contexts;
 using Entites.Concrate;
-using Google.Protobuf.WellKnownTypes;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
@@ -29,19 +28,19 @@ namespace RestorantMVC.Controllers
         /// ID ile gelen kullanıcıya Cookie yapıştırarak tanınmasını sağlar.
         /// </summary>
         /// <param name="id">MasaID Değeri</param>
-        public async Task<IActionResult> Scan(int id, string f)
+        public async Task<IActionResult> Scan(int id , string f)
         {
-            byte[] firmaId = WebEncoders.Base64UrlDecode(f);
-            string decryptValue = await RestorantExtension.DecryptAsync(firmaId,"YeyoYoOyeŞifrehehe");
-
-            
-
             if (id == null || string.IsNullOrEmpty(id.ToString()) || id == 0)
             {
                 return Content("Okuttuğunuz QR Geçersiz veya Zarar görmüş lütfen bir garsondan yardım isteyiniz.");
             }
             else
             {
+                //Gelen Firma ID Encrypt'i byte Arraya geri dönüştürülüp string'e çevriliyor.
+                byte[] firmaId = WebEncoders.Base64UrlDecode(f);
+                string decryptValue = await RestorantExtension.DecryptAsync(firmaId,"YeyoYoOyeŞifrehehe");
+
+                // DB'den masa çekiliyor.
                 var masa = await dbContext.Masalar.FirmaFilter(decryptValue).Where(p=> p.MasaID == id).FirstOrDefaultAsync();
 
                 if (string.IsNullOrEmpty(masa.MasaSifresi)) // Masa şifresi var mı diye kontrol edilir.
@@ -49,18 +48,24 @@ namespace RestorantMVC.Controllers
                     string value = id.ToString();
                     if (Request.Cookies.TryGetValue("MasaId" , out value)) // Kullanıcının Cookie'si var mı diye bakar
                     {
-                        return RedirectToAction("Index" , "Home");
+                        return RedirectToAction("Index","Menu", new {area = "Musteri"});
                     }
 
                     //Cookie eklenir.
                     this.Response.Cookies.Append("MasaId" , id.ToString());
-                    dbContext.Masalar.FindAsync(id).Result.MasaSifresi = masa.SifreOlustur();
+                    this.Response.Cookies.Append("f" , f);
+
+                    //Masa Şifresi oluşturuluyor.
+                    dbContext.Masalar.FirmaFilter(decryptValue)
+                                     .Where(masa => masa.MasaID == id)
+                                     .FirstOrDefaultAsync()
+                                     .Result.MasaSifresi = masa.SifreOlustur();
                     dbContext.SaveChanges();
                     return RedirectToAction("SifreAyarla");
                 }
                 else
                 {
-                    return RedirectToAction("Giris",new { id=id });
+                    return RedirectToAction("Giris" , new { id = masa.ID });
                 }
             }
         }
@@ -71,12 +76,14 @@ namespace RestorantMVC.Controllers
             Masa masa = await dbContext.Masalar.FindAsync(id);
             return View(masa);
         }
+
         [HttpGet]
         public IActionResult Giris(int id)
         {
             ViewBag.Id = id;
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> Giris(Masa cloneMasa)
         {
@@ -90,7 +97,6 @@ namespace RestorantMVC.Controllers
                 this.Response.Cookies.Append("MasaId" , id.ToString());
 
                 return RedirectToAction("Index" , "Home");
-
             }
             else
             {

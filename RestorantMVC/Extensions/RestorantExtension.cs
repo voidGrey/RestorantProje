@@ -14,6 +14,8 @@ using System.Text;
 using System.IO;
 using Google.Protobuf.WellKnownTypes;
 using Newtonsoft.Json.Linq;
+using Microsoft.AspNetCore.WebUtilities;
+using DAL.Contexts;
 
 namespace RestorantMVC.Extensions
 {
@@ -47,6 +49,17 @@ namespace RestorantMVC.Extensions
             return model;
         }
 
+        public static async Task ViewBagSettings(this Controller model, SqlDbContext dbContext)
+        {
+            string decryptValue = "";
+            model.Request.Cookies.TryGetValue("f" , out decryptValue);
+            byte[] bytes = WebEncoders.Base64UrlDecode(decryptValue);
+            string firmaId = await RestorantExtension.DecryptAsync(bytes,"YeyoYoOyeŞifrehehe");
+
+            model.ViewBag.Firma = await dbContext.Kategoriler.FirmaFilter(firmaId).ToListAsync();
+        }
+
+        #region Encrypt
         private static byte[] IV = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16 };
         private static byte[] DeriveKeyFromPassword(string password)
         {
@@ -60,7 +73,6 @@ namespace RestorantMVC.Extensions
                                              hashMethod ,
                                              desiredKeyLength);
         }
-
         public static async Task<byte[]> EncryptAsync(string clearText , string passphrase)
         {
             using Aes aes = Aes.Create();
@@ -91,5 +103,6 @@ namespace RestorantMVC.Extensions
 
             return Encoding.Unicode.GetString(output.ToArray());
         }
+        #endregion
     }
 }

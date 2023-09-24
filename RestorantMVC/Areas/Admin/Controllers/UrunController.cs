@@ -82,7 +82,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
-                ViewData["KategoriID"] = new SelectList(dbContext.Kategoriler , "ID" , "KategoriAdi");
+                ViewData["KategoriID"] = new SelectList(dbContext.Kategoriler.FirmaFilter(firmaId) , "ID" , "KategoriAdi");
                 return View(urun);
             }
             try
@@ -93,7 +93,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
             catch (Exception)
             {
                 ModelState.AddModelError("" , "Aynı İsimde bir ürün zaten mevcut");
-                ViewData["KategoriID"] = new SelectList(dbContext.Kategoriler , "ID" , "KategoriAdi");
+                ViewData["KategoriID"] = new SelectList(dbContext.Kategoriler.FirmaFilter(firmaId) , "ID" , "KategoriAdi");
                 return View(urun);
             }
             return RedirectToAction("Index");
