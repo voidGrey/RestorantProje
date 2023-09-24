@@ -23,7 +23,7 @@
                         @for (int i = 0; i < @ViewBag.Firma.Count; i++)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Menu" asp-action="Kategori" asp-route-id="@ViewBag.Firma[i].ID">@ViewBag.Firma[i].KategoriAdi</a>
+                                <a class="nav-link text-dark" asp-controller="Menu" asp-action="Kategori" asp-route-id="@ViewBag.Firma[i].SelfKategoriID">@ViewBag.Firma[i].KategoriAdi</a>
                             </li>
                         }
                     </ul>

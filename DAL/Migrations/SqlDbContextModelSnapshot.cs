@@ -412,20 +412,21 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 23, 15, 38, 59, 699, DateTimeKind.Local).AddTicks(6297));
+                        .HasDefaultValue(new DateTime(2023, 9, 24, 18, 53, 3, 225, DateTimeKind.Local).AddTicks(7609));
 
                     b.Property<string>("FirmaId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("KategoriAciklama")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("KategoriAdi")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<int?>("SelfKategoriID")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdateTime")
                         .HasColumnType("datetime2");
@@ -435,46 +436,10 @@ namespace DAL.Migrations
                     b.HasIndex("FirmaId");
 
                     b.HasIndex("KategoriAdi")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[KategoriAdi] IS NOT NULL");
 
                     b.ToTable("Kategoriler");
-
-                    b.HasData(
-                        new
-                        {
-                            ID = 1,
-                            CreateTime = new DateTime(2023, 9, 23, 15, 38, 59, 699, DateTimeKind.Local).AddTicks(6916),
-                            KategoriAciklama = "Yiyecekler",
-                            KategoriAdi = "Ana Yemek"
-                        },
-                        new
-                        {
-                            ID = 2,
-                            CreateTime = new DateTime(2023, 9, 23, 15, 38, 59, 699, DateTimeKind.Local).AddTicks(6918),
-                            KategoriAciklama = "Çorba v.b.",
-                            KategoriAdi = "Ara Sıcaklar"
-                        },
-                        new
-                        {
-                            ID = 3,
-                            CreateTime = new DateTime(2023, 9, 23, 15, 38, 59, 699, DateTimeKind.Local).AddTicks(6920),
-                            KategoriAciklama = "Tatlılar",
-                            KategoriAdi = "Tatlı"
-                        },
-                        new
-                        {
-                            ID = 4,
-                            CreateTime = new DateTime(2023, 9, 23, 15, 38, 59, 699, DateTimeKind.Local).AddTicks(6921),
-                            KategoriAciklama = "Şarap v.b.",
-                            KategoriAdi = "Alkollü İçecekelr"
-                        },
-                        new
-                        {
-                            ID = 5,
-                            CreateTime = new DateTime(2023, 9, 23, 15, 38, 59, 699, DateTimeKind.Local).AddTicks(6922),
-                            KategoriAciklama = "Kola, su v.b.",
-                            KategoriAdi = "Alkolsüz İçecekler"
-                        });
                 });
 
             modelBuilder.Entity("Entites.Concrate.Kullanici", b =>
@@ -488,7 +453,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 23, 15, 38, 59, 699, DateTimeKind.Local).AddTicks(8085));
+                        .HasDefaultValue(new DateTime(2023, 9, 24, 18, 53, 3, 225, DateTimeKind.Local).AddTicks(9535));
 
                     b.Property<string>("FirmaId")
                         .HasColumnType("nvarchar(450)");
@@ -514,15 +479,6 @@ namespace DAL.Migrations
                         .IsUnique();
 
                     b.ToTable("Kullanicilar");
-
-                    b.HasData(
-                        new
-                        {
-                            ID = 1,
-                            CreateTime = new DateTime(2023, 9, 23, 15, 38, 59, 699, DateTimeKind.Local).AddTicks(8512),
-                            KullaniciAdi = "Admin",
-                            Sifre = "123"
-                        });
                 });
 
             modelBuilder.Entity("Entites.Concrate.Masa", b =>
@@ -553,26 +509,6 @@ namespace DAL.Migrations
                     b.HasIndex("FirmaId");
 
                     b.ToTable("Masalar");
-
-                    b.HasData(
-                        new
-                        {
-                            ID = 1,
-                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            MasaID = 1
-                        },
-                        new
-                        {
-                            ID = 2,
-                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            MasaID = 2
-                        },
-                        new
-                        {
-                            ID = 3,
-                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            MasaID = 3
-                        });
                 });
 
             modelBuilder.Entity("Entites.Concrate.Role", b =>
@@ -586,7 +522,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 23, 15, 38, 59, 699, DateTimeKind.Local).AddTicks(9456));
+                        .HasDefaultValue(new DateTime(2023, 9, 24, 18, 53, 3, 226, DateTimeKind.Local).AddTicks(1190));
 
                     b.Property<string>("FirmaId")
                         .HasColumnType("nvarchar(450)");
@@ -612,7 +548,7 @@ namespace DAL.Migrations
                         new
                         {
                             ID = 1,
-                            CreateTime = new DateTime(2023, 9, 23, 15, 38, 59, 699, DateTimeKind.Local).AddTicks(9820),
+                            CreateTime = new DateTime(2023, 9, 24, 18, 53, 3, 226, DateTimeKind.Local).AddTicks(1622),
                             RoleAdi = "Admin"
                         });
                 });
@@ -1148,7 +1084,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 23, 15, 38, 59, 700, DateTimeKind.Local).AddTicks(1976));
+                        .HasDefaultValue(new DateTime(2023, 9, 24, 18, 53, 3, 226, DateTimeKind.Local).AddTicks(3994));
 
                     b.Property<string>("FirmaId")
                         .HasColumnType("nvarchar(450)");
@@ -1190,7 +1126,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 23, 15, 38, 59, 700, DateTimeKind.Local).AddTicks(4477));
+                        .HasDefaultValue(new DateTime(2023, 9, 24, 18, 53, 3, 226, DateTimeKind.Local).AddTicks(5513));
 
                     b.Property<string>("FirmaId")
                         .HasColumnType("nvarchar(450)");
@@ -1232,7 +1168,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 23, 15, 38, 59, 700, DateTimeKind.Local).AddTicks(6481));
+                        .HasDefaultValue(new DateTime(2023, 9, 24, 18, 53, 3, 226, DateTimeKind.Local).AddTicks(7199));
 
                     b.Property<string>("FirmaId")
                         .HasColumnType("nvarchar(450)");
@@ -1250,12 +1186,10 @@ namespace DAL.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UrunAciklama")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("UrunAdi")
-                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
@@ -1266,263 +1200,10 @@ namespace DAL.Migrations
                     b.HasIndex("KategoriID");
 
                     b.HasIndex("UrunAdi")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[UrunAdi] IS NOT NULL");
 
                     b.ToTable("Urunler");
-
-                    b.HasData(
-                        new
-                        {
-                            ID = 1,
-                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Fiyat = 85.0,
-                            KategoriID = 4,
-                            UrunAciklama = "50",
-                            UrunAdi = "Tuborg Gold"
-                        },
-                        new
-                        {
-                            ID = 2,
-                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Fiyat = 85.0,
-                            KategoriID = 4,
-                            UrunAciklama = "50",
-                            UrunAdi = "Tuborg Red"
-                        },
-                        new
-                        {
-                            ID = 3,
-                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Fiyat = 135.0,
-                            KategoriID = 4,
-                            UrunAciklama = "50",
-                            UrunAdi = "Viski Single"
-                        },
-                        new
-                        {
-                            ID = 4,
-                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Fiyat = 270.0,
-                            KategoriID = 4,
-                            UrunAciklama = "50",
-                            UrunAdi = "Viski Double"
-                        },
-                        new
-                        {
-                            ID = 5,
-                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Fiyat = 120.0,
-                            KategoriID = 4,
-                            UrunAciklama = "50",
-                            UrunAdi = "Vodka"
-                        },
-                        new
-                        {
-                            ID = 6,
-                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Fiyat = 120.0,
-                            KategoriID = 4,
-                            UrunAciklama = "50",
-                            UrunAdi = "Cin"
-                        },
-                        new
-                        {
-                            ID = 7,
-                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Fiyat = 240.0,
-                            KategoriID = 1,
-                            UrunAciklama = "Izgara biftek",
-                            UrunAdi = "Biftek"
-                        },
-                        new
-                        {
-                            ID = 8,
-                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Fiyat = 200.0,
-                            KategoriID = 1,
-                            UrunAciklama = "Makarna",
-                            UrunAdi = "Makarna"
-                        },
-                        new
-                        {
-                            ID = 9,
-                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Fiyat = 100.0,
-                            KategoriID = 1,
-                            UrunAciklama = "Pilav",
-                            UrunAdi = "Pilav"
-                        },
-                        new
-                        {
-                            ID = 10,
-                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Fiyat = 100.0,
-                            KategoriID = 1,
-                            UrunAciklama = "Izgara tavuk",
-                            UrunAdi = "Tavuk"
-                        },
-                        new
-                        {
-                            ID = 11,
-                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Fiyat = 180.0,
-                            KategoriID = 1,
-                            UrunAciklama = "Izgara köfte",
-                            UrunAdi = "Köfte"
-                        },
-                        new
-                        {
-                            ID = 12,
-                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Fiyat = 200.0,
-                            KategoriID = 1,
-                            UrunAciklama = "bursa iskender",
-                            UrunAdi = "İskender"
-                        },
-                        new
-                        {
-                            ID = 13,
-                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Fiyat = 240.0,
-                            KategoriID = 3,
-                            UrunAciklama = "güllaç",
-                            UrunAdi = "Güllaç"
-                        },
-                        new
-                        {
-                            ID = 14,
-                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Fiyat = 240.0,
-                            KategoriID = 3,
-                            UrunAciklama = "kazandibi",
-                            UrunAdi = "Kazandibi"
-                        },
-                        new
-                        {
-                            ID = 15,
-                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Fiyat = 240.0,
-                            KategoriID = 3,
-                            UrunAciklama = "kazandibi",
-                            UrunAdi = "Tavuk göğüsü"
-                        },
-                        new
-                        {
-                            ID = 16,
-                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Fiyat = 240.0,
-                            KategoriID = 3,
-                            UrunAciklama = "kazandibi",
-                            UrunAdi = "Sufle"
-                        },
-                        new
-                        {
-                            ID = 17,
-                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Fiyat = 240.0,
-                            KategoriID = 3,
-                            UrunAciklama = "kazandibi",
-                            UrunAdi = "Cheese Kek"
-                        },
-                        new
-                        {
-                            ID = 18,
-                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Fiyat = 24.0,
-                            KategoriID = 5,
-                            UrunAciklama = "Kola",
-                            UrunAdi = "Kola"
-                        },
-                        new
-                        {
-                            ID = 19,
-                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Fiyat = 24.0,
-                            KategoriID = 5,
-                            UrunAciklama = "Sarı Kola",
-                            UrunAdi = "Sarı Kola"
-                        },
-                        new
-                        {
-                            ID = 20,
-                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Fiyat = 14.0,
-                            KategoriID = 5,
-                            UrunAciklama = "Su",
-                            UrunAdi = "Su"
-                        },
-                        new
-                        {
-                            ID = 21,
-                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Fiyat = 24.0,
-                            KategoriID = 5,
-                            UrunAciklama = "Gazoz",
-                            UrunAdi = "Gazoz"
-                        },
-                        new
-                        {
-                            ID = 22,
-                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Fiyat = 24.0,
-                            KategoriID = 5,
-                            UrunAciklama = "Ayran",
-                            UrunAdi = "Ayran"
-                        },
-                        new
-                        {
-                            ID = 23,
-                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Fiyat = 14.0,
-                            KategoriID = 5,
-                            UrunAciklama = "Çay",
-                            UrunAdi = "Çay"
-                        },
-                        new
-                        {
-                            ID = 24,
-                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Fiyat = 14.0,
-                            KategoriID = 2,
-                            UrunAciklama = "kazandibi",
-                            UrunAdi = "Mercimek Ç."
-                        },
-                        new
-                        {
-                            ID = 25,
-                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Fiyat = 14.0,
-                            KategoriID = 2,
-                            UrunAciklama = "kazandibi",
-                            UrunAdi = "Ezogelin Ç."
-                        },
-                        new
-                        {
-                            ID = 26,
-                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Fiyat = 14.0,
-                            KategoriID = 2,
-                            UrunAciklama = "kazandibi",
-                            UrunAdi = "Domates Ç."
-                        },
-                        new
-                        {
-                            ID = 27,
-                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Fiyat = 14.0,
-                            KategoriID = 2,
-                            UrunAciklama = "kazandibi",
-                            UrunAdi = "Tarhana Ç."
-                        },
-                        new
-                        {
-                            ID = 28,
-                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Fiyat = 14.0,
-                            KategoriID = 2,
-                            UrunAciklama = "kazandibi",
-                            UrunAdi = "İşembe Ç."
-                        });
                 });
 
             modelBuilder.Entity("KullaniciRole", b =>

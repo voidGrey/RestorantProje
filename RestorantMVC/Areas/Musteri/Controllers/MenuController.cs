@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using RestorantMVC.Extensions;
+using System.Security.Cryptography.X509Certificates;
 
 namespace RestorantMVC.Areas.Musteri.Controllers
 {
@@ -40,7 +41,9 @@ namespace RestorantMVC.Areas.Musteri.Controllers
             byte[] bytes = WebEncoders.Base64UrlDecode(decryptValue);
             string firmaId = await RestorantExtension.DecryptAsync(bytes,"YeyoYoOyeŞifrehehe");
 
-            var urunler = await dbContext.Urunler.FirmaFilter(firmaId).Where(a => a.KategoriID == id).ToListAsync();
+            Kategori selfIdToId = await dbContext.Kategoriler.FirmaFilter(firmaId).Where(kategori => kategori.SelfKategoriID == id).FirstOrDefaultAsync();
+
+            var urunler = await dbContext.Urunler.FirmaFilter(firmaId).Where(a => a.KategoriID == selfIdToId.ID).ToListAsync();
             return View(urunler);
         }
 
@@ -124,7 +127,9 @@ namespace RestorantMVC.Areas.Musteri.Controllers
         /// <returns>Asenkron bir işlem sonucu.</returns>
         private async Task CreateSiparisDetay(int id , bool yeniSiparis , SiparisMaster siparisMaster)
         {
-            await this.ViewBagSettings(dbContext);
+            Request.Cookies.TryGetValue("f" , out decryptValue);
+            byte[] bytes = WebEncoders.Base64UrlDecode(decryptValue);
+            string firmaId = await RestorantExtension.DecryptAsync(bytes,"YeyoYoOyeŞifrehehe");
 
             SiparisDetay siparisDetay = new SiparisDetay
                   (
@@ -135,6 +140,8 @@ namespace RestorantMVC.Areas.Musteri.Controllers
                   1,
                   dbContext.Urunler.Find(id).Fiyat
                   );
+
+            siparisDetay.FirmaId = firmaId;
             siparisMaster.ToplamTutar = dbContext.SiparisDetaylar.Sum(x => x.Fiyat);
 
             // Yeni eklenen ürün siparisMaster'de ki sipariş Detay listesine ekleniyor.
@@ -154,7 +161,10 @@ namespace RestorantMVC.Areas.Musteri.Controllers
         /// <returns>Oluşturulan sipariş Master nesnesi.</returns>
         private async Task<SiparisMaster> CreateSiparisMaster(int id , int masaid)
         {
-            await this.ViewBagSettings(dbContext);
+
+            Request.Cookies.TryGetValue("f" , out decryptValue);
+            byte[] bytes = WebEncoders.Base64UrlDecode(decryptValue);
+            string firmaId = await RestorantExtension.DecryptAsync(bytes,"YeyoYoOyeŞifrehehe");
 
             SiparisMaster siparisMaster = new SiparisMaster();
             siparisMaster.CreateTime = DateTime.Now;
@@ -163,6 +173,7 @@ namespace RestorantMVC.Areas.Musteri.Controllers
             siparisMaster.Masa = await dbContext.Masalar.FindAsync(id);
             siparisMaster.IsActive = true;
             siparisMaster.SiparisDetay = new List<SiparisDetay>();
+            siparisMaster.FirmaId = firmaId;
             return siparisMaster;
         }
 

@@ -55,8 +55,8 @@ namespace RestorantMVC.Extensions
             model.Request.Cookies.TryGetValue("f" , out decryptValue);
             byte[] bytes = WebEncoders.Base64UrlDecode(decryptValue);
             string firmaId = await RestorantExtension.DecryptAsync(bytes,"YeyoYoOyeŞifrehehe");
-
-            model.ViewBag.Firma = await dbContext.Kategoriler.FirmaFilter(firmaId).ToListAsync();
+            var result = await dbContext.Kategoriler.FirmaFilter(firmaId).ToListAsync();
+            model.ViewBag.Firma = result;
         }
 
         #region Encrypt

@@ -74,14 +74,16 @@ namespace RestorantMVC.Areas.Admin.Controllers
         public async Task<IActionResult> Create([Bind("KategoriAdi,KategoriAciklama,ID,CreateTime,UpdateTime")] Kategori kategori)
         {
             await this.SetUser(userManager);
-
+            
             firmaId = userManager.GetUserId(User);
             kategori.FirmaId = firmaId;
-            if (ModelState.IsValid)
+
+            kategori.SelfKategoriID = await dbContext.Kategoriler.FirmaFilter(firmaId).CountAsync() + 1;
+
+            if (!ModelState.IsValid)
             {
                 return View(kategori);
             }
-
             try
             {
                 dbContext.Kategoriler.Add(kategori);
