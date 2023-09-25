@@ -1,21 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using Entites.Concrate;
+﻿using DAL.Contexts;
 using Entites.Abstract;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Entites.Concrate;
 using Microsoft.AspNetCore.Identity;
-using System.Dynamic;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using System.Text;
-using System.IO;
-using Google.Protobuf.WellKnownTypes;
-using Newtonsoft.Json.Linq;
-using Microsoft.AspNetCore.WebUtilities;
-using DAL.Contexts;
 
 namespace RestorantMVC.Extensions
 {
@@ -32,6 +23,7 @@ namespace RestorantMVC.Extensions
         {
             return model.Where(a => a.FirmaId == id);
         }
+
         /// <summary>
         /// Controller nesnesinin içindeki kullanıcı bilgisini ayarlamak ve ViewBag üzerinden kullanıcı bilgisine erişim sağlamak için kullanılan extension method.
         /// </summary>
@@ -49,7 +41,7 @@ namespace RestorantMVC.Extensions
             return model;
         }
 
-        public static async Task ViewBagSettings(this Controller model, SqlDbContext dbContext)
+        public static async Task ViewBagSettings(this Controller model , SqlDbContext dbContext)
         {
             string decryptValue = "";
             model.Request.Cookies.TryGetValue("f" , out decryptValue);
@@ -60,7 +52,9 @@ namespace RestorantMVC.Extensions
         }
 
         #region Encrypt
-        private static byte[] IV = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16 };
+
+        private static byte[] IV = { 0x01 , 0x02 , 0x03 , 0x04 , 0x05 , 0x06 , 0x07 , 0x08 , 0x09 , 0x10 , 0x11 , 0x12 , 0x13 , 0x14 , 0x15 , 0x16 };
+
         private static byte[] DeriveKeyFromPassword(string password)
         {
             var emptySalt = Array.Empty<byte>();
@@ -73,6 +67,7 @@ namespace RestorantMVC.Extensions
                                              hashMethod ,
                                              desiredKeyLength);
         }
+
         public static async Task<byte[]> EncryptAsync(string clearText , string passphrase)
         {
             using Aes aes = Aes.Create();
@@ -85,12 +80,11 @@ namespace RestorantMVC.Extensions
             await cryptoStream.WriteAsync(Encoding.Unicode.GetBytes(clearText));
             await cryptoStream.FlushFinalBlockAsync();
 
-
             return output.ToArray();
         }
+
         public static async Task<string> DecryptAsync(byte[] encrypted , string passphrase)
         {
-
             using Aes aes = Aes.Create();
             aes.Key = DeriveKeyFromPassword(passphrase);
             aes.IV = IV;
@@ -103,6 +97,7 @@ namespace RestorantMVC.Extensions
 
             return Encoding.Unicode.GetString(output.ToArray());
         }
-        #endregion
+
+        #endregion Encrypt
     }
 }

@@ -4,34 +4,34 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+<a asp-action="Create" class="btn btn-primary btn-icon-text">
+        <i class="mdi mdi-file-check btn-icon-prepend"></i> Yeni Ürün Oluştur
+</a>
+<div class="dropdown-divider"></div>
+<table class="table table-hover">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.UrunAdi)
+                Ürün Adı
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.UrunAciklama)
+                Ürün Açıklaması
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FotografLink)
+                Ürün Görseli
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Fiyat)
+                Ürün Fiyatı
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Kategori)
+                Ürün Kategorisi
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CreateTime)
+                Oluşturma Tarihi
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.UpdateTime)
+                Güncellenme Tarihi
             </th>
             <th></th>
         </tr>
@@ -61,9 +61,9 @@
                 @Html.DisplayFor(modelItem => item.UpdateTime)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                <a class="badge badge-outline-success" class="badge badge-outline-danger" asp-action="Edit" asp-route-id="@item.ID">Düzenle</a> 
+                <a class="badge badge-outline-warning" asp-action="Details" asp-route-id="@item.ID">Detaylar</a> 
+                <a class="badge badge-outline-danger" asp-action="Delete" asp-route-id="@item.ID">Sil</a>
             </td>
         </tr>
 }
