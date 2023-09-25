@@ -4,26 +4,25 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
-<p>
-    <a class="nav-link btn btn-success create-new-button" asp-action="Create">Create New</a>
-</p>
+<a asp-action="Create" class="btn btn-primary btn-icon-text">
+        <i class="mdi mdi-file-check btn-icon-prepend"></i> Yeni Kategori Oluştur 
+</a>
+<div class="dropdown-divider"></div>
 <div class="table-responsive">
-    <table class="table">
+    <table class="table table-hover">
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.KategoriAdi)
+                    Kategori Adı
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.KategoriAciklama)
+                    Kategori Açıklaması
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.CreateTime)
+                    Oluşturma Tarihi
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.UpdateTime)
+                    Güncellenme Tarihi
                 </th>
                 <th></th>
             </tr>
@@ -44,9 +43,9 @@
                     @Html.DisplayFor(modelItem => item.UpdateTime)
                 </td>
                 <td>
-                    <a class="badge badge-outline-success" asp-action="Edit" asp-route-id="@item.ID">Edit</a> 
-                    <a class="badge badge-outline-warning" asp-action="Details" asp-route-id="@item.ID">Details</a> 
-                    <a class="badge badge-outline-danger" asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                    <a class="badge badge-outline-success" asp-action="Edit" asp-route-id="@item.ID">Düzenle</a> 
+                    <a class="badge badge-outline-warning" asp-action="Details" asp-route-id="@item.ID">Ayrıntılar</a> 
+                    <a class="badge badge-outline-danger" asp-action="Delete" asp-route-id="@item.ID">Sil</a>
                 </td>
             </tr>
     }
