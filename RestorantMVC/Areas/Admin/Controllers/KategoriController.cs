@@ -116,6 +116,9 @@ namespace RestorantMVC.Areas.Admin.Controllers
         public async Task<IActionResult> Edit(int id , [Bind("KategoriAdi,KategoriAciklama,ID,CreateTime,UpdateTime")] Kategori kategori)
         {
             await this.SetUser(userManager);
+            firmaId = userManager.GetUserId(User);
+            kategori.FirmaId = firmaId;
+            kategori.UpdateTime = DateTime.Now;
 
             if (ModelState.IsValid)
             {
