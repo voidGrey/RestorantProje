@@ -90,6 +90,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
         {
             await this.SetUser(userManager);
 
+
             if (id == null || dbContext.Masalar == null)
 
             {
@@ -112,6 +113,9 @@ namespace RestorantMVC.Areas.Admin.Controllers
         public async Task<IActionResult> Edit(int id , [Bind("MasaID,MasaSifresi,ID,CreateTime,UpdateTime")] Masa masa)
         {
             await this.SetUser(userManager);
+            firmaId = userManager.GetUserId(User);
+            masa.FirmaId = firmaId;
+            masa.UpdateTime = DateTime.Now;
 
             if (id != masa.ID)
             {

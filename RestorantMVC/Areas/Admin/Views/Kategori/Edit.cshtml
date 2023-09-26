@@ -4,44 +4,37 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1>Düzenle</h1>
 
-<h4>Kategori</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="KategoriAdi" class="control-label"></label>
-                <input asp-for="KategoriAdi" class="form-control" />
-                <span asp-validation-for="KategoriAdi" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="KategoriAciklama" class="control-label"></label>
-                <input asp-for="KategoriAciklama" class="form-control" />
-                <span asp-validation-for="KategoriAciklama" class="text-danger"></span>
-            </div>
-            <input type="hidden" asp-for="ID" />
-            <div class="form-group">
-                <label asp-for="CreateTime" class="control-label"></label>
-                <input asp-for="CreateTime" class="form-control" />
-                <span asp-validation-for="CreateTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UpdateTime" class="control-label"></label>
-                <input asp-for="UpdateTime" class="form-control" />
-                <span asp-validation-for="UpdateTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+<div class="col-md-6 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="KategoriAdi" class="control-label">Kategori Adı:</label>
+                    <input asp-for="KategoriAdi" class="form-control" />
+                    <span asp-validation-for="KategoriAdi" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="KategoriAciklama" class="control-label">Kategori Açıklaması:</label>
+                    <input asp-for="KategoriAciklama" class="form-control" />
+                    <span asp-validation-for="KategoriAciklama" class="text-danger"></span>
+                </div>
+                <input type="hidden" asp-for="ID" />
+                <div class="form-group">
+                    <label asp-for="UpdateTime" class="control-label">Güncelleme Tarihi</label>
+                    <input asp-for="UpdateTime" type="datetime" value="@DateTime.Now" class="form-control" disabled style="color: black" />
+                    <span asp-validation-for="UpdateTime" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Kaydet" class="btn btn-primary" />
+                    <a asp-action="Index" class="btn btn-secondary btn-fw mdi mdi-backburger">Listeye geri dön</a>
+
+                </div>
+            </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

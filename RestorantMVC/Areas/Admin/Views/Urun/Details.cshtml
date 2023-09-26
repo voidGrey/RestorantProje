@@ -4,57 +4,43 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
-
-<div>
-    <h4>Urun</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UrunAdi)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UrunAdi)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UrunAciklama)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UrunAciklama)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FotografLink)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FotografLink)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Fiyat)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Fiyat)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Kategori)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Kategori.KategoriAciklama)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreateTime)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreateTime)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UpdateTime)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UpdateTime)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.ID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Ürün Detayları</h4>
+        <div class="form-group row">
+            <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Ürün Adı</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="exampleInputUsername2" placeholder="@Model.UrunAdi" disabled>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Ürün Açıklaması</label>
+            <div class="col-sm-9">
+                <input type="email" class="form-control" id="exampleInputEmail2" placeholder="@Model.UrunAciklama" disabled>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="exampleInputMobile" class="col-sm-3 col-form-label">Ürün Görseli</label>
+            <div class="col-sm-9">
+                <img src="@Model.FotografLink" width="128" height="128" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Ürün Fiyatı</label>
+            <div class="col-sm-9">
+                <input type="password" class="form-control" id="exampleInputPassword2" placeholder="@Model.Fiyat" disabled>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="exampleInputConfirmPassword2" class="col-sm-3 col-form-label">Kategorisi</label>
+            <div class="col-sm-9">
+                <input type="password" class="form-control" id="exampleInputConfirmPassword2" placeholder="@Model.Kategori.KategoriAdi" disabled>
+            </div>
+        </div>
+        <form asp-action="Edit">
+            <input type="hidden" asp-for="ID" />
+            <input type="submit" value="Düzenle" class="btn btn-danger btn-fw" />
+            <a asp-action="Index" class="btn btn-secondary btn-fw mdi mdi-backburger">Listeye geri dön</a>
+        </form>
+    </div>
 </div>

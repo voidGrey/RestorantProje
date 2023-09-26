@@ -3,19 +3,14 @@
     int values = 0;
     }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+<table class="table table-hover">
     <thead>
         <tr>
             <th>
                 Masa ID
             </th>
             <th>
-                Urun ID
+                Ürün
             </th>
             <th>
                 Adet
@@ -27,10 +22,10 @@
                 Toplam
             </th>
             <th>
-                CreateTime
+                Oluşturma Tarihi
             </th>
             <th>
-                UpdateTime
+                Güncellenme Tarihi
             </th>
             <th></th>
         </tr>
@@ -60,23 +55,24 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.UpdateTime)
                 </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-                </td>
             </tr>
 
             values += 1;
         }
     </tbody>
+
+
+
 </table>
+
+<br />
 @foreach (var item in Model)
 {
-    <center>
-        <b>
-            Toplam Tutar :  @Html.DisplayFor(modelItem => item.SiparisMaster.ToplamTutar) TL
-        </b>
-    </center>
+
+    <a asp-action="Index" class="btn btn-secondary btn-fw mdi mdi-backburger">Geri dön</a>
+
+    <a class="btn btn-success btn-fw mdi mdi-coin">
+        Toplam Tutar :  @Html.DisplayFor(modelItem => item.SiparisMaster.ToplamTutar) TL
+    </a>
     break;
 }

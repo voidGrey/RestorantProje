@@ -79,6 +79,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
             firmaId = userManager.GetUserId(User);
 
             urun.FirmaId = firmaId;
+            urun.CreateTime = DateTime.Now;
 
             if (ModelState.IsValid)
             {
@@ -118,6 +119,9 @@ namespace RestorantMVC.Areas.Admin.Controllers
         public async Task<IActionResult> Edit(int id , [Bind("UrunAdi,UrunAciklama,FotografLink,Fiyat,KategoriID,ID,CreateTime,UpdateTime")] Urun urun)
         {
             await this.SetUser(userManager);
+            firmaId = userManager.GetUserId(User);
+            urun.FirmaId = firmaId;
+            urun.UpdateTime = DateTime.Now;
 
             if (id != urun.ID)
             {
