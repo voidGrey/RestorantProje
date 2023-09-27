@@ -12,7 +12,6 @@ namespace DAL.EntityConfig.Concrate
 
             builder.Property(p => p.KategoriAdi).HasMaxLength(50);
             builder.Property(p => p.KategoriAciklama).HasMaxLength(100);
-            builder.HasIndex(p => p.KategoriAdi).IsUnique();
         }
     }
 }

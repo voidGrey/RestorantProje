@@ -185,7 +185,7 @@ namespace DAL.Migrations
                     KategoriAciklama = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     SelfKategoriID = table.Column<int>(type: "int", nullable: true),
                     FirmaId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 9, 24, 18, 53, 3, 225, DateTimeKind.Local).AddTicks(7609)),
+                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 9, 27, 14, 25, 16, 438, DateTimeKind.Local).AddTicks(4)),
                     UpdateTime = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
@@ -207,7 +207,7 @@ namespace DAL.Migrations
                     KullaniciAdi = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Sifre = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     FirmaId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 9, 24, 18, 53, 3, 225, DateTimeKind.Local).AddTicks(9535)),
+                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 9, 27, 14, 25, 16, 438, DateTimeKind.Local).AddTicks(1697)),
                     UpdateTime = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
@@ -250,7 +250,7 @@ namespace DAL.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RoleAdi = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     FirmaId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 9, 24, 18, 53, 3, 226, DateTimeKind.Local).AddTicks(1190)),
+                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 9, 27, 14, 25, 16, 438, DateTimeKind.Local).AddTicks(3728)),
                     UpdateTime = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
@@ -294,7 +294,7 @@ namespace DAL.Migrations
                     Fiyat = table.Column<double>(type: "float", nullable: false),
                     KategoriID = table.Column<int>(type: "int", nullable: false),
                     FirmaId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 9, 24, 18, 53, 3, 226, DateTimeKind.Local).AddTicks(7199)),
+                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 9, 27, 14, 25, 16, 439, DateTimeKind.Local).AddTicks(1461)),
                     UpdateTime = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
@@ -324,7 +324,7 @@ namespace DAL.Migrations
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     status = table.Column<int>(type: "int", nullable: false),
                     FirmaId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 9, 24, 18, 53, 3, 226, DateTimeKind.Local).AddTicks(5513)),
+                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 9, 27, 14, 25, 16, 438, DateTimeKind.Local).AddTicks(9383)),
                     UpdateTime = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
@@ -413,7 +413,7 @@ namespace DAL.Migrations
                     Adet = table.Column<double>(type: "float", nullable: false),
                     Fiyat = table.Column<double>(type: "float", nullable: false),
                     FirmaId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 9, 24, 18, 53, 3, 226, DateTimeKind.Local).AddTicks(3994)),
+                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 9, 27, 14, 25, 16, 438, DateTimeKind.Local).AddTicks(6718)),
                     UpdateTime = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
@@ -441,7 +441,7 @@ namespace DAL.Migrations
             migrationBuilder.InsertData(
                 table: "Roller",
                 columns: new[] { "ID", "CreateTime", "FirmaId", "RoleAdi", "UpdateTime" },
-                values: new object[] { 1, new DateTime(2023, 9, 24, 18, 53, 3, 226, DateTimeKind.Local).AddTicks(1622), null, "Admin", null });
+                values: new object[] { 1, new DateTime(2023, 9, 27, 14, 25, 16, 438, DateTimeKind.Local).AddTicks(4196), null, "Admin", null });
 
             migrationBuilder.InsertData(
                 table: "Sehirler",
@@ -642,13 +642,6 @@ namespace DAL.Migrations
                 name: "IX_Kategoriler_FirmaId",
                 table: "Kategoriler",
                 column: "FirmaId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Kategoriler_KategoriAdi",
-                table: "Kategoriler",
-                column: "KategoriAdi",
-                unique: true,
-                filter: "[KategoriAdi] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Kullanicilar_FirmaId",
