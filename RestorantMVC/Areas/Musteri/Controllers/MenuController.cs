@@ -93,19 +93,20 @@ namespace RestorantMVC.Areas.Musteri.Controllers
                                         .Where(v => v.SiparisMasterId == cloneID).ToListAsync();
 
             clone.SiparisDetay = siparisDetaylar;
-            bool urunStatus = false;
+            bool urunStatus = true;
 
             foreach (var item in clone.SiparisDetay)
             {
-                if (item.UrunId == urun.ID && item.status != SiparisDetay.Status.Onay_Bekliyor)
+                if (item.UrunId == urun.ID && item.status == SiparisDetay.Status.Onay_Bekliyor)
                 {
                     item.Adet++;
                     item.status = SiparisDetay.Status.Onay_Bekliyor;
                     dbContext.SiparisDetaylar.Update(item);
                     await dbContext.SaveChangesAsync();
+                    urunStatus = false;
+
                     continue;
                 }
-                urunStatus = true;
             }
 
             if (urunStatus)
