@@ -80,21 +80,34 @@ namespace RestorantMVC.Areas.Admin.Controllers
 
             kategori.SelfKategoriID = await dbContext.Kategoriler.FirmaFilter(firmaId).CountAsync() + 1;
 
-            if (!ModelState.IsValid)
+            if (!IsUniqueForFirma(kategori.KategoriAdi,firmaId))
             {
+                ModelState.AddModelError("KategoriAdi", "Kategori adı zaten mevcut");
                 return View(kategori);
             }
-            try
+            if (ModelState.IsValid)
             {
-                dbContext.Kategoriler.Add(kategori);
-                await dbContext.SaveChangesAsync();
+                try
+                {
+                    dbContext.Kategoriler.Add(kategori);
+                    await dbContext.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+                catch (Exception)
+                {
+                    ModelState.AddModelError("" , "Aynı İsimde bir kategori zaten mevcut");
+                    return View(kategori);
+                }
             }
-            catch (Exception)
-            {
-                ModelState.AddModelError("" , "Aynı İsimde bir kategori zaten mevcut");
-                return View(kategori);
-            }
-            return RedirectToAction("Index");
+            return View(kategori);
+        }
+
+        private bool IsUniqueForFirma(string kategoriadi, string firmaId)
+        {
+            firmaId = userManager.GetUserId(User);
+
+            var kategorivarmi = dbContext.Kategoriler.FirstOrDefault(c => c.KategoriAdi == kategoriadi && c.FirmaId == firmaId);
+            return kategorivarmi == null;
         }
 
         // GET: Admin/Kategori/Edit/5
@@ -117,6 +130,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
         {
             await this.SetUser(userManager);
             firmaId = userManager.GetUserId(User);
+
             kategori.FirmaId = firmaId;
             kategori.UpdateTime = DateTime.Now;
 

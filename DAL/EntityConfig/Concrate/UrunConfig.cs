@@ -10,7 +10,6 @@ namespace Entites.Concrate
             base.Configure(builder);
             builder.Property(x => x.UrunAdi).HasMaxLength(20);
             builder.Property(x => x.UrunAciklama).HasMaxLength(50);
-            builder.HasIndex(x => x.UrunAdi).IsUnique();
         }
     }
 }

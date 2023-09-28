@@ -81,23 +81,35 @@ namespace RestorantMVC.Areas.Admin.Controllers
             urun.FirmaId = firmaId;
             urun.CreateTime = DateTime.Now;
 
-            if (ModelState.IsValid)
+            if (!IsUniqueForFirma(urun.UrunAdi , firmaId))
             {
-                ViewData["KategoriID"] = new SelectList(dbContext.Kategoriler.FirmaFilter(firmaId) , "ID" , "KategoriAdi");
+                ModelState.AddModelError("KategoriAdi" , "Kategori adı zaten mevcut");
                 return View(urun);
             }
-            try
+            if (!ModelState.IsValid)
             {
-                dbContext.Urunler.Add(urun);
-                await dbContext.SaveChangesAsync();
+                try
+                {
+                    dbContext.Urunler.Add(urun);
+                    await dbContext.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+                catch (Exception)
+                {
+                    ModelState.AddModelError("" , "Aynı İsimde bir ürün zaten mevcut");
+                    ViewData["KategoriID"] = new SelectList(dbContext.Kategoriler.FirmaFilter(firmaId) , "ID" , "KategoriAdi");
+                    return View(urun);
+                }
             }
-            catch (Exception)
-            {
-                ModelState.AddModelError("" , "Aynı İsimde bir ürün zaten mevcut");
-                ViewData["KategoriID"] = new SelectList(dbContext.Kategoriler.FirmaFilter(firmaId) , "ID" , "KategoriAdi");
-                return View(urun);
-            }
-            return RedirectToAction("Index");
+            return View(urun);
+        }
+
+        private bool IsUniqueForFirma(string urunadi , string firmaId)
+        {
+            firmaId = userManager.GetUserId(User);
+
+            var kategorivarmi = dbContext.Urunler.FirstOrDefault(c => c.UrunAdi == urunadi && c.FirmaId == firmaId);
+            return kategorivarmi == null;
         }
 
         // GET: Admin/Urun/Edit/5
