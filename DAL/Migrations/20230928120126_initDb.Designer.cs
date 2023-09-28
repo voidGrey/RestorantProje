@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(SqlDbContext))]
-    [Migration("20230927115822_initDb")]
+    [Migration("20230928120126_initDb")]
     partial class initDb
     {
         /// <inheritdoc />
@@ -415,7 +415,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 27, 14, 58, 22, 53, DateTimeKind.Local).AddTicks(1505));
+                        .HasDefaultValue(new DateTime(2023, 9, 28, 15, 1, 26, 784, DateTimeKind.Local).AddTicks(5990));
 
                     b.Property<string>("FirmaId")
                         .HasColumnType("nvarchar(450)");
@@ -452,7 +452,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 27, 14, 58, 22, 53, DateTimeKind.Local).AddTicks(2994));
+                        .HasDefaultValue(new DateTime(2023, 9, 28, 15, 1, 26, 784, DateTimeKind.Local).AddTicks(7338));
 
                     b.Property<string>("FirmaId")
                         .HasColumnType("nvarchar(450)");
@@ -489,7 +489,9 @@ namespace DAL.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<DateTime>("CreateTime")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2023, 9, 28, 15, 1, 26, 785, DateTimeKind.Local).AddTicks(6729));
 
                     b.Property<string>("FirmaId")
                         .HasColumnType("nvarchar(450)");
@@ -521,7 +523,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 27, 14, 58, 22, 53, DateTimeKind.Local).AddTicks(4989));
+                        .HasDefaultValue(new DateTime(2023, 9, 28, 15, 1, 26, 784, DateTimeKind.Local).AddTicks(9203));
 
                     b.Property<string>("FirmaId")
                         .HasColumnType("nvarchar(450)");
@@ -547,7 +549,7 @@ namespace DAL.Migrations
                         new
                         {
                             ID = 1,
-                            CreateTime = new DateTime(2023, 9, 27, 14, 58, 22, 53, DateTimeKind.Local).AddTicks(5440),
+                            CreateTime = new DateTime(2023, 9, 28, 15, 1, 26, 784, DateTimeKind.Local).AddTicks(9649),
                             RoleAdi = "Admin"
                         });
                 });
@@ -1083,7 +1085,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 27, 14, 58, 22, 53, DateTimeKind.Local).AddTicks(7808));
+                        .HasDefaultValue(new DateTime(2023, 9, 28, 15, 1, 26, 785, DateTimeKind.Local).AddTicks(3588));
 
                     b.Property<string>("FirmaId")
                         .HasColumnType("nvarchar(450)");
@@ -1100,15 +1102,16 @@ namespace DAL.Migrations
                     b.Property<int>("UrunId")
                         .HasColumnType("int");
 
+                    b.Property<int>("status")
+                        .HasColumnType("int");
+
                     b.HasKey("ID");
 
                     b.HasIndex("FirmaId");
 
-                    b.HasIndex("SiparisMasterId");
-
                     b.HasIndex("UrunId");
 
-                    b.HasIndex("ID", "UrunId")
+                    b.HasIndex("SiparisMasterId", "UrunId")
                         .IsUnique();
 
                     b.ToTable("SiparisDetaylar");
@@ -1125,7 +1128,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 27, 14, 58, 22, 53, DateTimeKind.Local).AddTicks(9348));
+                        .HasDefaultValue(new DateTime(2023, 9, 28, 15, 1, 26, 785, DateTimeKind.Local).AddTicks(5617));
 
                     b.Property<string>("FirmaId")
                         .HasColumnType("nvarchar(450)");
@@ -1142,16 +1145,11 @@ namespace DAL.Migrations
                     b.Property<DateTime?>("UpdateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("status")
-                        .HasColumnType("int");
-
                     b.HasKey("ID");
 
                     b.HasIndex("FirmaId");
 
-                    b.HasIndex("MasaId")
-                        .IsUnique()
-                        .HasFilter("[MasaId] IS NOT NULL");
+                    b.HasIndex("MasaId");
 
                     b.ToTable("SiparisMasterlar");
                 });
@@ -1167,7 +1165,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 27, 14, 58, 22, 54, DateTimeKind.Local).AddTicks(1016));
+                        .HasDefaultValue(new DateTime(2023, 9, 28, 15, 1, 26, 785, DateTimeKind.Local).AddTicks(7609));
 
                     b.Property<string>("FirmaId")
                         .HasColumnType("nvarchar(450)");
@@ -1451,8 +1449,8 @@ namespace DAL.Migrations
                         .HasForeignKey("FirmaId");
 
                     b.HasOne("Entites.Concrate.Masa", "Masa")
-                        .WithOne("Siparis")
-                        .HasForeignKey("Entites.Concrate.SiparisMaster", "MasaId");
+                        .WithMany("Siparisler")
+                        .HasForeignKey("MasaId");
 
                     b.Navigation("Firma");
 
@@ -1554,7 +1552,7 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("Entites.Concrate.Masa", b =>
                 {
-                    b.Navigation("Siparis");
+                    b.Navigation("Siparisler");
                 });
 
             modelBuilder.Entity("Entites.Concrate.Sehir", b =>
