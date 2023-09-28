@@ -3,6 +3,7 @@ using Entites.Abstract;
 using Entites.Concrate;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
@@ -40,6 +41,22 @@ namespace RestorantMVC.Extensions
             model.ViewBag.User = user;
             return model;
         }
+
+
+        public static async Task<bool> isUnuqieafa<TModel>(this DbSet<TModel> model , string ad, string fir) where TModel : Kategori
+        {
+
+            var value = model.FirstOrDefault(c => c.KategoriAdi == ad && c.FirmaId == fir);
+
+            return false;
+        }
+        //public static async Task<bool> isUnuqieafa<TModel>(this DbSet<TModel> model , string ad , string fir) where TModel : Urun
+        //{
+
+        //    var value = model.FirstOrDefault(c => c.UrunAdi == ad && c.FirmaId == fir);
+
+        //    return false;
+        //}
 
         public static async Task ViewBagSettings(this Controller model , SqlDbContext dbContext)
         {

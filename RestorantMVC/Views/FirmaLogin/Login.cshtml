@@ -16,6 +16,7 @@
                     </svg><span class="hidden">Kullanıcı Adı</span>
                 </label>
                 <input asp-for="Email" class="form__input" type="text" placeholder="ornek@mail.com" required>
+                <span asp-validation-for="Email" class="text-danger"></span>
             </div>
 
             <div class="form__field">
@@ -25,6 +26,7 @@
                     </svg><span class="hidden">Password</span>
                 </label>
                 <input id="login__password" asp-for="Password" type="password" name="password" class="form__input" placeholder="Şifre" required>
+                <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form__field">
                 @Html.CheckBoxFor(m => m.RememberMe, true) Beni Hatırla 

@@ -80,7 +80,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
 
             kategori.SelfKategoriID = await dbContext.Kategoriler.FirmaFilter(firmaId).CountAsync() + 1;
 
-            if (IsUniqueForFirma(kategori.KategoriAdi,firmaId))
+            if (!IsUniqueForFirma(kategori.KategoriAdi,firmaId))
             {
                 ModelState.AddModelError("KategoriAdi", "Kategori adı zaten mevcut");
                 return View(kategori);
