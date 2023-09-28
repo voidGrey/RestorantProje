@@ -28,6 +28,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
             await this.SetUser(userManager);
             firmaId = userManager.GetUserId(User);
             var Siparisler = await dbContext.SiparisMasterlar.FirmaFilter(firmaId).ToListAsync();
+
             return View(Siparisler);
         }
 
@@ -90,10 +91,13 @@ namespace RestorantMVC.Areas.Admin.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
+
             await this.SetUser(userManager);
+            firmaId = userManager.GetUserId(User);
 
             var siparismaster = await dbContext.SiparisMasterlar.FindAsync(id);
-            ICollection<SiparisDetay> siparisler = dbContext.SiparisDetaylar.Where(sd => sd.SiparisMaster.MasaId == siparismaster.MasaId).ToList();
+
+            ICollection<SiparisDetay> siparisler = dbContext.SiparisDetaylar.FirmaFilter(firmaId).Where(sd => sd.SiparisMaster.MasaId == siparismaster.MasaId).ToList();
 
             List<Urun> urunler = new List<Urun>();
 
