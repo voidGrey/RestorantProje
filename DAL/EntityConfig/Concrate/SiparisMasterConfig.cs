@@ -14,7 +14,7 @@ namespace DAL.EntityConfig.Concrate
         public override void Configure(EntityTypeBuilder<SiparisMaster> builder)
         {
             base.Configure(builder);
-           
         }
     }
 }
+ 

@@ -134,7 +134,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
             kategori.FirmaId = firmaId;
             kategori.UpdateTime = DateTime.Now;
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(kategori);
             }

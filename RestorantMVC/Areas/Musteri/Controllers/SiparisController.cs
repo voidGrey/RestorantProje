@@ -228,17 +228,17 @@ namespace RestorantMVC.Areas.Musteri.Controllers
             return (dbContext.SiparisDetaylar?.Any(e => e.ID == id)).GetValueOrDefault();
         }
 
-        public async Task<IActionResult> Onayla(int id)
-        {
-            await this.ViewBagSettings(dbContext);
+        //public async Task<IActionResult> Onayla(int id)
+        //{
+        //    await this.ViewBagSettings(dbContext);
 
-            var siparismaster = await dbContext.SiparisMasterlar.FindAsync(id);
-            siparismaster.status = (SiparisMaster.Status)2;
-            dbContext.Update(siparismaster);
-            await dbContext.SaveChangesAsync();
+        //    var siparismaster = await dbContext.SiparisMasterlar.FindAsync(id);
+        //    siparismaster.status = (SiparisMaster.Status)2;
+        //    dbContext.Update(siparismaster);
+        //    await dbContext.SaveChangesAsync();
 
-            return View(siparismaster);
-        }
+        //    return View(siparismaster);
+        //}
 
     }
 }

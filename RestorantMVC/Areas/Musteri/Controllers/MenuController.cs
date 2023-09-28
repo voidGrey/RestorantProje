@@ -1,13 +1,9 @@
 ﻿using DAL.Contexts;
-using DAL.Repository.Abstract;
 using Entites.Concrate;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using RestorantMVC.Extensions;
-using System.Security.Cryptography.X509Certificates;
 
 namespace RestorantMVC.Areas.Musteri.Controllers
 {
@@ -16,6 +12,7 @@ namespace RestorantMVC.Areas.Musteri.Controllers
     {
         private readonly SqlDbContext dbContext;
         private string decryptValue;
+
         public MenuController(SqlDbContext dbContext)
         {
             this.dbContext = dbContext;
@@ -27,7 +24,6 @@ namespace RestorantMVC.Areas.Musteri.Controllers
 
             return View();
         }
-
 
         /// <summary>
         /// Belirli bir kategoriye ait ürünleri listelemek için kullanılan işlem.
@@ -56,125 +52,78 @@ namespace RestorantMVC.Areas.Musteri.Controllers
         {
             await this.ViewBagSettings(dbContext);
 
+            Request.Cookies.TryGetValue("f" , out decryptValue);
+            byte[] bytes = WebEncoders.Base64UrlDecode(decryptValue);
+            string firmaId = await RestorantExtension.DecryptAsync(bytes,"YeyoYoOyeŞifrehehe");
+
             // Cookie'den masa id'sini çekiyorum.
             int masaid = Convert.ToInt32(HttpContext.Request.Cookies["MasaId"]);
-            if (masaid == 0)
+
+            // Ürünü çekiyorum.
+            Urun urun = await dbContext.Urunler.FirmaFilter(firmaId).Where(u => u.ID == id).FirstOrDefaultAsync();
+
+            //Siparis Masterler'in listesi
+            var siparisMasterler = await dbContext.SiparisMasterlar.FirmaFilter(firmaId).Where(m => m.MasaId == masaid).ToListAsync();
+
+            //Clone sipariş master.
+            SiparisMaster clone = null;
+            int cloneID = 0;
+
+            foreach (var item in siparisMasterler)
             {
-                return RedirectToAction("IndexLogin", "Home", new { area = "default" });
-            }
-            // Masa yeni oluşturuldu mu diye bakıyorum
-            bool yeniSiparis = true;
-
-            //DB'De ki Sipariş Master'leri çekiyorum
-            var masters = dbContext.SiparisMasterlar.Where(s => s.MasaId == masaid).Where(s => s.IsActive == true);
-            // SiparişDetail atamak için yeni bir detail listesi oluşturuyorum.
-            List<SiparisDetay> details = new();
-
-            //DB'den çekilen Sipariş Master' yeni siparisMaster olarak atıyorum
-            SiparisMaster siparisMaster = masters.FirstOrDefault();
-
-            // siparisMaster boş veya değersiz dönmediyse SiparişMaster'de ki Details'ları çekiyorum
-            // ve yeni sipariş boolean'ını kapatıyorum.
-            if (siparisMaster != null)
-            {
-                details = dbContext.SiparisDetaylar.Where(d => d.SiparisMasterId == siparisMaster.ID).ToList();
-                yeniSiparis = false;
-            }
-
-            // DB'den gelen siparisMaster' null ise yeni bir tane oluşturuyorum.
-            if (siparisMaster == null) { siparisMaster = await CreateSiparisMaster(id , masaid); }
-            else // null değil ise yukarıda oluşturduğum details listesinin atamasını yapıyorum.
-                siparisMaster.SiparisDetay = details;
-
-            // Gelen ürün sipariş detay olarak oluşturuluyor.
-            bool AynıUrunKontrolu = false;
-            foreach (var item in siparisMaster.SiparisDetay)
-            {
-                if (item.UrunId == id)
+                if (item.IsActive)
                 {
-                    AynıUrunKontrolu = true;
+                    clone = item;
+                    cloneID = item.ID;
                 }
             }
-            if (AynıUrunKontrolu)
+
+            if (clone == null)
             {
-                var siparisDetay = dbContext.SiparisDetaylar
-                    .FirstOrDefault(x => x.UrunId == id && x.SiparisMasterId == siparisMaster.ID);
-
-                if (siparisDetay != null)
-                {
-                    siparisDetay.Adet++;
-                    dbContext.SaveChanges();
-                }
+                clone = new SiparisMaster();
+                clone.IsActive = true;
+                clone.FirmaId = firmaId;
+                clone.MasaId = masaid;
+                await dbContext.SiparisMasterlar.AddAsync(clone);
+                await dbContext.SaveChangesAsync();
+                cloneID = dbContext.SiparisMasterlar.Count();
             }
-            else { await CreateSiparisDetay(id , yeniSiparis , siparisMaster); }
 
-            //Database'e kaydedilen sipariş master'ın ToplamTutarı Güncelleniyor ve database'e yeniden kayıt ediliyor.
-            await dbContext.SaveChangesAsync();
-            siparisMaster.ToplamTutar = dbContext.SiparisDetaylar.Where(v => v.SiparisMasterId == siparisMaster.ID).Sum(x => x.Fiyat * x.Adet);
-            await dbContext.SaveChangesAsync();
+            var siparisDetaylar = await dbContext.SiparisDetaylar.FirmaFilter(firmaId)
+                                        .Where(v => v.SiparisMasterId == cloneID).ToListAsync();
 
-            //Siparişler liste olarak sayfaya gönderiliyor.
-            ICollection<SiparisDetay> siparisler = dbContext.SiparisDetaylar.Where(sd => sd.SiparisMaster.MasaId == siparisMaster.MasaId).ToList();
+            clone.SiparisDetay = siparisDetaylar;
+            bool urunStatus = false;
+
+            foreach (var item in clone.SiparisDetay)
+            {
+                if (item.UrunId == urun.ID && item.status != SiparisDetay.Status.Onay_Bekliyor)
+                {
+                    item.Adet++;
+                    item.status = SiparisDetay.Status.Onay_Bekliyor;
+                    dbContext.SiparisDetaylar.Update(item);
+                    await dbContext.SaveChangesAsync();
+                    continue;
+                }
+                urunStatus = true;
+            }
+
+            if (urunStatus)
+            {
+                SiparisDetay siparisDetay = new SiparisDetay();
+                siparisDetay.FirmaId = firmaId;
+                siparisDetay.Adet = 1;
+                siparisDetay.Urun = urun;
+                siparisDetay.UrunId = urun.ID;
+                siparisDetay.CreateTime = DateTime.Now;
+                siparisDetay.Fiyat = urun.Fiyat * siparisDetay.Adet;
+                siparisDetay.SiparisMasterId = cloneID;
+                siparisDetay.status = SiparisDetay.Status.Onay_Bekliyor;
+                await dbContext.SiparisDetaylar.AddAsync(siparisDetay);
+                await dbContext.SaveChangesAsync();
+            }
+
             return RedirectToAction("Index" , "Siparis");
-        }
-
-        /// <summary>
-        /// Belirtilen ürün ID'si ve sipariş Master nesnesi ile yeni bir sipariş detayı oluşturur ve veritabanına kaydeder.
-        /// </summary>
-        /// <param name="id">Ürünün ID'si.</param>
-        /// <param name="yeniSiparis">Eğer bu yeni bir sipariş ise true, aksi takdirde false.</param>
-        /// <param name="siparisMaster">Siparişin ait olduğu Master nesnesi.</param>
-        /// <returns>Asenkron bir işlem sonucu.</returns>
-        private async Task CreateSiparisDetay(int id , bool yeniSiparis , SiparisMaster siparisMaster)
-        {
-            Request.Cookies.TryGetValue("f" , out decryptValue);
-            byte[] bytes = WebEncoders.Base64UrlDecode(decryptValue);
-            string firmaId = await RestorantExtension.DecryptAsync(bytes,"YeyoYoOyeŞifrehehe");
-
-            SiparisDetay siparisDetay = new SiparisDetay
-                  (
-                  siparisMaster.ID,
-                  siparisMaster,
-                  await dbContext.Urunler.FindAsync(id),
-                  dbContext.Urunler.Find(id).ID,
-                  1,
-                  dbContext.Urunler.Find(id).Fiyat
-                  );
-
-            siparisDetay.FirmaId = firmaId;
-            siparisMaster.ToplamTutar = dbContext.SiparisDetaylar.Sum(x => x.Fiyat);
-
-            // Yeni eklenen ürün siparisMaster'de ki sipariş Detay listesine ekleniyor.
-            siparisMaster.SiparisDetay.Add(siparisDetay);
-
-            //DB KAYIT
-            await dbContext.SiparisDetaylar.AddAsync(siparisDetay);
-            if (yeniSiparis) // Yeni Master ise DB kayıt
-                await dbContext.SiparisMasterlar.AddAsync(siparisMaster);
-        }
-
-        /// <summary>
-        /// Belirtilen masa ID'si ve sipariş oluşturma tarihi ile yeni bir sipariş Master nesnesi oluşturur.
-        /// </summary>
-        /// <param name="id">Masa ID'si.</param>
-        /// <param name="masaid">Siparişin ait olduğu masa ID'si.</param>
-        /// <returns>Oluşturulan sipariş Master nesnesi.</returns>
-        private async Task<SiparisMaster> CreateSiparisMaster(int id , int masaid)
-        {
-
-            Request.Cookies.TryGetValue("f" , out decryptValue);
-            byte[] bytes = WebEncoders.Base64UrlDecode(decryptValue);
-            string firmaId = await RestorantExtension.DecryptAsync(bytes,"YeyoYoOyeŞifrehehe");
-
-            SiparisMaster siparisMaster = new SiparisMaster();
-            siparisMaster.CreateTime = DateTime.Now;
-            siparisMaster.UpdateTime = DateTime.Now;
-            siparisMaster.MasaId = masaid;
-            siparisMaster.Masa = await dbContext.Masalar.FindAsync(id);
-            siparisMaster.IsActive = true;
-            siparisMaster.SiparisDetay = new List<SiparisDetay>();
-            siparisMaster.FirmaId = firmaId;
-            return siparisMaster;
         }
 
         /// <summary>
