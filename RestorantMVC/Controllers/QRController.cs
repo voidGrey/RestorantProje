@@ -30,15 +30,18 @@ namespace RestorantMVC.Controllers
         /// <param name="id">MasaID Değeri</param>
         public async Task<IActionResult> Scan(int id , string f)
         {
+
+            //Gelen Firma ID Encrypt'i byte Arraya geri dönüştürülüp string'e çevriliyor.
+            byte[] firmaId = WebEncoders.Base64UrlDecode(f);
+            string decryptValue = await RestorantExtension.DecryptAsync(firmaId,"YeyoYoOyeŞifrehehe");
+            this.Response.Cookies.Append("f" , f);
+
             if (id == null || string.IsNullOrEmpty(id.ToString()) || id == 0)
             {
                 return Content("Okuttuğunuz QR Geçersiz veya Zarar görmüş lütfen bir garsondan yardım isteyiniz.");
             }
             else
             {
-                //Gelen Firma ID Encrypt'i byte Arraya geri dönüştürülüp string'e çevriliyor.
-                byte[] firmaId = WebEncoders.Base64UrlDecode(f);
-                string decryptValue = await RestorantExtension.DecryptAsync(firmaId,"YeyoYoOyeŞifrehehe");
 
                 // DB'den masa çekiliyor.
                 var masa = await dbContext.Masalar.FirmaFilter(decryptValue).Where(p=> p.MasaID == id).FirstOrDefaultAsync();
@@ -53,8 +56,7 @@ namespace RestorantMVC.Controllers
 
                     //Cookie eklenir.
                     this.Response.Cookies.Append("MasaId" , id.ToString());
-                    this.Response.Cookies.Append("f" , f);
-
+                    
                     //Masa Şifresi oluşturuluyor.
                     dbContext.Masalar.FirmaFilter(decryptValue)
                                      .Where(masa => masa.MasaID == id)
