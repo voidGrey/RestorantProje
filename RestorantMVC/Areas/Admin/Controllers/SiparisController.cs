@@ -28,7 +28,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
             await this.SetUser(userManager);
             firmaId = userManager.GetUserId(User);
             var Siparisler = await dbContext.SiparisMasterlar.FirmaFilter(firmaId).ToListAsync();
-
+            
             return View(Siparisler);
         }
 

@@ -35,6 +35,9 @@ namespace RestorantMVC.Areas.Musteri.Controllers
 
             var siparisMasterlar = dbContext.SiparisMasterlar.FirmaFilter(firmaId).Where(s => s.MasaId == masaid);
             var siparisMaster = siparisMasterlar.FirstOrDefault();
+            //toplam tutarı menu controllerdan çekemediğim için buraya aldım
+            siparisMaster.ToplamTutar = dbContext.SiparisDetaylar.Where(v => v.SiparisMasterId == siparisMaster.ID).Sum(x => x.Fiyat * x.Adet);
+            await dbContext.SaveChangesAsync();
             var siparisDetaylari = dbContext.SiparisDetaylar.FirmaFilter(firmaId).Where(d => d.SiparisMasterId == siparisMaster.ID).ToList();
 
             // Urun'lerin isimleri null dönmesin diye ürünlerin atamasını DB'den atıyorum.
