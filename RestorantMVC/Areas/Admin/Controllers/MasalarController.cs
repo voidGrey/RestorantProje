@@ -76,10 +76,10 @@ namespace RestorantMVC.Areas.Admin.Controllers
             firmaId = userManager.GetUserId(User);
 
             masa.FirmaId = firmaId;
-            if (ModelState.IsValid)
+            if (ModelState.IsValid) 
             {
-                dbContext.Add(masa);
-                await dbContext.SaveChangesAsync();
+                dbContext.Add(masa); 
+                await dbContext.SaveChangesAsync(); 
                 return RedirectToAction(nameof(Index));
             }
             return View(masa);
