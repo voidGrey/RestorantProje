@@ -28,8 +28,24 @@ namespace RestorantMVC.Areas.Admin.Controllers
             await this.SetUser(userManager);
             firmaId = userManager.GetUserId(User);
             var Siparisler = await dbContext.SiparisMasterlar.FirmaFilter(firmaId).ToListAsync();
-            
+
+            await CalculateTotalPrice(Siparisler);
             return View(Siparisler);
+        }
+
+        private async Task CalculateTotalPrice(List<SiparisMaster> Siparisler)
+        {
+            foreach (var master in Siparisler)
+            {
+                var siparisDetails = await dbContext.SiparisDetaylar.FirmaFilter(firmaId).
+                Where(m=> m.SiparisMasterId == master.ID).ToListAsync();
+                double? @double = 0;
+
+                for (int i = 0; i < siparisDetails.Count; i++)
+                    @double += (siparisDetails[i].Fiyat * siparisDetails[i].Adet);
+
+                master.ToplamTutar = @double;
+            }
         }
 
         [HttpGet]

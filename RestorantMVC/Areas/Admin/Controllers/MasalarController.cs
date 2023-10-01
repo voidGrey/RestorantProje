@@ -159,7 +159,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
             var masa = await dbContext.Masalar
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (masa == null)
-            {
+            {  
                 return NotFound();
             }
 
