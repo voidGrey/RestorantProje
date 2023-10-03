@@ -53,11 +53,10 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.IsActive)
                     </td>
-                 @*
-            <td>
-            @Html.DisplayFor(modelItem => item.SiparisDetay.status)
-            </td>
-            *@    
+                    <td>
+                    @item.SiparisDetay.Last().status
+                    </td>
+
                     <td>
                         @Html.DisplayFor(modelItem => item.CreateTime)
                     </td>

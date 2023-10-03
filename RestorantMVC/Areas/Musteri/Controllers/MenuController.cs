@@ -13,15 +13,11 @@ namespace RestorantMVC.Areas.Musteri.Controllers
         private readonly SqlDbContext dbContext;
         private string decryptValue;
 
-        public MenuController(SqlDbContext dbContext)
-        {
-            this.dbContext = dbContext;
-        }
+        public MenuController(SqlDbContext dbContext) { this.dbContext = dbContext; }
 
         public async Task<IActionResult> Index()
         {
             await this.ViewBagSettings(dbContext);
-
             return View();
         }
 

@@ -17,7 +17,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
         private readonly UserManager<Firma> userManager;
         private string firmaId;
 
-        public SiparisController(SqlDbContext dbContext, UserManager<Firma> userManager)
+        public SiparisController(SqlDbContext dbContext , UserManager<Firma> userManager)
         {
             this.dbContext = dbContext;
             this.userManager = userManager;
@@ -28,6 +28,16 @@ namespace RestorantMVC.Areas.Admin.Controllers
             await this.SetUser(userManager);
             firmaId = userManager.GetUserId(User);
             var Siparisler = await dbContext.SiparisMasterlar.FirmaFilter(firmaId).ToListAsync();
+            var siparisDetaylar = await dbContext.SiparisDetaylar.FirmaFilter(firmaId).ToListAsync();
+
+            foreach (var sMaster in Siparisler)
+            {
+                foreach (var sDetay in siparisDetaylar)
+                {
+                    if (sMaster.ID == sDetay.SiparisMasterId)
+                        sMaster.SiparisDetay.Add(sDetay);
+                }
+            }
 
             await CalculateTotalPrice(Siparisler);
             return View(Siparisler);
@@ -101,13 +111,10 @@ namespace RestorantMVC.Areas.Admin.Controllers
             await dbContext.SaveChangesAsync();
 
             return RedirectToAction("Index");
-
         }
-
 
         public async Task<IActionResult> Details(int id)
         {
-
             await this.SetUser(userManager);
             firmaId = userManager.GetUserId(User);
 
