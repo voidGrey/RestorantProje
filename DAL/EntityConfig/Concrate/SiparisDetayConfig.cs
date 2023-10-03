@@ -14,7 +14,7 @@ namespace DAL.EntityConfig.Concrate
         public override void Configure(EntityTypeBuilder<SiparisDetay> builder)
         {
             base.Configure(builder);
-            builder.HasIndex(p => new { p.SiparisMasterId, p.UrunId }).IsUnique();
+            
         }
     }
 }

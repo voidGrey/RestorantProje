@@ -48,17 +48,21 @@
             <td>
                     @(item.Fiyat * item.Adet) TL
             </td>
-@*             <td>
-                    @Html.DisplayFor(modelItem => item.SiparisMaster.status)
-                </td> *@
+             <td>
+                    @Html.DisplayFor(modelItem => item.status)
+                </td> 
             <td>
                 @Html.DisplayFor(modelItem => item.CreateTime)
             </td>
             <td>
-                <a asp-action="Onayla" asp-route-id="@item.ID">Onayla</a> |
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                @if (item.status == SiparisDetay.Status.Onay_Bekliyor)
+                    {
+                        <a asp-action="Onayla" asp-route-id="@item.ID">Onayla</a>
+                        <a asp-action="Edit" asp-route-id="@item.ID">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                    }
+                <a asp-action="Details" asp-route-id="@item.ID">Details</a>
+                
             </td>
         </tr>
         }
