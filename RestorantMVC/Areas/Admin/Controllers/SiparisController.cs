@@ -129,26 +129,26 @@ namespace RestorantMVC.Areas.Admin.Controllers
             return View(siparisler);
         }
 
-        //public async Task<IActionResult> Hazırlanıyor(int id)
-        //{
-        //    await this.SetUser(userManager);
-        //    var siparismaster = await dbContext.SiparisMasterlar.FindAsync(id);
-        //    siparismaster.status = (SiparisMaster.Status)3;
-        //    dbContext.Update(siparismaster);
-        //    await dbContext.SaveChangesAsync();
+        public async Task<IActionResult> Hazırlanıyor(int id)
+        {
+            await this.SetUser(userManager);
+            var siparisdetay = await dbContext.SiparisDetaylar.FindAsync(id);
+            siparisdetay.status = (SiparisDetay.Status)3;
+            dbContext.Update(siparisdetay);
+            await dbContext.SaveChangesAsync();
 
-        //    return View(siparismaster);
-        //}
+            return View(siparisdetay);
+        }
 
-        //public async Task<IActionResult> TeslimEdildi(int id)
-        //{
-        //    await this.SetUser(userManager);
-        //    var siparismaster = await dbContext.SiparisMasterlar.FindAsync(id);
-        //    siparismaster.status = (SiparisMaster.Status)6;
-        //    dbContext.Update(siparismaster);
-        //    await dbContext.SaveChangesAsync();
+        public async Task<IActionResult> TeslimEdildi(int id)
+        {
+            await this.SetUser(userManager);
+            var siparisdetay = await dbContext.SiparisDetaylar.FindAsync(id);
+            siparisdetay.status = (SiparisDetay.Status)6;
+            dbContext.Update(siparisdetay);
+            await dbContext.SaveChangesAsync();
 
-        //    return View(siparismaster);
-        //}
+            return View(siparisdetay);
+        }
     }
 }
