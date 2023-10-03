@@ -63,7 +63,7 @@ namespace RestorantMVC.Controllers
                                      .FirstOrDefaultAsync()
                                      .Result.MasaSifresi = masa.SifreOlustur();
                     dbContext.SaveChanges();
-                    return RedirectToAction("SifreAyarla");
+                    return RedirectToAction("SifreAyarla", new {firmaId = decryptValue});
                 }
                 else
                 {
@@ -72,10 +72,10 @@ namespace RestorantMVC.Controllers
             }
         }
 
-        public async Task<IActionResult> SifreAyarla()
+        public async Task<IActionResult> SifreAyarla(string firmaId)
         {
             int id = Convert.ToInt32(Request.Cookies["MasaId"]);
-            Masa masa = await dbContext.Masalar.FindAsync(id);
+            Masa masa = await dbContext.Masalar.FirmaFilter(firmaId).Where(m => m.MasaID == id).FirstOrDefaultAsync();
             return View(masa);
         }
 
