@@ -55,6 +55,10 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.UpdateTime)
                 </td>
+                <td>
+                    <a class="badge badge-outline-warning" asp-action="Hazırlanıyor" asp-route-id="@item.ID">Hazırla</a>
+                    <a class="badge badge-outline-warning" asp-action="TeslimEdildi" asp-route-id="@item.ID">Teslim Edildi</a>
+                </td>
             </tr>
 
             values += 1;

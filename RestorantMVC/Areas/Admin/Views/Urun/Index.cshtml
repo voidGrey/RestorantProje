@@ -45,9 +45,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.UrunAciklama)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FotografLink)
-            </td>
+                @if (item.FotografLink !=null)
+                    {
+                        <td>Fotoğraf mevcut </td>
+                    }
+                    else
+                    {
+                    <td>Fotoğraf mevcut değil ! </td>
+                    }
             <td>
                 @Html.DisplayFor(modelItem => item.Fiyat) TL
             </td>
