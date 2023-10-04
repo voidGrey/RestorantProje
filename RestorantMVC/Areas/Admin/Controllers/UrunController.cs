@@ -116,9 +116,10 @@ namespace RestorantMVC.Areas.Admin.Controllers
         public async Task<IActionResult> Edit(int? id)
         {
             await this.SetUser(userManager);
+            firmaId = userManager.GetUserId(User);
 
             var urun = dbContext.Urunler.Find(id);
-            ViewData["KategoriID"] = new SelectList(dbContext.Kategoriler , "ID" , "KategoriAdi");
+            ViewData["KategoriID"] = new SelectList(dbContext.Kategoriler.FirmaFilter(firmaId).ToList() , "ID" , "KategoriAdi");
 
             return View(urun);
         }
@@ -151,7 +152,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
             catch (Exception)
             {
                 ModelState.AddModelError("" , "Aynı İsimde bir urun zaten mevcut");
-                ViewData["KategoriID"] = new SelectList(dbContext.Kategoriler , "ID" , "KategoriAdi");
+                ViewData["KategoriID"] = new SelectList(dbContext.Kategoriler.FirmaFilter(firmaId).ToList() , "ID" , "KategoriAdi");
                 return View(urun);
             }
             return RedirectToAction("Index");
