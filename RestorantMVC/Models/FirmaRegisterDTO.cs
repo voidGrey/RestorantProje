@@ -6,11 +6,15 @@ namespace RestorantMVC.Models
     public class FirmaRegisterDTO
     {
 
-        [Required(AllowEmptyStrings =false,ErrorMessage ="Firma Adi Zorunludur")]
+        [Required(AllowEmptyStrings = false,ErrorMessage ="Firma Adi Zorunludur")]
+        [Display(Name = "Username")]
+        [DataType(DataType.Text)]
         public string FirmaAdi { get; set; }
+
         [Required(AllowEmptyStrings = false , ErrorMessage = "Email Adi Zorunludur")]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
+
         [Required(AllowEmptyStrings = false , ErrorMessage = "Password  Zorunludur")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
