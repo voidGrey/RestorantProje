@@ -12,10 +12,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.MasaID)
+                Masa Numarası
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MasaSifresi)
+                Masa Şifresi
             </th>
             <th></th>
         </tr>
@@ -30,9 +30,8 @@
                 @Html.DisplayFor(modelItem => item.MasaSifresi)
             </td>
             <td>
-                <a class="badge badge-outline-success" asp-action="SiparisiKapat" asp-route-id="@item.ID">Siparisi Kapat</a> 
-                <a class="badge badge-outline-warning" asp-action="Details" asp-route-id="@item.ID">Detaylar</a> 
-                <a class="badge badge-outline-danger" asp-action="Delete" asp-route-id="@item.ID">Sil</a>
+                <a class="badge badge-outline-success" asp-action="SiparisiKapat" asp-route-id="@item.ID">Masayı Kapat</a> 
+                <a class="badge badge-outline-warning" asp-action="Details" asp-route-id="@item.ID">Detaylar</a>
             </td>
         </tr>
 }
