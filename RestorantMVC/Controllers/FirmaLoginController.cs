@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using RestorantMVC.Models;
 using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace RestorantMVC.Controllers
 {
@@ -33,7 +34,6 @@ namespace RestorantMVC.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Login(LoginDto loginDto)
-        
         {
 
             //Validasyondan geçmedi ise ayni verileri view'e geri gonder
@@ -138,12 +138,9 @@ namespace RestorantMVC.Controllers
             else
             {
                 var error = result.Errors.FirstOrDefault();
-                ModelState.AddModelError("" , error.Description);
+                ModelState.AddModelError("Sorunla karşılaşıldı" , error.Description);
                 return View(firmadto);
             }
-
-
-            return View(firmadto);
         }
         public async Task<IActionResult> Logout()
         {

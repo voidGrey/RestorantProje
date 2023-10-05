@@ -16,15 +16,21 @@
                     </svg><span class="hidden">Firma Adı</span>
                 </label>
                 <input autocomplete="FirmaAdi" asp-for="FirmaAdi" id="login__FirmaAdi" type="text" name="FirmaAdi" class="form__input" placeholder="Firma adı" required>
+                <br />
+                @Html.ValidationMessageFor(f => f.FirmaAdi)
+                <span asp-validation-for="FirmaAdi" class="text-danger"></span>
             </div>
 
             <div class="form__field">
                 <label for="login__email">
                     <svg class="icon">
-                        <use xlink:href="#icon-user"></use>
+                        <use xlink:href="#icon-user" class="mdi mdi-contact-mail"></use>
                     </svg><span class="hidden">E-Mail</span>
                 </label>
                 <input autocomplete="email" asp-for="Email" id="login__email" type="text" name="email" class="form__input" placeholder="ornek@email.com" required>
+                <br />
+                @Html.ValidationMessageFor(f => f.Email)
+                <span asp-validation-for="Email" class="text-danger"></span>
             </div>
 
             <div class="form__field">
@@ -34,6 +40,9 @@
                     </svg><span class="hidden">Password</span>
                 </label>
                 <input id="login__password" asp-for="Password" type="password" name="password" class="form__input" placeholder="Şifre" required>
+                <br />
+                @Html.ValidationMessageFor(f => f.Password)
+                <span asp-validation-for="Password" class="text-danger"></span>
             </div>
 
             <div class="form__field">
@@ -43,6 +52,9 @@
                     </svg><span class="hidden">Password</span>
                 </label>
                 <input id="login__RePassword" asp-for="RePassword" type="password" name="RePassword" class="form__input" placeholder="Şifre" required>
+                <br />
+                @Html.ValidationMessageFor(f => f.RePassword)
+                <span asp-validation-for="RePassword" class="text-danger"></span>
             </div>
 
             <div class="form__field">
