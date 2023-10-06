@@ -44,7 +44,7 @@ namespace RestorantMVC.Controllers
             {
 
                 // DB'den masa çekiliyor.
-                var masa = await dbContext.Masalar.FirmaFilter(decryptValue).Where(p=> p.MasaID == id).FirstOrDefaultAsync();
+                var masa = await dbContext.Masalar.FirmaFilter(decryptValue).Where(p=> p.ID == id).FirstOrDefaultAsync();
 
                 if (string.IsNullOrEmpty(masa.MasaSifresi)) // Masa şifresi var mı diye kontrol edilir.
                 {
@@ -59,7 +59,7 @@ namespace RestorantMVC.Controllers
                     
                     //Masa Şifresi oluşturuluyor.
                     dbContext.Masalar.FirmaFilter(decryptValue)
-                                     .Where(masa => masa.MasaID == id)
+                                     .Where(m => m.ID == id)
                                      .FirstOrDefaultAsync()
                                      .Result.MasaSifresi = masa.SifreOlustur();
                     dbContext.SaveChanges();
@@ -75,7 +75,7 @@ namespace RestorantMVC.Controllers
         public async Task<IActionResult> SifreAyarla(string firmaId)
         {
             int id = Convert.ToInt32(Request.Cookies["MasaId"]);
-            Masa masa = await dbContext.Masalar.FirmaFilter(firmaId).Where(m => m.MasaID == id).FirstOrDefaultAsync();
+            Masa masa = await dbContext.Masalar.FirmaFilter(firmaId).Where(m => m.ID == id).FirstOrDefaultAsync();
             return View(masa);
         }
 
