@@ -1,4 +1,5 @@
 ﻿using Entites.Abstract;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Entites.Concrate
@@ -9,7 +10,7 @@ namespace Entites.Concrate
         {
             base.Configure(builder);
             builder.Property(x => x.UrunAdi).HasMaxLength(20);
-            builder.Property(x => x.UrunAciklama).HasMaxLength(50);
+            builder.Property(x => x.UrunAciklama).HasColumnType("nvarchar(max)");
         }
     }
 }

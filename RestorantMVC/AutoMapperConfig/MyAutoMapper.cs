@@ -11,6 +11,7 @@ namespace RestorantMVC.AutoMapperConfig
         public MyAutoMapper()
         {
             CreateMap<FirmaRegisterDTO , Firma>().ForMember(f => f.UserName , o => o.MapFrom(src => src.FirmaAdi));
+            CreateMap<UrunModel , Urun>();
         }
     }
 }

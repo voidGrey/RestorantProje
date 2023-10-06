@@ -1,4 +1,4 @@
-﻿@model Entites.Concrate.Urun
+﻿@model UrunModel
 
 @{
     ViewData["Title"] = "Create";
@@ -8,7 +8,7 @@
 <div class="col-md-6 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
-            <form asp-action="Create">
+            <form asp-action="Create" method="post" enctype="multipart/form-data">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="UrunAdi" class="control-label">Ürün Adı</label>
@@ -21,9 +21,11 @@
                     <span asp-validation-for="UrunAciklama" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="FotografLink" class="control-label">Ürün Fotoğrafı</label>
+                    <label asp-for="FotografLink" class="control-label">Ürün Fotoğrafı (URL / Yükle)</label>
                     <input asp-for="FotografLink" class="form-control" />
                     <span asp-validation-for="FotografLink" class="text-danger"></span>
+                    <br />
+                    <input asp-for="uploadImage" type="file" />
                 </div>
                 <div class="form-group">
                     <label asp-for="Fiyat" class="control-label">Ürün Fiyatı</label>
@@ -34,10 +36,10 @@
                     <label asp-for="KategoriID" class="control-label">Ürün Kategorisi</label>
                     <select asp-for="KategoriID" class="form-control selection" style="color: white" asp-items="ViewBag.KategoriID"></select>
                 </div>
+
                 <div class="form-group">
                     <input type="submit" value="Oluştur" class="btn btn-primary btn-icon-text" />
                     <a asp-action="Index" class="btn btn-secondary btn-fw mdi mdi-backburger">Listeye geri dön</a>
-
                 </div>
             </form>
         </div>
