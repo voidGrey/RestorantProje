@@ -43,7 +43,8 @@
                 @Html.DisplayFor(modelItem => item.UrunAdi)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UrunAciklama)
+                @item.UrunAciklama.Substring(0,60)
+                ...
             </td>
                 @if (item.FotografLink !=null)
                     {

@@ -412,7 +412,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 3, 16, 57, 43, 502, DateTimeKind.Local).AddTicks(6701));
+                        .HasDefaultValue(new DateTime(2023, 10, 6, 14, 25, 25, 113, DateTimeKind.Local).AddTicks(8112));
 
                     b.Property<string>("FirmaId")
                         .HasColumnType("nvarchar(450)");
@@ -449,7 +449,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 3, 16, 57, 43, 503, DateTimeKind.Local).AddTicks(11));
+                        .HasDefaultValue(new DateTime(2023, 10, 6, 14, 25, 25, 113, DateTimeKind.Local).AddTicks(9722));
 
                     b.Property<string>("FirmaId")
                         .HasColumnType("nvarchar(450)");
@@ -488,7 +488,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 3, 16, 57, 43, 504, DateTimeKind.Local).AddTicks(8781));
+                        .HasDefaultValue(new DateTime(2023, 10, 6, 14, 25, 25, 114, DateTimeKind.Local).AddTicks(6646));
 
                     b.Property<string>("FirmaId")
                         .HasColumnType("nvarchar(450)");
@@ -520,7 +520,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 3, 16, 57, 43, 503, DateTimeKind.Local).AddTicks(4239));
+                        .HasDefaultValue(new DateTime(2023, 10, 6, 14, 25, 25, 114, DateTimeKind.Local).AddTicks(1668));
 
                     b.Property<string>("FirmaId")
                         .HasColumnType("nvarchar(450)");
@@ -546,7 +546,7 @@ namespace DAL.Migrations
                         new
                         {
                             ID = 1,
-                            CreateTime = new DateTime(2023, 10, 3, 16, 57, 43, 503, DateTimeKind.Local).AddTicks(5623),
+                            CreateTime = new DateTime(2023, 10, 6, 14, 25, 25, 114, DateTimeKind.Local).AddTicks(2110),
                             RoleAdi = "Admin"
                         });
                 });
@@ -1082,7 +1082,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 3, 16, 57, 43, 504, DateTimeKind.Local).AddTicks(1828));
+                        .HasDefaultValue(new DateTime(2023, 10, 6, 14, 25, 25, 114, DateTimeKind.Local).AddTicks(4543));
 
                     b.Property<string>("FirmaId")
                         .HasColumnType("nvarchar(450)");
@@ -1124,7 +1124,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 3, 16, 57, 43, 504, DateTimeKind.Local).AddTicks(4819));
+                        .HasDefaultValue(new DateTime(2023, 10, 6, 14, 25, 25, 114, DateTimeKind.Local).AddTicks(5614));
 
                     b.Property<string>("FirmaId")
                         .HasColumnType("nvarchar(450)");
@@ -1161,7 +1161,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 3, 16, 57, 43, 505, DateTimeKind.Local).AddTicks(1667));
+                        .HasDefaultValue(new DateTime(2023, 10, 6, 14, 25, 25, 114, DateTimeKind.Local).AddTicks(7701));
 
                     b.Property<string>("FirmaId")
                         .HasColumnType("nvarchar(450)");
@@ -1179,8 +1179,7 @@ namespace DAL.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UrunAciklama")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UrunAdi")
                         .HasMaxLength(20)

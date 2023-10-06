@@ -1,4 +1,5 @@
-﻿using DAL.Contexts;
+﻿using AutoMapper;
+using DAL.Contexts;
 using Entites.Concrate;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -6,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RestorantMVC.Extensions;
+using RestorantMVC.Models;
+using System.IO.MemoryMappedFiles;
 
 namespace RestorantMVC.Areas.Admin.Controllers
 {
@@ -14,14 +17,18 @@ namespace RestorantMVC.Areas.Admin.Controllers
     public class UrunController : Controller
     {
         private readonly SqlDbContext dbContext;
+        private readonly IMapper mapper;
+        private readonly IWebHostEnvironment hostingEnviroment;
         private readonly UserManager<Firma> userManager;
         private string firmaId;
 
 
-        public UrunController(SqlDbContext context, UserManager<Firma> userManager)
+        public UrunController(SqlDbContext context, UserManager<Firma> userManager, IMapper Mapper, IWebHostEnvironment _hostingEnviroment)
         {
             dbContext = context;
             this.userManager = userManager;
+            mapper = Mapper;
+            hostingEnviroment = _hostingEnviroment;
         }
 
         // GET: Admin/Urun
@@ -73,13 +80,33 @@ namespace RestorantMVC.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UrunAdi,UrunAciklama,FotografLink,Fiyat,KategoriID,ID,CreateTime,UpdateTime")] Urun urun)
+        public async Task<IActionResult> Create([Bind("UrunAdi,UrunAciklama,FotografLink,Fiyat,KategoriID,ID,CreateTime,UpdateTime")] UrunModel urunV)
         {
             await this.SetUser(userManager);
             firmaId = userManager.GetUserId(User);
 
+            var urun = mapper.Map<Urun>(urunV);
+
             urun.FirmaId = firmaId;
             urun.CreateTime = DateTime.Now;
+
+            // Resim Yükleme Alanı.
+
+            IFormFile theFile = HttpContext.Request.Form.Files[0];
+            string uploads = Path.Combine(hostingEnviroment.WebRootPath,"uploads");
+            if(theFile.Length > 0)
+            {
+                string filePath = Path.Combine(uploads, theFile.Name) + ".jpg";
+                using(Stream fileStream = new FileStream(filePath , FileMode.Create))
+                {
+                    await theFile.CopyToAsync(fileStream);
+                }
+                urun.FotografLink = filePath;
+
+            }
+
+            // Resim Yüklendi.
+
 
             if (!IsUniqueForFirma(urun.UrunAdi , firmaId))
             {
@@ -94,11 +121,11 @@ namespace RestorantMVC.Areas.Admin.Controllers
                     await dbContext.SaveChangesAsync();
                     return RedirectToAction("Index");
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     ModelState.AddModelError("" , "Aynı İsimde bir ürün zaten mevcut");
                     ViewData["KategoriID"] = new SelectList(dbContext.Kategoriler.FirmaFilter(firmaId) , "ID" , "KategoriAdi");
-                    return View(urun);
+                    return Json(ex);
                 }
             }
             return View(urun);
@@ -149,9 +176,9 @@ namespace RestorantMVC.Areas.Admin.Controllers
                 dbContext.Urunler.Update(urun);
                 await dbContext.SaveChangesAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                ModelState.AddModelError("" , "Aynı İsimde bir urun zaten mevcut");
+                ModelState.AddModelError("" , ex.Message);
                 ViewData["KategoriID"] = new SelectList(dbContext.Kategoriler.FirmaFilter(firmaId).ToList() , "ID" , "KategoriAdi");
                 return View(urun);
             }
