@@ -13,6 +13,8 @@ using System.Security.Cryptography;
 using System.Runtime.InteropServices;
 using Microsoft.AspNetCore.WebUtilities;
 using System.Collections.Immutable;
+using Microsoft.EntityFrameworkCore;
+using System.Net;
 
 namespace RestorantMVC.Areas.Admin.Controllers
 {
@@ -54,35 +56,47 @@ namespace RestorantMVC.Areas.Admin.Controllers
             await this.SetUser(userManager);
             firmaId = userManager.GetUserId(User);
 
-            // Restoran kimliğini şifrele
-            byte[] value = await RestorantExtension.EncryptAsync(firmaId , "YeyoYoOyeŞifrehehe");
+            Masa masa = await dbContext.Masalar.FirmaFilter(firmaId)
+                .Where(m=>m.MasaID == Convert.ToInt32(qRCode.QRCodeText)).FirstOrDefaultAsync();
 
-            string v = WebEncoders.Base64UrlEncode(value);
+            if (masa != null)
+            {
+                // Restoran kimliğini şifrele
+                byte[] CryptedFirmaID = await RestorantExtension.EncryptAsync(firmaId , "YeyoYoOyeŞifrehehe");
 
-            // QR kodu tarayıcı sayfasının temel URL'sini al.
-            string host = HttpContext.Request.Scheme+"://"+HttpContext.Request.Host.Value+"/QR/Scan/"
-                + qRCode.QRCodeText + "?f=" + v ;
+                string CryptedString = WebEncoders.Base64UrlEncode(CryptedFirmaID);
+
+                // QR kodu tarayıcı sayfasının temel URL'sini al.
+                string host = HttpContext.Request.Scheme+"://"+HttpContext.Request.Host.Value+"/QR/Scan/"
+                + masa.ID.ToString() + "?f=" + CryptedString ;
 
 
 
-            // QR kodu verilerini oluştur.
+                // QR kodu verilerini oluştur.
 
-            QRCodeGenerator QrGenerator = new QRCodeGenerator();
-            QRCodeData QrCodeInfo = QrGenerator.CreateQrCode( host , QRCodeGenerator.ECCLevel.L);
+                QRCodeGenerator QrGenerator = new QRCodeGenerator();
+                QRCodeData QrCodeInfo = QrGenerator.CreateQrCode( host , QRCodeGenerator.ECCLevel.L);
 
-            // QR kodu görüntüsünü oluştur.
-            QRCode QrCode = new QRCode(QrCodeInfo);
-            Image QrBitmap = QrCode.GetGraphic(60);
+                // QR kodu görüntüsünü oluştur.
+                QRCode QrCode = new QRCode(QrCodeInfo);
+                Image QrBitmap = QrCode.GetGraphic(60);
 
-            // QR kodu görüntüsünü bayt dizisine dönüştür.
-            byte[] BitmapArray = ImageToByte(QrBitmap);
+                // QR kodu görüntüsünü bayt dizisine dönüştür.
+                byte[] BitmapArray = ImageToByte(QrBitmap);
 
-            // Bayt dizisini base64 dizesine dönüştür.
-            string QrUri = string.Format("data:image/png;base64,{0}", Convert.ToBase64String(BitmapArray));
+                // Bayt dizisini base64 dizesine dönüştür.
+                string QrUri = string.Format("data:image/png;base64,{0}", Convert.ToBase64String(BitmapArray));
 
-            // Base64 dizesini ViewBag'e kaydet, böylece görünümde görüntülenebilir.
-            ViewBag.QrCodeUri = QrUri;
-            return View();
+                // Base64 dizesini ViewBag'e kaydet, böylece görünümde görüntülenebilir.
+                ViewBag.QrCodeUri = QrUri;
+                return View();
+            }
+            else
+            {
+                return Json(new { status = "error" , message = "Girdiğiniz ID'de bir masanız bulunmamaktadır." });
+            }
+
+            
         }
 
         public byte[] ImageToByte(Image img)
