@@ -24,3 +24,12 @@ body {
     margin-bottom: 60px;
 }
 
+.c-product{
+    display:flex;
+    flex-wrap:wrap;
+}
+
+.c-item{
+    flex-grow:1;
+    flex-basis: 200;
+}

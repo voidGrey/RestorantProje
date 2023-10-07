@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RestorantMVC.Models
 {
-    public class UrunModel
+    public class UrunModelDTO
     {
         // Base Entity
         public int ID { get; set; }

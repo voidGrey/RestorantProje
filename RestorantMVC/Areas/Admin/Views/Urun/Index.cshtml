@@ -43,9 +43,20 @@
                 @Html.DisplayFor(modelItem => item.UrunAdi)
             </td>
             <td>
-                @item.UrunAciklama.Substring(0,60)
-                ...
-            </td>
+                    @if (item.UrunAciklama != null)
+                    {
+                        if (item.UrunAciklama.Length > 60)
+                        {
+                            @item.UrunAciklama.Substring(0,60)
+                            <b>...</b>
+                        }
+                        else
+                        {
+                            @item.UrunAciklama
+                        }
+                    }
+
+                </td>
                 @if (item.FotografLink !=null)
                     {
                         <td>Fotoğraf mevcut </td>
