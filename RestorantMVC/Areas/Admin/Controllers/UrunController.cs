@@ -80,7 +80,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UrunAdi,UrunAciklama,FotografLink,Fiyat,KategoriID,ID,CreateTime,UpdateTime")] UrunModel urunV)
+        public async Task<IActionResult> Create([Bind("UrunAdi,UrunAciklama,FotografLink,Fiyat,KategoriID,ID,CreateTime,UpdateTime")] UrunModelDTO urunV)
         {
             await this.SetUser(userManager);
             firmaId = userManager.GetUserId(User);
@@ -89,22 +89,30 @@ namespace RestorantMVC.Areas.Admin.Controllers
 
             urun.FirmaId = firmaId;
             urun.CreateTime = DateTime.Now;
-
+            IFormFile theFile;
             // Resim Yükleme Alanı.
-
-            IFormFile theFile = HttpContext.Request.Form.Files[0];
-            string uploads = Path.Combine(hostingEnviroment.WebRootPath,"uploads");
-            if(theFile.Length > 0)
+            try
             {
-                string filePath = Path.Combine(uploads, theFile.Name) + ".jpg";
-                using(Stream fileStream = new FileStream(filePath , FileMode.Create))
+                theFile = HttpContext.Request.Form.Files[0];
+                string uploads = Path.Combine(hostingEnviroment.WebRootPath,"uploads");
+                if (theFile.Length > 0)
                 {
-                    await theFile.CopyToAsync(fileStream);
+                    string filePath = Path.Combine(uploads, theFile.Name) + ".jpg";
+                    using (Stream fileStream = new FileStream(filePath , FileMode.Create))
+                    {
+                        await theFile.CopyToAsync(fileStream);
+                    }
+                    urun.FotografLink = filePath;
+
                 }
-                urun.FotografLink = filePath;
 
             }
+            catch (Exception ex)
+            {
 
+                //Resim yüklenmemiş
+            }
+           
             // Resim Yüklendi.
 
 
