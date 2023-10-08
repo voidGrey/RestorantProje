@@ -71,6 +71,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
                                }).ToList();
             ViewBag.Masalar = masaListesi;
             return View();
+
         }
 
         [HttpPost]

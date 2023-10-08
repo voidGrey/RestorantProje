@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using RestorantMVC.AutoMapperConfig;
 using RestorantMVC.Extensions;
+using RestorantMVC.Hubs;
 
 namespace RestorantMVC
 {
@@ -23,6 +24,7 @@ namespace RestorantMVC
             builder.Services.IdentityAyarlari();
             builder.Services.AddAutoMapper(typeof(MyAutoMapper));
 
+            builder.Services.AddSignalR();
 
             var app = builder.Build();
 
@@ -33,6 +35,8 @@ namespace RestorantMVC
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.MapHub<SiparisHub>("siparis-hub");
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

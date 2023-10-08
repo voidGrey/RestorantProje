@@ -2,9 +2,13 @@
 using Entites.Concrate;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using RestorantMVC.Extensions;
+using RestorantMVC.Hubs;
+using System.Runtime.InteropServices;
 
 namespace RestorantMVC.Areas.Musteri.Controllers
 {
@@ -12,11 +16,13 @@ namespace RestorantMVC.Areas.Musteri.Controllers
     public class SiparisController : Controller
     {
         private readonly SqlDbContext dbContext;
+        private readonly IHubContext<SiparisHub> hubContext;
         private string decryptValue;
 
-        public SiparisController(SqlDbContext context)
+        public SiparisController(SqlDbContext context, IHubContext<SiparisHub> hubContext)
         {
             dbContext = context;
+            this.hubContext = hubContext;
         }
 
         /// <summary>
@@ -238,6 +244,8 @@ namespace RestorantMVC.Areas.Musteri.Controllers
             var siparisdetay = await dbContext.SiparisDetaylar.FindAsync(id);
             siparisdetay.status = (SiparisDetay.Status)2;
             dbContext.Update(siparisdetay);
+
+            await hubContext.Clients.All.SendAsync("YeniSiparisGeldi" , 1);
             await dbContext.SaveChangesAsync();
 
             return View(siparisdetay);
