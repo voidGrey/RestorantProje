@@ -38,7 +38,6 @@ namespace RestorantMVC.Areas.Musteri.Controllers
 
             //MasaID'nin siparişleri listelenir.
             int masaid = Convert.ToInt32(HttpContext.Request.Cookies["MasaId"]);
-
             var siparisMasterlar = dbContext.SiparisMasterlar.FirmaFilter(firmaId).Where(s => s.MasaId == masaid);
             var siparisMaster = siparisMasterlar.FirstOrDefault();
             //toplam tutarı menu controllerdan çekemediğim için buraya aldım
@@ -53,6 +52,31 @@ namespace RestorantMVC.Areas.Musteri.Controllers
 
             return View(siparisDetaylari);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateQuantity(int itemId , int newQuantity, int masterId, int detailsId)
+        {
+            await this.ViewBagSettings(dbContext);
+
+            Request.Cookies.TryGetValue("f" , out decryptValue);
+            byte[] bytes = WebEncoders.Base64UrlDecode(decryptValue);
+            string firmaId = await RestorantExtension.DecryptAsync(bytes,"YeyoYoOyeŞifrehehe");
+
+            //MasaID'nin siparişleri listelenir.
+            var detail = await dbContext.SiparisDetaylar.FirmaFilter(firmaId)
+                .Where(d => d.SiparisMasterId == masterId).Where(d => d.ID == detailsId)
+                .Where(v => v.UrunId == itemId).FirstOrDefaultAsync();
+
+
+            detail.Adet = newQuantity;
+
+            dbContext.SiparisDetaylar.Update(detail);
+            await dbContext.SaveChangesAsync();
+
+            // Güncellenmiş verileri geri döndürün (örneğin, güncellenmiş Adet değeri).
+            return Json(new { updatedQuantity = newQuantity });
+        }
+
 
         /// <summary>
         /// Belirli bir siparişin detaylarını görüntülemek için kullanılan işlem.

@@ -42,6 +42,18 @@ namespace RestorantMVC.Extensions
             return model;
         }
 
+        public static SiparisDetay GetActiveOne(this List<SiparisDetay>? list)
+        {
+            foreach (var item in list)
+            {
+                if (item.status == SiparisDetay.Status.Onay_Bekliyor)
+                {
+                    return item;
+                }
+            }
+
+            return null;
+        }
 
         public static async Task<bool> isUnuqieafa<TModel>(this DbSet<TModel> model , string ad, string fir) where TModel : Kategori
         {
