@@ -80,3 +80,21 @@
     </a>
     break;
 }
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.10/signalr.min.js"></script>
+
+<script>
+    var connection = new signalR.HubConnectionBuilder()
+    .withUrl("/siparis-hub") // Hub'ın URL'sini belirtin
+    .configureLogging(signalR.LogLevel.Information)
+    .build();
+
+    connection.start().then(function () {
+    console.log("SignalR bağlantısı kuruldu.");
+    }).catch(function (err) {
+    return console.error(err.toString());
+    });
+
+    connection.on("YeniSiparisGeldi", function (siparis) {
+    location.reload();
+    });
+</script>

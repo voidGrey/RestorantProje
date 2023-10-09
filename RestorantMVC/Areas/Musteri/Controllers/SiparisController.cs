@@ -70,6 +70,8 @@ namespace RestorantMVC.Areas.Musteri.Controllers
 
             detail.Adet = newQuantity;
 
+            await hubContext.Clients.All.SendAsync("YeniSiparisGeldi" , 1);
+
             dbContext.SiparisDetaylar.Update(detail);
             await dbContext.SaveChangesAsync();
 
