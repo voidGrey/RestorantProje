@@ -14,12 +14,11 @@ $("#savePhoneNumber").click(function () {
 
     // AJAX isteği gönder
     $.ajax({
-        url: "/Admin/Account/UpdatePhoneNumber", // AJAX isteğinizi yönlendireceğiniz URL'yi ayarlayın
+        url: "/Admin/Account/UpdatePhoneNumber", // AJAX isteğinizi yönlendireceğiniz URL'yi ayarla
         type: "POST",
         data: { phoneNumber: newPhoneNumber },
         success: function (result) {
-            // Başarılı yanıt geldiğinde burada gerekli işlemleri yapabilirsiniz
-            // Örneğin, telefon numarasını güncelleyebilir ve input alanını gizleyebilirsiniz
+            // input alanlarını düzenle
             $("#newPhoneNumber").hide();
             $("#CurrentPhoneNumber").show();
             $("#savePhoneNumber").hide();
@@ -27,7 +26,7 @@ $("#savePhoneNumber").click(function () {
             $("#editPhoneNumber").show();
         },
         error: function (error) {
-            // Hata durumunda burada işlem yapabilirsiniz
+            // Hata Durumu
         }
     });
 });
