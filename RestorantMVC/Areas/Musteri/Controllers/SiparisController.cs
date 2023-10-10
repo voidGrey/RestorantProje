@@ -50,6 +50,12 @@ namespace RestorantMVC.Areas.Musteri.Controllers
                 if (item.Urun == null)
                     item.Urun = await dbContext.Urunler.FindAsync(item.UrunId);
 
+            ViewBag.ss = JsonConvert.SerializeObject(siparisDetaylari, Formatting.None,
+                        new JsonSerializerSettings()
+                        {
+                            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                        });
+
             return View(siparisDetaylari);
         }
 
@@ -277,5 +283,25 @@ namespace RestorantMVC.Areas.Musteri.Controllers
             return View(siparisdetay);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> AllConfirm(string deneme)
+        {
+            await this.ViewBagSettings(dbContext);
+            List<SiparisDetay> siparisDetays1 = JsonConvert.DeserializeObject<List<SiparisDetay>>(siparisDetays);
+            foreach (var item in siparisDetays1)
+            {
+                item.status = SiparisDetay.Status.Onaylandı;
+                dbContext.SiparisDetaylar.Update(item);
+                await dbContext.SaveChangesAsync();
+            }
+            var siparisdetay = await dbContext.SiparisDetaylar.FindAsync(siparisDetays);
+            siparisdetay.status = (SiparisDetay.Status)2;
+            dbContext.Update(siparisdetay);
+
+            await hubContext.Clients.All.SendAsync("YeniSiparisGeldi", 1);
+            await dbContext.SaveChangesAsync();
+
+            return View(siparisdetay);
+        }
     }
 }

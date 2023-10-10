@@ -1,4 +1,5 @@
-﻿@model List<Entites.Concrate.SiparisDetay>
+﻿@model List<SiparisDetay>
+
 
 <section id="our_menu" class="pt-5 pb-5">
     <div class="container">
@@ -24,136 +25,120 @@
             </ul>
         </div>
 </section>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Masa ID
-            </th>
-            <th>
-                UrunAdi
-            </th>
-            <th>
-                Fiyat
-            </th>
-            <th>
-                Adet
-            </th>
-            <th>
-                Toplam
-            </th>
-            <th>
-                Sipariş Durumu
-            </th>
-            <th>
-                Sipariş Tarihi
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-            
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.SiparisMaster.MasaId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Urun.UrunAdi)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Fiyat) TL
-            </td>
-            <td>
-
-                    @if(item.status == SiparisDetay.Status.Onay_Bekliyor)
-                    {
-                        <button class="btn btn-sm btn-primary" onclick="increaseQuantity(@item.UrunId,@item.ID)">+</button>
-                        <span id="quantity-@item.UrunId">@item.Adet</span>
-                        <input type="hidden" value="@item.SiparisMasterId" id="masterId">
-                        <button class="btn btn-sm btn-primary" onclick="decreaseQuantity(@item.UrunId,@item.ID)">-</button>
+<!-- Table -->
+<div class="col">
+    <div class="card shadow">
+        <div class="table-responsive">
+            <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">Masa Numarası</th>
+                        <th scope="col">Ürün Adı</th>
+                        <th scope="col">Fiyat</th>
+                        <th scope="col">Adet</th>
+                        <th scope="col">Toplam</th>
+                        <th scope="col">Sipariş Durumu</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {   
+                        <tr>
+                            <th scope="row">
+                                <div class="media align-items-center">
+                                    <div class="media-body">
+                                        <span class="mb-0 text-sm">@Html.DisplayFor(modelItem => item.SiparisMaster.MasaId)</span>
+                                    </div>
+                                </div>
+                            </th>
+                            <td>
+                                <span class="mb-0 text-sm">@Html.DisplayFor(modelItem => item.Urun.UrunAdi) </span>
+                            </td>
+                            <td>
+                                <span class="mb-0 text-sm">
+                                    @Html.DisplayFor(modelItem => item.Fiyat) TL
+                                </span>
+                            </td>
+                            <td>
+                                @if (item.status == SiparisDetay.Status.Onay_Bekliyor)
+                                {
+                                    
+                                    <button style="margin:0px" class="btn btn-sm btn-primary" onclick="increaseQuantity(@item.UrunId,@item.ID)"><i class=" mdi mdi-arrow-up-drop-circle-outline"></i></button>
+                                    <b id="quantity-@item.UrunId">@item.Adet</b>
+                                    <button class="btn btn-sm btn-primary" onclick="decreaseQuantity(@item.UrunId,@item.ID)"><i class=" mdi mdi-arrow-down-drop-circle-outline"></i></button>
+                                    
+                                    <input type="hidden" value="@item.SiparisMasterId" id="masterId">
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(modelItem => item.Adet)
+                                }
+                            </td>
+                            <td>
+                                <span class="mb-0 text-sm">@(item.Fiyat * item.Adet) TL </span>
+                            </td>
+                            <td>
+                                <span class="badge badge-dot mr-4">
+                                    @if (item.status == SiparisDetay.Status.Onay_Bekliyor)
+                                    {
+                                        <i class="bg-warning"></i>
+                                    }
+                                    else if(item.status == SiparisDetay.Status.Onaylandı )
+                                    {
+                                        <i class="bg-success"></i>
+                                    }
+                                    else if (item.status == SiparisDetay.Status.Hazırlanıyor)
+                                    {
+                                        <i class="bg-info"></i>
+                                    }
+                                    else if (item.status == SiparisDetay.Status.Teslim_Edildi)
+                                    {
+                                        <i class="bg-info"></i>
+                                    }
+                                </span>
+                                @Html.DisplayFor(modelItem => item.status)
+                            </td>
+                            <td>
+                                @if (item.status == SiparisDetay.Status.Onay_Bekliyor)
+                                {
+                                    <a class="btn btn-primary btn-sm" asp-action="Onayla" asp-route-id="@item.ID"> Onayla <i class="mdi mdi-send"></i></a>
+                                    <a class="btn btn-primary btn-sm" asp-action="Delete" asp-route-id="@item.ID"> Kaldır <i class="mdi mdi-delete-variant"></i></a>
+                                }
+                            </td>
+                        </tr>
                     }
-                    else
-                    {
-                        @Html.DisplayFor(modelItem => item.Adet)
-                    }
-
-            </td>
-            <td>
-                    @(item.Fiyat * item.Adet) TL
-            </td>
-             <td>
-                    @Html.DisplayFor(modelItem => item.status)
-                </td> 
-            <td>
-                @Html.DisplayFor(modelItem => item.CreateTime)
-            </td>
-            <td>
-                @if (item.status == SiparisDetay.Status.Onay_Bekliyor)
-                    {
-                        <a asp-action="Onayla" asp-route-id="@item.ID">Onayla</a>
-                        <a asp-action="Edit" asp-route-id="@item.ID">Edit</a>
-                        <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-                    }
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a>
-                
-            </td>
-        </tr>
-        }
-    </tbody>
-</table>
-@foreach (var item in Model)
-{
-    <center>
-        <b>
-            Toplam Tutar :  @Html.DisplayFor(modelItem => item.SiparisMaster.ToplamTutar) TL
-        </b>
-    </center>
-    break;
-}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.10/signalr.min.js"></script>
-
-<script>
-    function increaseQuantity(itemId, detayId) {
-        var masterId = document.getElementById('masterId');
-        var postMasterId = parseInt(masterId.value);
-
-
-        var quantityElement = document.getElementById('quantity-' + itemId);
-        var currentQuantity = parseInt(quantityElement.textContent);
-        var newQuantity = currentQuantity + 1;
-
-        // AJAX isteği gönder
-        $.ajax({
-            type: "POST",
-            url: "/Musteri/Siparis/UpdateQuantity",
-            data: { itemId: itemId, newQuantity: newQuantity, masterId: postMasterId, detailsId: detayId },
-            success: function (data) {
-                // Veritabanı güncellendikten sonra geri dönen veriyi işle
-                quantityElement.textContent = data.updatedQuantity;
-            }
-        });
-    }
-
-    function decreaseQuantity(itemId, detayId) {
-        var masterId = document.getElementById('masterId');
-        var postMasterId = parseInt(masterId.value);
-
-
-        var quantityElement = document.getElementById('quantity-' + itemId);
-        var currentQuantity = parseInt(quantityElement.textContent);
-        if (currentQuantity > 1) {
-            var newQuantity = currentQuantity - 1;
-
-            // AJAX isteği gönder
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer py-4">
+            <button id="as" onclick="func1(@ViewBag.ss)">dsadsa </button>
+        </div>
+    </div>
+</div>
+    <footer class="footer">
+        <div class="row align-items-center justify-content-xl-between">
+            <div class="col-xl-6 m-auto text-center">
+            </div>
+        </div>
+    </footer>
+    <script src="https://raw.githack.com/creativetimofficial/argon-dashboard/master/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="https://raw.githack.com/creativetimofficial/argon-dashboard/master/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        function func1(datalar) {
             $.ajax({
-                type: "POST",
-                url: "/Musteri/Siparis/UpdateQuantity",
-                data: { itemId: itemId, newQuantity: newQuantity, masterId: postMasterId, detailsId: detayId },
-                success: function (data) {
-                    // Veritabanı güncellendikten sonra geri dönen veriyi işle
-                    quantityElement.textContent = data.updatedQuantity;
-                }
-            });
-        }
-    }
-</script>
+
+            type: "POST",
+            url: "/Musteri/Siparis/AllConfirm",
+            data: { deneme: datalar },
+            dataType:"json",
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) { location.reload() }
+
+        });
+        } 
+    </script> 
+
+
+

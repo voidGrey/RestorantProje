@@ -33,9 +33,9 @@
                     <div class="row">
                         <div class="col-md-6">
 
-                            <div class="single_menu">
                                 @foreach (var item in Model)
                                 {
+                                <div class="single_menu">
                                     <div class="col-sm c-item">
                                         <img src="@item.FotografLink" alt="burger">
                                         <div class="menu_content">
@@ -44,8 +44,9 @@
                                             <a class="btn btn-ekle" asp-action="Ekle" asp-route-id="@item.ID">Ekle</a>
                                         </div>
                                     </div>
+                                </div>
                                 }
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
