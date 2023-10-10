@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using Qastahvis.Helpers;
 using RestorantMVC.Extensions;
 using RestorantMVC.Hubs;
 using System.Runtime.InteropServices;
@@ -50,7 +51,7 @@ namespace RestorantMVC.Areas.Musteri.Controllers
                 if (item.Urun == null)
                     item.Urun = await dbContext.Urunler.FindAsync(item.UrunId);
 
-            ViewBag.ss = JsonConvert.SerializeObject(siparisDetaylari, Formatting.None,
+            ViewBag.ss = JsonConvert.SerializeObject(siparisDetaylari , Formatting.Indented ,
                         new JsonSerializerSettings()
                         {
                             ReferenceLoopHandling = ReferenceLoopHandling.Ignore
@@ -284,24 +285,28 @@ namespace RestorantMVC.Areas.Musteri.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AllConfirm(string deneme)
+        public async Task<IActionResult> AllConfirm(string vJson)
         {
             await this.ViewBagSettings(dbContext);
-            List<SiparisDetay> siparisDetays1 = JsonConvert.DeserializeObject<List<SiparisDetay>>(siparisDetays);
-            foreach (var item in siparisDetays1)
+
+            try
             {
-                item.status = SiparisDetay.Status.Onaylandı;
-                dbContext.SiparisDetaylar.Update(item);
-                await dbContext.SaveChangesAsync();
+                List<SiparisDetay> siparisDetays1 = JsonConvert.DeserializeObject<List<SiparisDetay>>(vJson);
+
+                foreach (var item in siparisDetays1)
+                {
+                    dbContext.SiparisDetaylar.FindAsync(item.ID).Result.status = SiparisDetay.Status.Onaylandı;
+                    await dbContext.SaveChangesAsync();
+                }
+
             }
-            var siparisdetay = await dbContext.SiparisDetaylar.FindAsync(siparisDetays);
-            siparisdetay.status = (SiparisDetay.Status)2;
-            dbContext.Update(siparisdetay);
+            catch (Exception ex)
+            {
 
-            await hubContext.Clients.All.SendAsync("YeniSiparisGeldi", 1);
-            await dbContext.SaveChangesAsync();
+                return Json(new { success = false, message = ex.Message});
+            }
 
-            return View(siparisdetay);
+            return Json( new { success = true , message = "" });
         }
     }
 }
