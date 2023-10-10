@@ -1,5 +1,9 @@
 ﻿@model List<SiparisDetay>
 
+@{
+    string value = ViewBag.ss;
+    bool onaysizUrun = false;
+}
 
 <section id="our_menu" class="pt-5 pb-5">
     <div class="container">
@@ -83,6 +87,9 @@
                                     @if (item.status == SiparisDetay.Status.Onay_Bekliyor)
                                     {
                                         <i class="bg-warning"></i>
+                                        {
+                                            onaysizUrun = true;
+                                        }
                                     }
                                     else if(item.status == SiparisDetay.Status.Onaylandı )
                                     {
@@ -91,10 +98,16 @@
                                     else if (item.status == SiparisDetay.Status.Hazırlanıyor)
                                     {
                                         <i class="bg-info"></i>
+                                        {
+                                            onaysizUrun = true;
+                                        }
                                     }
                                     else if (item.status == SiparisDetay.Status.Teslim_Edildi)
                                     {
                                         <i class="bg-info"></i>
+                                        {
+                                            onaysizUrun = true;
+                                        }
                                     }
                                 </span>
                                 @Html.DisplayFor(modelItem => item.status)
@@ -111,14 +124,18 @@
                 </tbody>
             </table>
         </div>
-        <div class="card-footer py-4">
-            <button id="as" onclick="func1(@ViewBag.ss)">dsadsa </button>
+        @if (onaysizUrun)
+        {
+        <div class="card-footer py-4"> 
+            <button class="btn btn-info" onclick="func1()">Hepsini Onayla</button>
         </div>
+        }
     </div>
 </div>
     <footer class="footer">
         <div class="row align-items-center justify-content-xl-between">
             <div class="col-xl-6 m-auto text-center">
+            <span id="siparisJson" hidden>@value</span>
             </div>
         </div>
     </footer>
@@ -126,15 +143,14 @@
     <script src="https://raw.githack.com/creativetimofficial/argon-dashboard/master/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
-        function func1(datalar) {
-            $.ajax({
+        function func1() {
+        var json = document.getElementById("siparisJson").innerText;
 
+            $.ajax({
             type: "POST",
             url: "/Musteri/Siparis/AllConfirm",
-            data: { deneme: datalar },
-            dataType:"json",
-            contentType: 'application/json; charset=utf-8',
-            success: function (data) { location.reload() }
+            data: { vJson: json },
+            success: function (success, message) { location.reload(); console.log(message) }
 
         });
         } 
