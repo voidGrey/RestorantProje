@@ -54,7 +54,7 @@ namespace RestorantMVC.Areas.Musteri.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateQuantity(int itemId , int newQuantity, int masterId, int detailsId)
+        public async Task<IActionResult> UpdateQuantity(int newQuantity, int masterId, int detailsId)
         {
             await this.ViewBagSettings(dbContext);
 
@@ -63,9 +63,9 @@ namespace RestorantMVC.Areas.Musteri.Controllers
             string firmaId = await RestorantExtension.DecryptAsync(bytes,"YeyoYoOyeŞifrehehe");
 
             //MasaID'nin siparişleri listelenir.
-            var detail = await dbContext.SiparisDetaylar.FirmaFilter(firmaId)
-                .Where(d => d.SiparisMasterId == masterId).Where(d => d.ID == detailsId)
-                .Where(v => v.UrunId == itemId).FirstOrDefaultAsync();
+            var detail = 
+                await dbContext.SiparisDetaylar.FirmaFilter(firmaId)
+                .Where(d => d.ID == detailsId).FirstOrDefaultAsync();
 
 
             detail.Adet = newQuantity;

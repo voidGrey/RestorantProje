@@ -46,11 +46,10 @@
 
                     @if(item.status == SiparisDetay.Status.Onay_Bekliyor)
                     {
-                        <button class="btn btn-sm btn-primary" onclick="increaseQuantity(@item.UrunId)">+</button>
+                        <button class="btn btn-sm btn-primary" onclick="increaseQuantity(@item.UrunId,@item.ID)">+</button>
                         <span id="quantity-@item.UrunId">@item.Adet</span>
                         <input type="hidden" value="@item.SiparisMasterId" id="masterId">
-                        <input type="hidden" value="@item.ID" id="detailsId">
-                        <button class="btn btn-sm btn-primary" onclick="decreaseQuantity(@item.UrunId)">-</button>
+                        <button class="btn btn-sm btn-primary" onclick="decreaseQuantity(@item.UrunId,@item.ID)">-</button>
                     }
                     else
                     {
@@ -93,12 +92,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.10/signalr.min.js"></script>
 
 <script>
-    function increaseQuantity(itemId) {
+    function increaseQuantity(itemId, detayId) {
         var masterId = document.getElementById('masterId');
         var postMasterId = parseInt(masterId.value);
 
-        var detailsId = document.getElementById('detailsId');
-        var postDetailsId = parseInt(detailsId.value);
 
         var quantityElement = document.getElementById('quantity-' + itemId);
         var currentQuantity = parseInt(quantityElement.textContent);
@@ -108,7 +105,7 @@
         $.ajax({
             type: "POST",
             url: "/Musteri/Siparis/UpdateQuantity",
-            data: { itemId: itemId, newQuantity: newQuantity, masterId: postMasterId, detailsId: postDetailsId },
+            data: { itemId: itemId, newQuantity: newQuantity, masterId: postMasterId, detailsId: detayId },
             success: function (data) {
                 // Veritabanı güncellendikten sonra geri dönen veriyi işle
                 quantityElement.textContent = data.updatedQuantity;
@@ -116,12 +113,10 @@
         });
     }
 
-    function decreaseQuantity(itemId) {
+    function decreaseQuantity(itemId, detayId) {
         var masterId = document.getElementById('masterId');
         var postMasterId = parseInt(masterId.value);
 
-        var detailsId = document.getElementById('detailsId');
-        var postDetailsId = parseInt(detailsId.value);
 
         var quantityElement = document.getElementById('quantity-' + itemId);
         var currentQuantity = parseInt(quantityElement.textContent);
@@ -132,7 +127,7 @@
             $.ajax({
                 type: "POST",
                 url: "/Musteri/Siparis/UpdateQuantity",
-                data: { itemId: itemId, newQuantity: newQuantity, masterId: postMasterId, detailsId: postDetailsId },
+                data: { itemId: itemId, newQuantity: newQuantity, masterId: postMasterId, detailsId: detayId },
                 success: function (data) {
                     // Veritabanı güncellendikten sonra geri dönen veriyi işle
                     quantityElement.textContent = data.updatedQuantity;
