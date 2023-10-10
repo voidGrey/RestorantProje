@@ -107,6 +107,15 @@
 /*-------------------------------------------------------------------*/
 /* === SCSS Compass Functions === */
 
+#editPhoneNumber {
+    position: relative;
+    z-index: 2;
+}
+
+#savePhoneNumber {
+    position: relative;
+    z-index: 1;
+}
 
 @-moz-keyframes flash {
     0% {

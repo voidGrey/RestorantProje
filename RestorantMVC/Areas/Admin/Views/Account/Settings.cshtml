@@ -1,0 +1,93 @@
+﻿@model Firma
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="col-md-4 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4>Firma Bilgileri</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                             
+                        </th>
+                        <th>
+                        </th>
+                        <th>
+                             
+                        </th>
+                        <th>
+
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td for="userName" class="col-sm-3 col-form-label">Firma Adı:</td>
+                        <td>@Model.UserName</td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td for="userName" class="col-sm-3 col-form-label">E-Mail:</td>
+                        <td>@Model.Email</td>
+                        <td>
+                            <button class="btn btn-success btn-sm">
+                                <i class="mdi mdi-tooltip-edit"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td for="userName" class="col-sm-3 col-form-label">Şifre:</td>
+                        <td>************</td>
+                        <td>
+                            <button class="btn btn-success btn-sm">
+                                <i class="mdi mdi-tooltip-edit"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td for="userName" class="col-sm-3 col-form-label">Telefon No:</td>
+                        <td>
+                            <span id="CurrentPhoneNumber">@Model.PhoneNumber </span>
+                            <input type="text" id="newPhoneNumber" style="display: none;" />
+                        </td>
+                        <td>
+                            <button id="savePhoneNumber" class="btn btn-primary btn-sm" style="display:none;">
+                                <i class="mdi mdi-content-save"></i>
+                            </button>
+                        </td>
+                        <td>
+                            <button class="btn btn-success btn-sm" id="editPhoneNumber">
+                                <i class="mdi mdi-tooltip-edit"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td for="userName" class="col-sm-3 col-form-label">Vergi Dairesi:</td>
+                        <td>@Model.VergiDairesi</td>
+                        <td>
+                            <button class="btn btn-success btn-sm">
+                                <i class="mdi mdi-tooltip-edit"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td for="userName" class="col-sm-3 col-form-label">Vergi No:</td>
+                        <td>@Model.VergiNo</td>
+                        <td>
+                            <button class="btn btn-success btn-sm">
+                                <i class="mdi mdi-tooltip-edit"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
