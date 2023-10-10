@@ -47,8 +47,6 @@ namespace RestorantMVC.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult UpdatePhoneNumber(string phoneNumber)
         {
-            // Kullanıcının telefon numarasını güncelleme işlemini yapın
-            // Örneğin, UserManager kullanarak güncelleyebilirsiniz
             var user = userManager.GetUserAsync(User).Result;
             user.PhoneNumber = phoneNumber;
             var result = userManager.UpdateAsync(user).Result;
