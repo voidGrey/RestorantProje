@@ -77,6 +77,13 @@ namespace RestorantMVC.Areas.Admin.Controllers
             
             firmaId = userManager.GetUserId(User);
             kategori.FirmaId = firmaId;
+            if(kategori.KategoriAciklama != null)
+            {
+                if (kategori.KategoriAciklama.Length >= 100)
+                {
+                    kategori.KategoriAciklama = kategori.KategoriAciklama.Substring(0 , 90) + "...";
+                }
+            }
 
             kategori.SelfKategoriID = await dbContext.Kategoriler.FirmaFilter(firmaId).CountAsync() + 1;
 
@@ -93,7 +100,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
                     await dbContext.SaveChangesAsync();
                     return RedirectToAction("Index");
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     ModelState.AddModelError("" , "Aynı İsimde bir kategori zaten mevcut");
                     return View(kategori);
