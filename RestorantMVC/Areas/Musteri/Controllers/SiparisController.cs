@@ -36,28 +36,37 @@ namespace RestorantMVC.Areas.Musteri.Controllers
             Request.Cookies.TryGetValue("f" , out decryptValue);
             byte[] bytes = WebEncoders.Base64UrlDecode(decryptValue);
             string firmaId = await RestorantExtension.DecryptAsync(bytes,"YeyoYoOyeŞifrehehe");
+            try
+            {
+                //MasaID'nin siparişleri listelenir.
+                int masaid = Convert.ToInt32(HttpContext.Request.Cookies["MasaId"]);
+                var siparisMasterlar = dbContext.SiparisMasterlar.FirmaFilter(firmaId).Where(s => s.MasaId == masaid);
+                var siparisMaster = siparisMasterlar.FirstOrDefault();
+                //toplam tutarı menu controllerdan çekemediğim için buraya aldım
+                siparisMaster.ToplamTutar = dbContext.SiparisDetaylar.Where(v => v.SiparisMasterId == siparisMaster.ID).Sum(x => x.Fiyat * x.Adet);
+                await dbContext.SaveChangesAsync();
+                var siparisDetaylari = dbContext.SiparisDetaylar.FirmaFilter(firmaId).Where(d => d.SiparisMasterId == siparisMaster.ID).ToList();
 
-            //MasaID'nin siparişleri listelenir.
-            int masaid = Convert.ToInt32(HttpContext.Request.Cookies["MasaId"]);
-            var siparisMasterlar = dbContext.SiparisMasterlar.FirmaFilter(firmaId).Where(s => s.MasaId == masaid);
-            var siparisMaster = siparisMasterlar.FirstOrDefault();
-            //toplam tutarı menu controllerdan çekemediğim için buraya aldım
-            siparisMaster.ToplamTutar = dbContext.SiparisDetaylar.Where(v => v.SiparisMasterId == siparisMaster.ID).Sum(x => x.Fiyat * x.Adet);
-            await dbContext.SaveChangesAsync();
-            var siparisDetaylari = dbContext.SiparisDetaylar.FirmaFilter(firmaId).Where(d => d.SiparisMasterId == siparisMaster.ID).ToList();
+                // Urun'lerin isimleri null dönmesin diye ürünlerin atamasını DB'den atıyorum.
+                foreach (var item in siparisDetaylari)
+                    if (item.Urun == null)
+                        item.Urun = await dbContext.Urunler.FindAsync(item.UrunId);
 
-            // Urun'lerin isimleri null dönmesin diye ürünlerin atamasını DB'den atıyorum.
-            foreach (var item in siparisDetaylari)
-                if (item.Urun == null)
-                    item.Urun = await dbContext.Urunler.FindAsync(item.UrunId);
+                ViewBag.ss = JsonConvert.SerializeObject(siparisDetaylari, Formatting.Indented,
+                            new JsonSerializerSettings()
+                            {
+                                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                            });
 
-            ViewBag.ss = JsonConvert.SerializeObject(siparisDetaylari , Formatting.Indented ,
-                        new JsonSerializerSettings()
-                        {
-                            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                        });
+                return View(siparisDetaylari);
+            }
+            catch (Exception)
+            {
 
-            return View(siparisDetaylari);
+                return RedirectToAction("Bos");
+            }
+
+            
         }
 
         [HttpPost]
@@ -307,6 +316,12 @@ namespace RestorantMVC.Areas.Musteri.Controllers
             }
 
             return Json( new { success = true , message = "" });
+        }
+
+        public async Task<IActionResult> Bos()
+        {
+            await this.ViewBagSettings(dbContext);
+            return View();
         }
     }
 }
