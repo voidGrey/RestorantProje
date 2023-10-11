@@ -36,7 +36,6 @@
             <table class="table align-items-center table-flush">
                 <thead class="thead-light">
                     <tr>
-                        <th scope="col">Masa Numarası</th>
                         <th scope="col">Ürün Adı</th>
                         <th scope="col">Fiyat</th>
                         <th scope="col">Adet</th>
@@ -49,30 +48,24 @@
                     @foreach (var item in Model)
                     {   
                         <tr>
-                            <th scope="row">
-                                <div class="media align-items-center">
-                                    <div class="media-body">
-                                        <span class="mb-0 text-sm">@Html.DisplayFor(modelItem => item.SiparisMaster.MasaId)</span>
-                                    </div>
-                                </div>
-                            </th>
                             <td>
                                 <span class="mb-0 text-sm">@Html.DisplayFor(modelItem => item.Urun.UrunAdi) </span>
                             </td>
                             <td>
                                 <span class="mb-0 text-sm">
-                                    @Html.DisplayFor(modelItem => item.Fiyat) TL
+                                    @item.Fiyat TL
                                 </span>
                             </td>
                             <td>
                                 @if (item.status == SiparisDetay.Status.Onay_Bekliyor)
                                 {
-                                    
-                                    <button style="margin:0px" class="btn btn-sm btn-primary" onclick="increaseQuantity(@item.UrunId,@item.ID)"><i class=" mdi mdi-arrow-up-drop-circle-outline"></i></button>
-                                    <b id="quantity-@item.UrunId">@item.Adet</b>
-                                    <button class="btn btn-sm btn-primary" onclick="decreaseQuantity(@item.UrunId,@item.ID)"><i class=" mdi mdi-arrow-down-drop-circle-outline"></i></button>
-                                    
                                     <input type="hidden" value="@item.SiparisMasterId" id="masterId">
+
+                                    <button style="margin:0px" class="btn btn-sm btn-danger" onclick="increaseQuantity(@item.UrunId,@item.ID)"><i class=" mdi mdi-arrow-up-drop-circle-outline"></i></button>
+                                    <b id="quantity-@item.UrunId">@item.Adet</b>
+                                    <button class="btn btn-sm btn-danger" onclick="decreaseQuantity(@item.UrunId,@item.ID)"><i class=" mdi mdi-arrow-down-drop-circle-outline"></i></button>
+                                    
+
                                 }
                                 else
                                 {
@@ -80,7 +73,7 @@
                                 }
                             </td>
                             <td>
-                                <span class="mb-0 text-sm">@(item.Fiyat * item.Adet) TL </span>
+                                <span name="urunToplam" id="GuncelFiyat-@item.ID" class="mb-0 text-sm">@(item.Fiyat * item.Adet) TL </span>
                             </td>
                             <td>
                                 <span class="badge badge-dot mr-4">
@@ -115,8 +108,8 @@
                             <td>
                                 @if (item.status == SiparisDetay.Status.Onay_Bekliyor)
                                 {
-                                    <a class="btn btn-primary btn-sm" asp-action="Onayla" asp-route-id="@item.ID"> Onayla <i class="mdi mdi-send"></i></a>
-                                    <a class="btn btn-primary btn-sm" asp-action="Delete" asp-route-id="@item.ID"> Kaldır <i class="mdi mdi-delete-variant"></i></a>
+                                    <a class="btn btn-danger btn-sm" asp-action="Onayla" asp-route-id="@item.ID"> Onayla <i class="mdi mdi-send"></i></a>
+                                    <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.ID"> Kaldır <i class="mdi mdi-delete-variant"></i></a>
                                 }
                             </td>
                         </tr>
@@ -127,7 +120,16 @@
         @if (onaysizUrun)
         {
         <div class="card-footer py-4"> 
-            <button class="btn btn-info" onclick="func1()">Hepsini Onayla</button>
+                <button style="float:right" class="btn btn-danger" onclick="func1()">Hepsini Onayla</button>
+                @foreach (var item in Model)
+                {
+                    <center>
+                        <span id ="toplamTutarSon">
+                            Toplam Tutar :  @Html.DisplayFor(modelItem => item.SiparisMaster.ToplamTutar) TL
+                        </span>
+                    </center>
+                    break;
+                }
         </div>
         }
     </div>
@@ -154,7 +156,4 @@
 
         });
         } 
-    </script> 
-
-
-
+    </script>

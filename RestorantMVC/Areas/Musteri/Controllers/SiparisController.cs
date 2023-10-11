@@ -83,7 +83,7 @@ namespace RestorantMVC.Areas.Musteri.Controllers
             await dbContext.SaveChangesAsync();
 
             // Güncellenmiş verileri geri döndürün (örneğin, güncellenmiş Adet değeri).
-            return Json(new { updatedQuantity = newQuantity });
+            return Json(new { updatedQuantity = newQuantity, updatedFiyat = (detail.Fiyat * detail.Adet) });
         }
 
 
