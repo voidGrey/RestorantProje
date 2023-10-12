@@ -46,9 +46,37 @@
                             </button>
                         </td>
                         <td>
-                            <button class="btn btn-success btn-sm">
+                            <button class="btn btn-success btn-sm" id="mailRequest">
                                 <i class="mdi mdi-tooltip-edit"></i>
                             </button>
+
+                            <!--POPUP MAİL ŞİFRE ONAYI - Başlangıç-->
+
+                            <div class="modal" tabindex="-1" role="dialog" id="mailRequestModel">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Mail Değişikliği</h5>
+                                        </div>
+                                        <div class="modal-body" style="word-break:break-all" id="mailRequestContent">
+                                            <div class="form-group col-md-8">
+                                                <label for="newMailInput" class="control-label">Yeni Mail Adresiniz:</label>
+                                                <input type="text" id="newMailInput" class="form-control" />
+                                            </div>
+                                            <div class="form-group col-md-8">
+                                                <label for="mailRequestPassword" class="control-label">Şifreniz:</label>
+                                                <input type="password" id="mailRequestPassword" class="form-control" />
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" id="mailRequestOnayla" class="btn btn-primary">Onayla</button>
+                                            <button type="button" id="mailRequestVazgec" class="btn btn-secondary">Geridön</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--POPUP MAİL ŞİFRE ONAYI - Son-->
                         </td>
                     </tr>
                     <tr>
