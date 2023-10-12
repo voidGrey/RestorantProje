@@ -92,7 +92,6 @@
             },
             success: function (result) {
                 if (result.success) {
-                    console.log("Şifre değiştirme işlemi başarılı");
                     passRequestContent.innerHTML = `
                         <div class="modal-content" id="passRequestContent">
                             <div class="modal-header">
@@ -126,6 +125,83 @@
 
     //#endregion
 
+    //#region Account/Settings - Mail AJAX Scriptleri
+
+    //#region Account/Settings - Mail POPUP Aç
+
+    $("#mailRequest").click(function () {
+        // Yeni telefon numarasını girmek için input alanını göster
+
+        //$("#newPassword").show();
+        //$("#savePassword").show();
+
+        // POPUP AÇ
+        $('#mailRequestModel').modal({ backdrop: 'static', keyboard: false }); // Kapatılamaz POPUP
+        $('#mailRequestModel').modal('show'); // POPUP Göster
+        // POPUP AÇ
+    });
+
+    //#endregion
+
+    //#region Account/Settings - Mail POPUP Kapat
+
+    $("#mailRequestVazgec").click(function () {
+        location.reload()
+    });
+
+    //#endregion
+
+    //#region Account/Settings - Mail AJAX
+    $("#mailRequestOnayla").click(function () {
+
+        var newMail = document.getElementById("newMailInput").value;
+        var currPassword = document.getElementById("mailRequestPassword").value;
+        var mailContent = document.getElementById("mailRequestContent");
+        var onaylaButton = document.getElementById("mailRequestOnayla");
+
+        $.ajax({
+            url: "/Admin/Account/ChangeMailRequest",
+            type: "POST",
+            data: {
+                mailData: newMail,
+                passData: currPassword
+            },
+            success: function (result) {
+                if (result.success) {
+                    mailContent.innerHTML = `
+                        <div class="modal-content" id="passRequestContent">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Mail Değişikliği için şuan ki mail adresinize onay gönderildi!</h5>
+                                <div class="modal-body" style="word-break:break-all" id="passRequestContent">
+                                    <h5 class="modal-title" style="word-break:break-all">
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    onaylaButton.style.visibility = "hidden";
+                }
+                else {
+                    mailContent.innerHTML = `
+                        <div class="modal-content" id="passRequestContent">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Mail Değiştirme Başarısız!</h5>
+                                <div class="modal-body" style="word-break:break-all" id="passRequestContent">
+                                    <h5 class="modal-title" style="word-break:break-all">
+                    ` + result.error + `
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+                    onaylaButton.style.visibility = "hidden";
+                }
+            }
+        })
+    })
+        //#endregion
+
+
+    //#endregion
 
 
 //#endregion
