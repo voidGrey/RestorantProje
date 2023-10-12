@@ -147,15 +147,18 @@
                         </td>
                     </tr>
                     <tr>
-                        <td for="userName" class="col-sm-3 col-form-label">Vergi Dairesi:</td>
-                        <td>@Model.VergiDairesi</td>
+                        <td for="CurrentVergiDairesi" class="col-sm-3 col-form-label">Vergi Dairesi:</td>
                         <td>
-                            <button id="savePhoneNumber" class="btn btn-primary btn-sm" style="display:none;">
+                            <span id="CurrentVergiDairesi">@Model.VergiDairesi </span>
+                            <input type="text" id="newVergiDairesi" style="display: none;" />
+                        </td>
+                        <td>
+                            <button id="saveVergiDairesi" class="btn btn-primary btn-sm" style="display:none;">
                                 <i class="mdi mdi-content-save"></i>
                             </button>
                         </td>
                         <td>
-                            <button class="btn btn-success btn-sm">
+                            <button class="btn btn-success btn-sm" id="editVergiDairesi">
                                 <i class="mdi mdi-tooltip-edit"></i>
                             </button>
                         </td>

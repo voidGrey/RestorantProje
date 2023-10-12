@@ -17,9 +17,16 @@ namespace RestorantMVC.Controllers
             this.dbContext = dbContext;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var viewModel = new LayoutViewModel { Kategoriler = dbContext.Kategoriler.ToList() };
+            int entityID = Convert.ToInt32(HttpContext.Request.Cookies["MasaId"]);
+
+            var masaID = await dbContext.Masalar.FindAsync(entityID);
+
+            ViewBag.MasaID = masaID.MasaID;
+
+
             return View(viewModel);
         }
 

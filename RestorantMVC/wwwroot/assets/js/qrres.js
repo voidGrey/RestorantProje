@@ -200,9 +200,51 @@
     })
         //#endregion
 
+    //#endregion
+
+    //#region Account/Settings Vergi AJAX
+
+    //#region Account/Settings - Vergi Field Ayarla
+    // Edit Button İşlevi
+    $("#editVergiDairesi").click(function () {
+        // Yeni telefon numarasını girmek için input alanını göster
+        $("#newVergiDairesi").show();
+        $("#saveVergiDairesi").show();
+        $("#editVergiDairesi").hide();
+        $("#CurrentVergiDairesi").hide();
+    });
 
     //#endregion
 
+    //#region Account/Settings - Vergi Kaydet
+    // Değişiklikleri kaydet düğmesine tıklanınca
+    $("#saveVergiDairesi").click(function () {
+        // Yeni telefon numarasını al
+        var newVergiDairesi = $("#newVergiDairesi").val();
+
+        // AJAX isteği gönder
+        $.ajax({
+            url: "/Admin/Account/UpdateVergiDairesi", // AJAX isteğinizi yönlendireceğiniz URL'yi ayarla
+            type: "POST",
+            data: {
+                vergiDairesi: newVergiDairesi
+            },
+            success: function (result) {
+                // input alanlarını düzenle
+                $("#newVergiDairesi").hide();
+                $("#CurrentVergiDairesi").show();
+                $("#saveVergiDairesi").hide();
+                $("#CurrentVergiDairesi").text(newVergiDairesi);
+                $("#editVergiDairesi").show();
+            },
+            error: function (error) {
+                // Hata Durumu
+            }
+        });
+    });
+        //#endregion
+
+    //#endregion
 
 //#endregion
 
