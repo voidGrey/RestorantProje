@@ -21,11 +21,13 @@
                 <input asp-for="UrunAciklama" class="form-control" />
                 <span asp-validation-for="UrunAciklama" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="FotografLink" class="control-label">Ürün Görsel URL:</label>
-                <input asp-for="FotografLink" class="form-control" />
-                <span asp-validation-for="FotografLink" class="text-danger"></span>
-            </div>
+                <div class="form-group">
+                    <label asp-for="FotografLink" class="control-label">Ürün Fotoğrafı (URL / Yükle)</label>
+                    <input asp-for="FotografLink" class="form-control" />
+                    <span asp-validation-for="FotografLink" class="text-danger"></span>
+                    <br />
+                    <input type="file" />
+                </div>
             <div class="form-group">
                 <label asp-for="Fiyat" class="control-label">Ürün Fiyatı:</label>
                 <input asp-for="Fiyat" class="form-control" />
