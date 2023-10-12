@@ -244,6 +244,48 @@
     });
         //#endregion
 
+
+    //#region Account/Settings - VergiNo Field Ayarla
+    // Edit Button İşlevi
+    $("#editVergiNo").click(function () {
+        // Yeni telefon numarasını girmek için input alanını göster
+        $("#newVergiNo").show();
+        $("#saveVergiNo").show();
+        $("#editVergiNo").hide();
+        $("#CurrentVergiNo").hide();
+    });
+
+    //#endregion
+
+    //#region Account/Settings - VergiNo Kaydet
+    // Değişiklikleri kaydet düğmesine tıklanınca
+    $("#saveVergiNo").click(function () {
+        // Yeni telefon numarasını al
+        var newVergiNo = document.getElementById("newVergiNo").value;
+
+        // AJAX isteği gönder
+        $.ajax({
+            url: "/Admin/Account/UpdateVergiNo", // AJAX isteğinizi yönlendireceğiniz URL'yi ayarla
+            type: "POST",
+            data: {
+                vergiNo: newVergiNo
+            },
+            success: function (result) {
+                // input alanlarını düzenle
+                $("#newVergiNo").hide();
+                $("#CurrentVergiNo").show();
+                $("#saveVergiNo").hide();
+                $("#CurrentVergiNo").text(newVergiNo);
+                $("#editVergiNo").show();
+            },
+            error: function (error) {
+                // Hata Durumu
+            }
+        });
+    });
+    //#endregion
+
+
     //#endregion
 
 //#endregion
