@@ -31,11 +31,20 @@
                         <td for="userName" class="col-sm-3 col-form-label">Firma Adı:</td>
                         <td>@Model.UserName</td>
                         <td>
+
                         </td>
                     </tr>
                     <tr>
-                        <td for="userName" class="col-sm-3 col-form-label">E-Mail:</td>
-                        <td>@Model.Email</td>
+                        <td for="email" class="col-sm-3 col-form-label">E-Mail:</td>
+                        <td>
+                            <span id="currentEmail">@Model.Email</span>
+                            <input type="text" id="newEmail" style="display: none;" />
+                        </td>
+                        <td>
+                            <button id="saveEmail" class="btn btn-primary btn-sm" style="display:none;">
+                                <i class="mdi mdi-content-save"></i>
+                            </button>
+                        </td>
                         <td>
                             <button class="btn btn-success btn-sm">
                                 <i class="mdi mdi-tooltip-edit"></i>
@@ -43,16 +52,57 @@
                         </td>
                     </tr>
                     <tr>
-                        <td for="userName" class="col-sm-3 col-form-label">Şifre:</td>
-                        <td>************</td>
+                        <td for="password" class="col-sm-3 col-form-label">Şifre:</td>
                         <td>
-                            <button class="btn btn-success btn-sm">
+                            <span id="currentPassword">************</span>
+                            <input type="password" id="newPassword" style="display: none;" />
+                        </td>
+                        <td>
+                            <button id="savePassword" class="btn btn-primary btn-sm" style="display:none;">
+                                <i class="mdi mdi-content-save"></i>
+                            </button>
+                        </td>
+                        <td>
+                            <button class="btn btn-success btn-sm" id="editPasswordRequest">
                                 <i class="mdi mdi-tooltip-edit"></i>
                             </button>
+
+                            <!--POPUP MAİL ŞİFRE ONAYI - Başlangıç-->
+
+                            <div class="modal" tabindex="-1" role="dialog" id="passRequestModel">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Şifre Değişikliği</h5>
+                                        </div>
+                                        <div class="modal-body" style="word-break:break-all" id="passRequestContent">
+                                            <div class="form-group col-md-8">
+                                                <label for="currentPasswordInput" class="control-label">Şuanki Şifreniz:</label>
+                                                <input type="password" id="currentPasswordInput" class="form-control" />
+                                            </div>
+                                            <div class="form-group col-md-8">
+                                                <label for="newPasswordInput" class="control-label">Yeni Şifreniz:</label>
+                                                <input type="password" id="newPasswordInput" class="form-control" />
+                                            </div>
+                                            <div class="form-group col-md-8">
+                                                <label for="reNewPasswordInput" class="control-label">Tekrar Yeni Şifreniz:</label>
+                                                <input type="password" id="reNewPasswordInput" class="form-control" />
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" id="passRequestOnayla" class="btn btn-primary">Onayla</button>
+                                            <button type="button" id="passRequestVazgec" class="btn btn-secondary">Geridön</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--POPUP MAİL ŞİFRE ONAYI - Son-->
+
                         </td>
                     </tr>
                     <tr>
-                        <td for="userName" class="col-sm-3 col-form-label">Telefon No:</td>
+                        <td for="phoneNumber" class="col-sm-3 col-form-label">Telefon No:</td>
                         <td>
                             <span id="CurrentPhoneNumber">@Model.PhoneNumber </span>
                             <input type="text" id="newPhoneNumber" style="display: none;" />
@@ -72,6 +122,11 @@
                         <td for="userName" class="col-sm-3 col-form-label">Vergi Dairesi:</td>
                         <td>@Model.VergiDairesi</td>
                         <td>
+                            <button id="savePhoneNumber" class="btn btn-primary btn-sm" style="display:none;">
+                                <i class="mdi mdi-content-save"></i>
+                            </button>
+                        </td>
+                        <td>
                             <button class="btn btn-success btn-sm">
                                 <i class="mdi mdi-tooltip-edit"></i>
                             </button>
@@ -80,6 +135,11 @@
                     <tr>
                         <td for="userName" class="col-sm-3 col-form-label">Vergi No:</td>
                         <td>@Model.VergiNo</td>
+                        <td>
+                            <button id="savePhoneNumber" class="btn btn-primary btn-sm" style="display:none;">
+                                <i class="mdi mdi-content-save"></i>
+                            </button>
+                        </td>
                         <td>
                             <button class="btn btn-success btn-sm">
                                 <i class="mdi mdi-tooltip-edit"></i>

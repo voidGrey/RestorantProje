@@ -45,7 +45,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdatePhoneNumber(string phoneNumber)
+        public async Task<IActionResult> UpdatePhoneNumber(string phoneNumber)
         {
             var user = userManager.GetUserAsync(User).Result;
             user.PhoneNumber = phoneNumber;
@@ -59,6 +59,31 @@ namespace RestorantMVC.Areas.Admin.Controllers
 
             // Hata durumunda hata yanıtı döndür
             return Json(new { success = false , errors = result.Errors });
+        }
+
+        public async Task<IActionResult> ChangePasswordRequest(string currentPassword, string newPassword, string reNewPassword)
+        {
+            var user = userManager.GetUserAsync(User).Result;
+            
+            if(newPassword != reNewPassword) { return Json(new { success = false, error = "Şifreler uyumlu değil." });; }
+
+            try
+            {
+                var result = await userManager.ChangePasswordAsync(user , currentPassword , newPassword);
+
+                if (result.Succeeded) 
+                {
+                    return Json(new { success = true });
+                }
+                else
+                {
+                    return Json(new { success = false , error = result.Errors.FirstOrDefault().Description});
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, error = ex.Message });
+            }
         }
     }
 }

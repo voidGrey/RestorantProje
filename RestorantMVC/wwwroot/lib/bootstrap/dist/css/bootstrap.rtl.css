@@ -6025,6 +6025,7 @@ textarea.form-control-lg {
     position: relative;
     flex: 1 1 auto;
     padding: 1rem;
+    word-break:break-all;
 }
 
 .modal-footer {
