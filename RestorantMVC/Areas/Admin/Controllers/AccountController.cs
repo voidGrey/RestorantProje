@@ -155,5 +155,34 @@ namespace RestorantMVC.Areas.Admin.Controllers
                 return Json("MAİL DEĞİŞİKLİĞİNDE SORUNA RASTLANDI: " + result.Errors.FirstOrDefault());
             }
         }
+
+        public async Task<IActionResult> UpdateVergiDairesi(string vergiDairesi)
+        {
+            var user = await userManager.GetUserAsync(User);
+            user.VergiDairesi = vergiDairesi;
+
+            var result = await userManager.UpdateAsync(user);
+
+            if(result.Succeeded)
+            {
+                return Json(new { success = true , vergiDairesi = user.VergiDairesi });
+            }
+
+            return Json(new { success = false , errors = result.Errors });
+        }
+        public async Task<IActionResult> UpdateVergiNo(string vergiNo)
+        {
+            var user = await userManager.GetUserAsync(User);
+            user.VergiNo = vergiNo;
+
+            var result = await userManager.UpdateAsync(user);
+
+            if (result.Succeeded)
+            {
+                return Json(new { success = true , vergiDairesi = user.VergiDairesi });
+            }
+
+            return Json(new { success = false , errors = result.Errors });
+        }
     }
 }

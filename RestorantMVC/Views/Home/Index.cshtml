@@ -6,22 +6,6 @@
 
 <div class="text-center">
     <h1 class="display-4">Hoşgeldiniz</h1>
-    <h1 class="display-4" id="Musteri">Masa Numaranız : </h1>
+    <h1 class="display-4" id="Musteri">Masa Numaranız : @ViewBag.MasaID</h1>
     <a class="btn btn-danger btn-lg" asp-area="Musteri" asp-controller="Menu" asp-action="Kategori" asp-route-id="1">MENU</a>
 </div>
-
-@section Scripts
-    {
-
-    <script type="text/javascript">
-
-        const body = document.querySelector('body');
-        body.onload = SiparisEkle;
-
-        function SiparisEkle(urunId) {
-            let masaId = $.cookie("MasaId");
-            document.getElementById("Musteri").innerHTML += masaId;
-            };
-
-    </script>
-}

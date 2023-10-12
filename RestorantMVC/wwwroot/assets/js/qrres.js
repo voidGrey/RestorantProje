@@ -200,9 +200,93 @@
     })
         //#endregion
 
+    //#endregion
+
+    //#region Account/Settings Vergi AJAX
+
+    //#region Account/Settings - Vergi Field Ayarla
+    // Edit Button İşlevi
+    $("#editVergiDairesi").click(function () {
+        // Yeni telefon numarasını girmek için input alanını göster
+        $("#newVergiDairesi").show();
+        $("#saveVergiDairesi").show();
+        $("#editVergiDairesi").hide();
+        $("#CurrentVergiDairesi").hide();
+    });
 
     //#endregion
 
+    //#region Account/Settings - Vergi Kaydet
+    // Değişiklikleri kaydet düğmesine tıklanınca
+    $("#saveVergiDairesi").click(function () {
+        // Yeni telefon numarasını al
+        var newVergiDairesi = $("#newVergiDairesi").val();
+
+        // AJAX isteği gönder
+        $.ajax({
+            url: "/Admin/Account/UpdateVergiDairesi", // AJAX isteğinizi yönlendireceğiniz URL'yi ayarla
+            type: "POST",
+            data: {
+                vergiDairesi: newVergiDairesi
+            },
+            success: function (result) {
+                // input alanlarını düzenle
+                $("#newVergiDairesi").hide();
+                $("#CurrentVergiDairesi").show();
+                $("#saveVergiDairesi").hide();
+                $("#CurrentVergiDairesi").text(newVergiDairesi);
+                $("#editVergiDairesi").show();
+            },
+            error: function (error) {
+                // Hata Durumu
+            }
+        });
+    });
+        //#endregion
+
+
+    //#region Account/Settings - VergiNo Field Ayarla
+    // Edit Button İşlevi
+    $("#editVergiNo").click(function () {
+        // Yeni telefon numarasını girmek için input alanını göster
+        $("#newVergiNo").show();
+        $("#saveVergiNo").show();
+        $("#editVergiNo").hide();
+        $("#CurrentVergiNo").hide();
+    });
+
+    //#endregion
+
+    //#region Account/Settings - VergiNo Kaydet
+    // Değişiklikleri kaydet düğmesine tıklanınca
+    $("#saveVergiNo").click(function () {
+        // Yeni telefon numarasını al
+        var newVergiNo = document.getElementById("newVergiNo").value;
+
+        // AJAX isteği gönder
+        $.ajax({
+            url: "/Admin/Account/UpdateVergiNo", // AJAX isteğinizi yönlendireceğiniz URL'yi ayarla
+            type: "POST",
+            data: {
+                vergiNo: newVergiNo
+            },
+            success: function (result) {
+                // input alanlarını düzenle
+                $("#newVergiNo").hide();
+                $("#CurrentVergiNo").show();
+                $("#saveVergiNo").hide();
+                $("#CurrentVergiNo").text(newVergiNo);
+                $("#editVergiNo").show();
+            },
+            error: function (error) {
+                // Hata Durumu
+            }
+        });
+    });
+    //#endregion
+
+
+    //#endregion
 
 //#endregion
 
