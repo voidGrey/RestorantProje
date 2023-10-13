@@ -111,7 +111,8 @@ namespace RestorantMVC.Controllers
 
                 message.AppendLine("<p> Uyelik islemlerini tamamlamak icin asagidaki linki tiklayin </p>");
 
-                message.AppendLine($"<a href='http://localhost:5287/ConfirmEmail?uid={firma.Id}&code={code}'> Onaylayin </a>");
+                string host = HttpContext.Request.Scheme + "://" + HttpContext.Request.Host.Value + "/ConfirmEmail?uid=";
+                message.AppendLine($"<a href='{host}{firma.Id}&code={code}'> Onaylayin </a>");
 
 
                 message.AppendLine("</body>");

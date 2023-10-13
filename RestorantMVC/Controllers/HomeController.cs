@@ -21,10 +21,13 @@ namespace RestorantMVC.Controllers
         {
             var viewModel = new LayoutViewModel { Kategoriler = dbContext.Kategoriler.ToList() };
             int entityID = Convert.ToInt32(HttpContext.Request.Cookies["MasaId"]);
-
-            var masaID = await dbContext.Masalar.FindAsync(entityID);
-
-            ViewBag.MasaID = masaID.MasaID;
+            if (entityID != null)
+            {
+                return RedirectToAction("IndexLogin", "Home");
+            }
+                var masaID = await dbContext.Masalar.FindAsync(entityID);
+                ViewBag.MasaID = masaID.MasaID;
+            
 
 
             return View(viewModel);

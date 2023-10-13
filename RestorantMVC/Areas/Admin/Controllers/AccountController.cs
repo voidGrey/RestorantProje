@@ -114,7 +114,8 @@ namespace RestorantMVC.Areas.Admin.Controllers
             message.AppendLine($"<p> Merhaba {firma.UserName}  </p> <br>");
             message.AppendLine("<p> Mail değiştirme isteğiniz üzerine gönderilen Onay Kodu Aşağıdadır. </p>");
 
-            message.AppendLine($"<a href='http://localhost:5287/Admin/Account/ChangeMail?uid={mailData}&code={result}'> Onaylamak için Tıkla! </a>");
+            string host = HttpContext.Request.Scheme + "://" + HttpContext.Request.Host.Value + "/Admin/Account/ChangeMail?uid=";
+            message.AppendLine($"<a href='{host}{mailData}&code={result}'> Onaylayin </a>");
 
 
             message.AppendLine("</body>");

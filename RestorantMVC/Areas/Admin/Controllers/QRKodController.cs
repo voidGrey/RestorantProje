@@ -68,7 +68,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
 
                 // QR kodu tarayıcı sayfasının temel URL'sini al.
                 string host = HttpContext.Request.Scheme+"://"+HttpContext.Request.Host.Value+"/QR/Scan/"
-                + masa.ID.ToString() + "?f=" + CryptedString ;
+                + masa.ID.ToString() + "?f=" + CryptedString;
 
 
 
