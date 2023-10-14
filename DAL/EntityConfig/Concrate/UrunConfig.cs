@@ -9,7 +9,7 @@ namespace Entites.Concrate
         public override void Configure(EntityTypeBuilder<Urun> builder)
         {
             base.Configure(builder);
-            builder.Property(x => x.UrunAdi).HasMaxLength(20);
+            builder.Property(x => x.UrunAdi).HasColumnType("nvarchar(max)");
             builder.Property(x => x.UrunAciklama).HasColumnType("nvarchar(max)");
         }
     }

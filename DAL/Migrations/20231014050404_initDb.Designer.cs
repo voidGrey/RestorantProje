@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(SqlDbContext))]
-    [Migration("20231006112525_initDb")]
+    [Migration("20231014050404_initDb")]
     partial class initDb
     {
         /// <inheritdoc />
@@ -415,7 +415,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 6, 14, 25, 25, 113, DateTimeKind.Local).AddTicks(8112));
+                        .HasDefaultValue(new DateTime(2023, 10, 14, 8, 4, 4, 704, DateTimeKind.Local).AddTicks(8358));
 
                     b.Property<string>("FirmaId")
                         .HasColumnType("nvarchar(450)");
@@ -452,7 +452,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 6, 14, 25, 25, 113, DateTimeKind.Local).AddTicks(9722));
+                        .HasDefaultValue(new DateTime(2023, 10, 14, 8, 4, 4, 704, DateTimeKind.Local).AddTicks(9883));
 
                     b.Property<string>("FirmaId")
                         .HasColumnType("nvarchar(450)");
@@ -491,7 +491,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 6, 14, 25, 25, 114, DateTimeKind.Local).AddTicks(6646));
+                        .HasDefaultValue(new DateTime(2023, 10, 14, 8, 4, 4, 705, DateTimeKind.Local).AddTicks(6325));
 
                     b.Property<string>("FirmaId")
                         .HasColumnType("nvarchar(450)");
@@ -523,7 +523,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 6, 14, 25, 25, 114, DateTimeKind.Local).AddTicks(1668));
+                        .HasDefaultValue(new DateTime(2023, 10, 14, 8, 4, 4, 705, DateTimeKind.Local).AddTicks(1527));
 
                     b.Property<string>("FirmaId")
                         .HasColumnType("nvarchar(450)");
@@ -549,7 +549,7 @@ namespace DAL.Migrations
                         new
                         {
                             ID = 1,
-                            CreateTime = new DateTime(2023, 10, 6, 14, 25, 25, 114, DateTimeKind.Local).AddTicks(2110),
+                            CreateTime = new DateTime(2023, 10, 14, 8, 4, 4, 705, DateTimeKind.Local).AddTicks(1940),
                             RoleAdi = "Admin"
                         });
                 });
@@ -1085,7 +1085,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 6, 14, 25, 25, 114, DateTimeKind.Local).AddTicks(4543));
+                        .HasDefaultValue(new DateTime(2023, 10, 14, 8, 4, 4, 705, DateTimeKind.Local).AddTicks(4258));
 
                     b.Property<string>("FirmaId")
                         .HasColumnType("nvarchar(450)");
@@ -1127,7 +1127,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 6, 14, 25, 25, 114, DateTimeKind.Local).AddTicks(5614));
+                        .HasDefaultValue(new DateTime(2023, 10, 14, 8, 4, 4, 705, DateTimeKind.Local).AddTicks(5352));
 
                     b.Property<string>("FirmaId")
                         .HasColumnType("nvarchar(450)");
@@ -1164,7 +1164,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 6, 14, 25, 25, 114, DateTimeKind.Local).AddTicks(7701));
+                        .HasDefaultValue(new DateTime(2023, 10, 14, 8, 4, 4, 705, DateTimeKind.Local).AddTicks(7214));
 
                     b.Property<string>("FirmaId")
                         .HasColumnType("nvarchar(450)");
@@ -1185,8 +1185,7 @@ namespace DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UrunAdi")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
