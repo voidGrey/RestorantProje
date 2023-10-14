@@ -1,9 +1,11 @@
 ﻿using DAL.Contexts;
 using Entites.Concrate;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using RestorantMVC.Extensions;
+using RestorantMVC.Hubs;
 
 namespace RestorantMVC.Areas.Musteri.Controllers
 {
@@ -11,9 +13,14 @@ namespace RestorantMVC.Areas.Musteri.Controllers
     public class MenuController : Controller
     {
         private readonly SqlDbContext dbContext;
+        private readonly IHubContext<SiparisHub> hubContext;
         private string decryptValue;
 
-        public MenuController(SqlDbContext dbContext) { this.dbContext = dbContext; }
+        public MenuController(SqlDbContext dbContext, IHubContext<SiparisHub> hubContext)
+        {
+            this.dbContext = dbContext;
+            this.hubContext = hubContext;
+        }
 
         public async Task<IActionResult> Index()
         {
@@ -119,6 +126,7 @@ namespace RestorantMVC.Areas.Musteri.Controllers
                 await dbContext.SiparisDetaylar.AddAsync(siparisDetay);
                 await dbContext.SaveChangesAsync();
             }
+            await hubContext.Clients.All.SendAsync("YeniSiparisGeldi", 1);
 
             return RedirectToAction("Index" , "Siparis");
         }

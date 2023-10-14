@@ -157,6 +157,7 @@ namespace RestorantMVC.Areas.Musteri.Controllers
             }
             ViewData["SiparisMasterId"] = new SelectList(dbContext.SiparisMasterlar , "ID" , "ID" , siparisDetay.SiparisMasterId);
             ViewData["UrunId"] = new SelectList(dbContext.Urunler , "ID" , "UrunAciklama" , siparisDetay.UrunId);
+            await hubContext.Clients.All.SendAsync("YeniSiparisGeldi", 1);
             return View(siparisDetay);
         }
 
@@ -314,7 +315,7 @@ namespace RestorantMVC.Areas.Musteri.Controllers
 
                 return Json(new { success = false, message = ex.Message});
             }
-
+            await hubContext.Clients.All.SendAsync("YeniSiparisGeldi", 1);
             return Json( new { success = true , message = "" });
         }
 
