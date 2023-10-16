@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RestorantMVC.Extensions;
 using RestorantMVC.Models;
+using System.Formats.Tar;
 using System.IO.MemoryMappedFiles;
 
 namespace RestorantMVC.Areas.Admin.Controllers
@@ -89,31 +90,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
 
             urun.FirmaId = firmaId;
             urun.CreateTime = DateTime.Now;
-            IFormFile theFile;
             // Resim Yükleme Alanı.
-            try
-            {
-                theFile = HttpContext.Request.Form.Files[0];
-                string uploads = Path.Combine(hostingEnviroment.WebRootPath,"uploads");
-                if (theFile.Length > 0)
-                {
-                    string filePath = Path.Combine(uploads, theFile.Name) + ".jpg";
-                    using (Stream fileStream = new FileStream(filePath , FileMode.Create))
-                    {
-                        await theFile.CopyToAsync(fileStream);
-                    }
-                    urun.FotografLink = filePath;
-
-                }
-
-            }
-            catch (Exception ex)
-            {
-
-                //Resim yüklenmemiş
-            }
-           
-            // Resim Yüklendi.
 
 
             if (!IsUniqueForFirma(urun.UrunAdi , firmaId))

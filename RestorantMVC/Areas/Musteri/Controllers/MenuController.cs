@@ -25,7 +25,15 @@ namespace RestorantMVC.Areas.Musteri.Controllers
         public async Task<IActionResult> Index()
         {
             await this.ViewBagSettings(dbContext);
-            return View();
+
+            Request.Cookies.TryGetValue("f" , out decryptValue);
+            byte[] bytes = WebEncoders.Base64UrlDecode(decryptValue);
+            string firmaId = await RestorantExtension.DecryptAsync(bytes,"YeyoYoOyeŞifrehehe");
+
+            Kategori selfIdToId = await dbContext.Kategoriler.FirmaFilter(firmaId).FirstOrDefaultAsync();
+            int? findId = selfIdToId.SelfKategoriID;
+
+            return RedirectToAction("Kategori", new {id=findId});
         }
 
         /// <summary>
@@ -41,8 +49,9 @@ namespace RestorantMVC.Areas.Musteri.Controllers
             string firmaId = await RestorantExtension.DecryptAsync(bytes,"YeyoYoOyeŞifrehehe");
 
             Kategori selfIdToId = await dbContext.Kategoriler.FirmaFilter(firmaId).Where(kategori => kategori.SelfKategoriID == id).FirstOrDefaultAsync();
+            int findId = selfIdToId.ID;
 
-            var urunler = await dbContext.Urunler.FirmaFilter(firmaId).Where(a => a.KategoriID == selfIdToId.ID).ToListAsync();
+            var urunler = await dbContext.Urunler.FirmaFilter(firmaId).Where(a => a.KategoriID == findId).ToListAsync();
             return View(urunler);
         }
 

@@ -77,6 +77,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
             
             firmaId = userManager.GetUserId(User);
             kategori.FirmaId = firmaId;
+
             if(kategori.KategoriAciklama != null)
             {
                 if (kategori.KategoriAciklama.Length >= 100)
@@ -85,7 +86,8 @@ namespace RestorantMVC.Areas.Admin.Controllers
                 }
             }
 
-            kategori.SelfKategoriID = await dbContext.Kategoriler.FirmaFilter(firmaId).CountAsync() + 1;
+            int value = await dbContext.Kategoriler.FirmaFilter(firmaId).CountAsync();
+            kategori.SelfKategoriID = value + 1;
 
             if (!IsUniqueForFirma(kategori.KategoriAdi,firmaId))
             {

@@ -31,7 +31,7 @@ namespace DAL.Contexts
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=RestorantProje;Trusted_Connection=true;TrustServerCertificate=true");
+            optionsBuilder.UseSqlServer(@"Server=89.252.181.210\mssqlserver2019;Database=akadem67_mustafaertargin;User Id=akadem67_mustafaertargin;Password=2Z~1qvy36;TrustServerCertificate=true");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
