@@ -23,7 +23,7 @@ namespace RestorantMVC.Controllers
             int entityID = Convert.ToInt32(HttpContext.Request.Cookies["MasaId"]);
             if (entityID != null)
             {
-                return RedirectToAction("IndexLogin", "Home");
+                return RedirectToAction("Landing", "Home");
             }
                 var masaID = await dbContext.Masalar.FindAsync(entityID);
                 ViewBag.MasaID = masaID.MasaID;
@@ -33,7 +33,7 @@ namespace RestorantMVC.Controllers
             return View(viewModel);
         }
 
-        public IActionResult IndexLogin()
+        public IActionResult Landing()
         {
             return View();
         }
