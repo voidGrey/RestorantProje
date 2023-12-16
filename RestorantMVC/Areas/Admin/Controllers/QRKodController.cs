@@ -62,7 +62,7 @@ namespace RestorantMVC.Areas.Admin.Controllers
             if (masa != null)
             {
                 // Restoran kimliğini şifrele
-                byte[] CryptedFirmaID = await RestorantExtension.EncryptAsync(firmaId , "YeyoYoOyeŞifrehehe");
+                byte[] CryptedFirmaID = await RestorantExtension.EncryptAsync(firmaId , "DB0C590B-A156-4CE3-BEF8-00B3622B2585");
 
                 string CryptedString = WebEncoders.Base64UrlEncode(CryptedFirmaID);
 

@@ -33,7 +33,7 @@ namespace RestorantMVC.Controllers
 
             //Gelen Firma ID Encrypt'i byte Arraya geri dönüştürülüp string'e çevriliyor.
             byte[] firmaId = WebEncoders.Base64UrlDecode(f);
-            string decryptValue = await RestorantExtension.DecryptAsync(firmaId,"YeyoYoOyeŞifrehehe");
+            string decryptValue = await RestorantExtension.DecryptAsync(firmaId, "DB0C590B-A156-4CE3-BEF8-00B3622B2585");
             this.Response.Cookies.Append("f" , f);
 
             if (id == null || string.IsNullOrEmpty(id.ToString()) || id == 0)

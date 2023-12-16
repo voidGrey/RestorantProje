@@ -21,7 +21,7 @@ namespace RestorantMVC.Controllers
         {
             var viewModel = new LayoutViewModel { Kategoriler = dbContext.Kategoriler.ToList() };
             int entityID = Convert.ToInt32(HttpContext.Request.Cookies["MasaId"]);
-            if (entityID != null)
+            if (entityID == null || entityID == 0)
             {
                 return RedirectToAction("Landing", "Home");
             }

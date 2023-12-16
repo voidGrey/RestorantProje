@@ -53,6 +53,10 @@
     <None Include="wwwroot\assets\fonts\Assistant\Assistant-Light.woff2" />
     <None Include="wwwroot\assets\fonts\Assistant\Assistant-Regular.woff2" />
     <None Include="wwwroot\assets\fonts\Assistant\Assistant-SemiBold.woff2" />
+    <None Include="wwwroot\assets\fonts\flexslider-icon.svg" />
+    <None Include="wwwroot\assets\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\assets\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\assets\fonts\slick.svg" />
     <None Include="wwwroot\assets\images\dashboard\circle.svg" />
     <None Include="wwwroot\assets\images\logo-mini.svg" />
     <None Include="wwwroot\assets\images\logo.svg" />
@@ -61,6 +65,7 @@
     <None Include="wwwroot\assets\js\alerts.js" />
     <None Include="wwwroot\assets\js\avgrund.js" />
     <None Include="wwwroot\assets\js\bootstrap-table.js" />
+    <None Include="wwwroot\assets\js\bootstrap.min.js" />
     <None Include="wwwroot\assets\js\bt-maxLength.js" />
     <None Include="wwwroot\assets\js\c3.js" />
     <None Include="wwwroot\assets\js\calendar.js" />
@@ -72,6 +77,7 @@
     <None Include="wwwroot\assets\js\codemirror.js" />
     <None Include="wwwroot\assets\js\context-menu.js" />
     <None Include="wwwroot\assets\js\cropper.js" />
+    <None Include="wwwroot\assets\js\custom.js" />
     <None Include="wwwroot\assets\js\dashboard.js" />
     <None Include="wwwroot\assets\js\data-table.js" />
     <None Include="wwwroot\assets\js\db.js" />
@@ -90,11 +96,14 @@
     <None Include="wwwroot\assets\js\google-maps.js" />
     <None Include="wwwroot\assets\js\hoverable-collapse.js" />
     <None Include="wwwroot\assets\js\iCheck.js" />
+    <None Include="wwwroot\assets\js\imgfix.min.js" />
     <None Include="wwwroot\assets\js\inputmask.js" />
     <None Include="wwwroot\assets\js\ion-range-slider.js" />
     <None Include="wwwroot\assets\js\jq.tablesort.js" />
+    <None Include="wwwroot\assets\js\jquery-2.1.0.min.js" />
     <None Include="wwwroot\assets\js\jquery-file-upload.js" />
     <None Include="wwwroot\assets\js\jquery.cookie.js" />
+    <None Include="wwwroot\assets\js\jquery.counterup.min.js" />
     <None Include="wwwroot\assets\js\js-grid.js" />
     <None Include="wwwroot\assets\js\just-gage.js" />
     <None Include="wwwroot\assets\js\light-gallery.js" />
@@ -111,9 +120,12 @@
     <None Include="wwwroot\assets\js\owl-carousel.js" />
     <None Include="wwwroot\assets\js\paginate.js" />
     <None Include="wwwroot\assets\js\popover.js" />
+    <None Include="wwwroot\assets\js\popper.js" />
     <None Include="wwwroot\assets\js\profile-demo.js" />
     <None Include="wwwroot\assets\js\progress-bar.js" />
+    <None Include="wwwroot\assets\js\qrres.js" />
     <None Include="wwwroot\assets\js\rickshaw.js" />
+    <None Include="wwwroot\assets\js\scrollreveal.min.js" />
     <None Include="wwwroot\assets\js\select2.js" />
     <None Include="wwwroot\assets\js\settings.js" />
     <None Include="wwwroot\assets\js\sparkline.js" />
@@ -124,6 +136,7 @@
     <None Include="wwwroot\assets\js\todolist.js" />
     <None Include="wwwroot\assets\js\tooltips.js" />
     <None Include="wwwroot\assets\js\typeahead.js" />
+    <None Include="wwwroot\assets\js\waypoints.min.js" />
     <None Include="wwwroot\assets\js\widgets.js" />
     <None Include="wwwroot\assets\js\wizard.js" />
     <None Include="wwwroot\assets\js\x-editable.js" />
@@ -161,6 +174,7 @@
     <None Include="wwwroot\assets\scss\components\plugin-overrides\_colcade.scss" />
     <None Include="wwwroot\assets\scss\components\plugin-overrides\_colorpicker.scss" />
     <None Include="wwwroot\assets\scss\components\plugin-overrides\dbContext-menu.scss" />
+    <None Include="wwwroot\assets\scss\components\plugin-overrides\_context-menu.scss" />
     <None Include="wwwroot\assets\scss\components\plugin-overrides\_data-tables.scss" />
     <None Include="wwwroot\assets\scss\components\plugin-overrides\_datepicker.scss" />
     <None Include="wwwroot\assets\scss\components\plugin-overrides\_dropify.scss" />

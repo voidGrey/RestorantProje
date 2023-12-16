@@ -35,7 +35,7 @@ namespace RestorantMVC.Areas.Musteri.Controllers
 
             Request.Cookies.TryGetValue("f" , out decryptValue);
             byte[] bytes = WebEncoders.Base64UrlDecode(decryptValue);
-            string firmaId = await RestorantExtension.DecryptAsync(bytes,"YeyoYoOyeŞifrehehe");
+            string firmaId = await RestorantExtension.DecryptAsync(bytes,"DB0C590B-A156-4CE3-BEF8-00B3622B2585");
             try
             {
                 //MasaID'nin siparişleri listelenir.
@@ -76,7 +76,7 @@ namespace RestorantMVC.Areas.Musteri.Controllers
 
             Request.Cookies.TryGetValue("f" , out decryptValue);
             byte[] bytes = WebEncoders.Base64UrlDecode(decryptValue);
-            string firmaId = await RestorantExtension.DecryptAsync(bytes,"YeyoYoOyeŞifrehehe");
+            string firmaId = await RestorantExtension.DecryptAsync(bytes,"DB0C590B-A156-4CE3-BEF8-00B3622B2585");
 
             //MasaID'nin siparişleri listelenir.
             var detail = 
@@ -145,7 +145,7 @@ namespace RestorantMVC.Areas.Musteri.Controllers
 
             Request.Cookies.TryGetValue("f" , out decryptValue);
             byte[] bytes = WebEncoders.Base64UrlDecode(decryptValue);
-            string firmaId = await RestorantExtension.DecryptAsync(bytes,"YeyoYoOyeŞifrehehe");
+            string firmaId = await RestorantExtension.DecryptAsync(bytes,"DB0C590B-A156-4CE3-BEF8-00B3622B2585");
 
             siparisDetay.FirmaId = firmaId;
 

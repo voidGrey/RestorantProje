@@ -75,7 +75,7 @@ namespace RestorantMVC.Extensions
             string decryptValue = "";
             model.Request.Cookies.TryGetValue("f" , out decryptValue);
             byte[] bytes = WebEncoders.Base64UrlDecode(decryptValue);
-            string firmaId = await RestorantExtension.DecryptAsync(bytes,"YeyoYoOyeŞifrehehe");
+            string firmaId = await RestorantExtension.DecryptAsync(bytes, "DB0C590B-A156-4CE3-BEF8-00B3622B2585");
             var result = await dbContext.Kategoriler.FirmaFilter(firmaId).ToListAsync();
             model.ViewBag.Firma = result;
         }

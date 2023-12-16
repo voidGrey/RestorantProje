@@ -28,7 +28,7 @@ namespace RestorantMVC.Areas.Musteri.Controllers
 
             Request.Cookies.TryGetValue("f" , out decryptValue);
             byte[] bytes = WebEncoders.Base64UrlDecode(decryptValue);
-            string firmaId = await RestorantExtension.DecryptAsync(bytes,"YeyoYoOyeŞifrehehe");
+            string firmaId = await RestorantExtension.DecryptAsync(bytes,"DB0C590B-A156-4CE3-BEF8-00B3622B2585");
 
             Kategori selfIdToId = await dbContext.Kategoriler.FirmaFilter(firmaId).FirstOrDefaultAsync();
             int? findId = selfIdToId.SelfKategoriID;
@@ -46,7 +46,7 @@ namespace RestorantMVC.Areas.Musteri.Controllers
 
             Request.Cookies.TryGetValue("f" , out decryptValue);
             byte[] bytes = WebEncoders.Base64UrlDecode(decryptValue);
-            string firmaId = await RestorantExtension.DecryptAsync(bytes,"YeyoYoOyeŞifrehehe");
+            string firmaId = await RestorantExtension.DecryptAsync(bytes, "DB0C590B-A156-4CE3-BEF8-00B3622B2585");
 
             Kategori selfIdToId = await dbContext.Kategoriler.FirmaFilter(firmaId).Where(kategori => kategori.SelfKategoriID == id).FirstOrDefaultAsync();
             int findId = selfIdToId.ID;
@@ -66,7 +66,7 @@ namespace RestorantMVC.Areas.Musteri.Controllers
 
             Request.Cookies.TryGetValue("f" , out decryptValue);
             byte[] bytes = WebEncoders.Base64UrlDecode(decryptValue);
-            string firmaId = await RestorantExtension.DecryptAsync(bytes,"YeyoYoOyeŞifrehehe");
+            string firmaId = await RestorantExtension.DecryptAsync(bytes,"DB0C590B-A156-4CE3-BEF8-00B3622B2585");
 
             // Cookie'den masa id'sini çekiyorum.
             int masaid = Convert.ToInt32(HttpContext.Request.Cookies["MasaId"]);
